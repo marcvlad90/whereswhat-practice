@@ -25,7 +25,7 @@ public class CustomChromeDriver implements DriverSource {
     }
 
     private WebDriver setCustomChrome() {
-        System.out.println("Custom chrome driver instance is created...");
+        System.out.println("Custom chrome driver instance is created now...");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("download.default_directory", Constants.DOWNLOAD_FILE_PATH);
         chromePrefs.put("plugins.always_open_pdf_externally", true);
