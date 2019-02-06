@@ -44,4 +44,5 @@ public class Test004UiBookItem extends BaseTest {
         bookingsFlowSteps.checkIfBookingIsPresentOrNotInTheCalendar(true);
         bookingsFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(true);
     }
+
 }
