@@ -121,7 +121,7 @@ public class AbstractPage extends PageObject {
 
     public void waitForElementsByCssLocator(String cssLocator) {
         (new WebDriverWait(getDriver(), 20))
-        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(org.openqa.selenium.By.cssSelector(cssLocator)));
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(org.openqa.selenium.By.cssSelector(cssLocator)));
     }
 
     public <T> void verifyListOfObjects(List<T> list1, List<T> list2, String matchElement)
@@ -145,7 +145,7 @@ public class AbstractPage extends PageObject {
                     Assert.assertTrue(
                             "<< " + field.getName() + " >> doesn't match !! Expected : " + field.get(item) + " Actual "
                                     + field.get(itemInList2),
-                                    (String.valueOf(field.get(itemInList2)).contains(String.valueOf(field.get(item)))));
+                            (String.valueOf(field.get(itemInList2)).contains(String.valueOf(field.get(item)))));
                 }
             }
             localList2.remove(itemInList2);
@@ -179,7 +179,7 @@ public class AbstractPage extends PageObject {
                 Assert.assertTrue(
                         "<< " + field.getName() + " >> doesn't match !! Expected : " + field.get(obj1) + " Actual "
                                 + field.get(obj2),
-                                ((String)(field.get(obj2))).contentEquals((String)field.get(obj1)));
+                        ((String)(field.get(obj2))).contentEquals((String)field.get(obj1)));
             }
         }
     }
@@ -202,7 +202,7 @@ public class AbstractPage extends PageObject {
 
     public void scrollToElementByName(WebElementFacade e) {
         ((JavascriptExecutor)getDriver())
-        .executeScript("" + e + ".scrollTo(0, " + e + ".scrollHeight)");
+                .executeScript("" + e + ".scrollTo(0, " + e + ".scrollHeight)");
     }
 
     public boolean checkIfElementExists(final WebElement element) {
