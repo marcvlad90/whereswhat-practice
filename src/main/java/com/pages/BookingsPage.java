@@ -44,21 +44,21 @@ public class BookingsPage extends AbstractPage {
     private final String spinnerElementCssSelector = ".spinner";
 
     public void clickSaveBookingButton() {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         element(saveBookingButton).click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void selectHour(WebElement hourField, String date) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         Actions actions = new Actions(getDriver());
-        clickOnElement(hourField);
+        clickOnElementUsingJavascript(hourField);
         String hour = DateUtils.getHourFromDate(date);
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
-        waitForListToLoad(getDriver().findElements(By.cssSelector(hourPickerFieldValuesCssSelector)), Constants.EXPLICIT_WAIT_TIME_IN_SECONDS, true);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        waitForListToLoad(getDriver().findElements(By.cssSelector(hourPickerFieldValuesCssSelector)), Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, true);
         actions.moveToElement(getDriver().findElements(By.cssSelector(hourPickerFieldValuesCssSelector)).get(0)).build().perform();
         clickOnElementFromList(hourPickerFieldValuesCssSelector, hour);
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void selectItemFromPickerList(String itemsListCssSelector, String itemValue) {
@@ -74,7 +74,7 @@ public class BookingsPage extends AbstractPage {
             }
             if (!itemFound) {
                 WebElement nextButton = calendarContainer.findElement(By.cssSelector("div[style*='display: block;'] .pickerHeader .next"));
-                clickOnElement(nextButton);
+                clickOnElementUsingJavascript(nextButton);
             }
         }
     }
@@ -95,9 +95,9 @@ public class BookingsPage extends AbstractPage {
     }
 
     public void selectTheDateYear(WebElement dateField, String date) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         String yearFromDate = DateUtils.getYearFromDate(date);
-        clickOnElement(dateField);
+        clickOnElementUsingJavascript(dateField);
         WebElement daysPickerSwitch = getDriver().findElement(By.cssSelector("div[class*='picker-open'] .picker-switch"));
         element(daysPickerSwitch).waitUntilClickable();
         daysPickerSwitch.click();
@@ -115,7 +115,7 @@ public class BookingsPage extends AbstractPage {
     public void selectTheDateDay(String date) {
         String day = DateUtils.getDayFromDate(date).replaceFirst("^0*", "");
         selectItemFromPickerList(calendarDaysListCssSelector, day);
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void createBooking(String startDate, String endDate) {
@@ -141,14 +141,14 @@ public class BookingsPage extends AbstractPage {
     }
 
     public void navigateToBookingsTab(String tab) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement tabElement = getDriver()
                 .findElement(By.cssSelector(bookingsTabsCssSelector.replace("textToReplace()", tab.toLowerCase().replace(" ", "-"))));
         tabElement.click();
     }
 
     public void navigateToTheFirstBookingsTabFound(String... tabs) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         for (String tab : tabs) {
             if (checkIfElementExists(bookingsTabsCssSelector.replace("textToReplace()", tab.toLowerCase().replace(" ", "-")))) {
                 navigateToBookingsTab(tab);
@@ -159,7 +159,7 @@ public class BookingsPage extends AbstractPage {
 
     public List<WebElement> getAllBookingsContainersOfAnItem(String itemName) {
         if (!containsText("No bookings to be displayed")) {
-            waitForListToLoad(bookingsContainersCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS, false);
+            waitForListToLoad(bookingsContainersCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, false);
         }
         List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
         List<WebElement> itemBookingsContainers = new ArrayList<WebElement>();
@@ -175,7 +175,7 @@ public class BookingsPage extends AbstractPage {
     public void returnAllBookingsOfAnItem(String itemName) {
         List<WebElement> itemBookingsContainers = getAllBookingsContainersOfAnItem(itemName);
         for (WebElement itemBookingContainer : itemBookingsContainers) {
-            if (checkIfElementExists(itemBookingContainer, returnItemButtonCssSelector)) {
+            if (checkIfChildElementExists(itemBookingContainer, returnItemButtonCssSelector)) {
                 itemBookingContainer.findElement(By.cssSelector(returnItemButtonCssSelector)).click();
                 confirmBookingReturn();
             }

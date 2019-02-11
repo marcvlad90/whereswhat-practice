@@ -40,12 +40,12 @@ public class CategoryPage extends AbstractPage {
 
     public void clickAddCategoryButton() {
         addCategoryButton.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void clickUpdateCategoryButton() {
         updateCategoryButton.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
 }

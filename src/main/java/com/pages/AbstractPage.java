@@ -27,23 +27,17 @@ public class AbstractPage extends PageObject {
     }
 
     public void waitForElementToDisappear(final String cssSelector, final int noOfSeconds) {
-        if (checkIfElementExists(cssSelector)) {
-            WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(org.openqa.selenium.By
-                    .cssSelector(cssSelector)));
-        }
+        WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(org.openqa.selenium.By
+                .cssSelector(cssSelector)));
     }
 
     public void waitForElementToDisappear(final WebElement element, final int noOfSeconds) {
-        for (int i = 0; i < noOfSeconds; i++) {
-            if (!checkIfElementExists(element)) {
-                break;
-            }
-            waitABit(Constants.IMPLICIT_WAIT_TIME_ONE_SECOND_IN_MILISECONDS);
-        }
+        WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
 
-    public void clickOnElement(WebElement element) {
+    public void clickOnElementUsingJavascript(WebElement element) {
         JavascriptExecutor executor = (JavascriptExecutor)getDriver();
         executor.executeScript("arguments[0].click();", element);
     }
@@ -86,18 +80,13 @@ public class AbstractPage extends PageObject {
     }
 
     public int getElementsListSize(String elementsListCssSelector) {
+        waitForListToLoad(elementsListCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, false);
         List<WebElement> elements = getDriver().findElements(org.openqa.selenium.By.cssSelector(elementsListCssSelector));
         return elements.size();
     }
 
     public void clickOnElementFromList(String elementsListCssSelector, String elementIdentifierText) {
-        List<WebElement> elements = getDriver().findElements(org.openqa.selenium.By.cssSelector(elementsListCssSelector));
-        for (WebElement element : elements) {
-            if (element.getText().contains(elementIdentifierText)) {
-                element.click();
-                break;
-            }
-        }
+        getElementFromList(elementsListCssSelector, elementIdentifierText).click();
     }
 
     public WebElement getElementFromList(String elementsListCssSelector, String elementIdentifierText) {
@@ -121,7 +110,7 @@ public class AbstractPage extends PageObject {
 
     public void waitForElementsByCssLocator(String cssLocator) {
         (new WebDriverWait(getDriver(), 20))
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(org.openqa.selenium.By.cssSelector(cssLocator)));
+        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(org.openqa.selenium.By.cssSelector(cssLocator)));
     }
 
     public <T> void verifyListOfObjects(List<T> list1, List<T> list2, String matchElement)
@@ -145,7 +134,7 @@ public class AbstractPage extends PageObject {
                     Assert.assertTrue(
                             "<< " + field.getName() + " >> doesn't match !! Expected : " + field.get(item) + " Actual "
                                     + field.get(itemInList2),
-                            (String.valueOf(field.get(itemInList2)).contains(String.valueOf(field.get(item)))));
+                                    (String.valueOf(field.get(itemInList2)).contains(String.valueOf(field.get(item)))));
                 }
             }
             localList2.remove(itemInList2);
@@ -179,7 +168,7 @@ public class AbstractPage extends PageObject {
                 Assert.assertTrue(
                         "<< " + field.getName() + " >> doesn't match !! Expected : " + field.get(obj1) + " Actual "
                                 + field.get(obj2),
-                        ((String)(field.get(obj2))).contentEquals((String)field.get(obj1)));
+                                ((String)(field.get(obj2))).contentEquals((String)field.get(obj1)));
             }
         }
     }
@@ -202,33 +191,28 @@ public class AbstractPage extends PageObject {
 
     public void scrollToElementByName(WebElementFacade e) {
         ((JavascriptExecutor)getDriver())
-                .executeScript("" + e + ".scrollTo(0, " + e + ".scrollHeight)");
+        .executeScript("" + e + ".scrollTo(0, " + e + ".scrollHeight)");
     }
 
     public boolean checkIfElementExists(final WebElement element) {
         try {
-            element.isDisplayed();
-            return true;
-        } catch (final Exception e) {
+            return element.isDisplayed();
+        } catch (NullPointerException e) {
             return false;
         }
     }
 
     public boolean checkIfElementExists(String elementCssSelector) {
-        try {
-            getDriver().findElement(org.openqa.selenium.By.cssSelector(elementCssSelector)).isDisplayed();
-            return true;
-        } catch (final Exception e) {
+        if (getDriver().findElements(By.cssSelector(elementCssSelector)).isEmpty()) {
             return false;
         }
+        return true;
     }
 
-    public boolean checkIfElementExists(final WebElement parentElement, String elementCssSeletor) {
-        try {
-            parentElement.findElement(org.openqa.selenium.By.cssSelector(elementCssSeletor)).isDisplayed();
-            return true;
-        } catch (final Exception e) {
+    public boolean checkIfChildElementExists(final WebElement parentElement, String elementCssSeletor) {
+        if (parentElement.findElements(org.openqa.selenium.By.cssSelector(elementCssSeletor)).isEmpty()) {
             return false;
         }
+        return true;
     }
 }

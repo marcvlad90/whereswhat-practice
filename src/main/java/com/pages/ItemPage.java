@@ -50,7 +50,7 @@ public class ItemPage extends AbstractPage {
         getDriver().findElement(By.cssSelector("#select-image")).sendKeys(fileName);
         uploadImageOkButton.click();
         clickUpdateItemButton();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void insertItemName(String itemName) {
@@ -65,13 +65,13 @@ public class ItemPage extends AbstractPage {
 
     public void clickAddItemButton() {
         addItemButon.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
 
     }
 
     public void clickUpdateItemButton() {
         updateItemButon.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public LocalDateTime getIntervalStartDate() {
@@ -172,7 +172,7 @@ public class ItemPage extends AbstractPage {
 
     public void clickOnReturnBookingButton() {
         returnItemButton.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void clickOnDeleteBookingButton() {
@@ -181,12 +181,12 @@ public class ItemPage extends AbstractPage {
 
     public void confirmBookingReturn() {
         returnItemConfirmButton.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void confirmBookingDetele() {
         deleteItemConfirmButton.click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void clickOnExtendBookingButton() {

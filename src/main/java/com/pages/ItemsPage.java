@@ -98,7 +98,7 @@ public class ItemsPage extends AbstractPage {
         searchInputField.clear();
         for (String itemLetter : itemWords) {
             searchInputField.sendKeys(itemLetter + " ");
-            waitABit(Constants.IMPLICIT_WAIT_TIME_ONE_SECOND_IN_MILISECONDS);
+            waitABit(Constants.WAIT_TIME_ONE_SECOND_IN_MILISECONDS);
             if (containsText(itemName) || containsText("No results")) {
                 break;
             }
@@ -106,17 +106,17 @@ public class ItemsPage extends AbstractPage {
     }
 
     public void clickOnBookButton(String itemTitle) {
-        waitForElementToAppear(itemsAndCategoriesContainersCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToAppear(itemsAndCategoriesContainersCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement bookingContainer = getElementFromList(itemsAndCategoriesContainersCssSelector, itemTitle);
         WebElement bookingButton = bookingContainer.findElement(By.cssSelector("button"));
-        waitForElementToAppear(bookingButton, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToAppear(bookingButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         bookingButton.click();
     }
 
     public void clickOnItem(String itemTitle) {
-        waitForElementToAppear(itemsAndCategoriesContainersCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToAppear(itemsAndCategoriesContainersCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         getElementFromList(itemsAndCategoriesContainersCssSelector, itemTitle).findElement(By.cssSelector(".item-img")).click();
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void checkItemProperty(String itemTitle, String propertyName, String propertyValue) {

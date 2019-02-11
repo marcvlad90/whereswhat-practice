@@ -24,6 +24,7 @@ public class CustomChromeDriver implements DriverSource {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     private WebDriver setCustomChrome() {
         System.out.println("Custom chrome driver instance is created now...");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();

@@ -28,7 +28,7 @@ public class LoginPage extends AbstractPage {
 
     public void submit() {
         signIn.click();
-        waitForElementToAppear(profileImageElement, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToAppear(profileImageElement, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
     public void login() {

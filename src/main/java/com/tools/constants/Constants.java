@@ -16,8 +16,8 @@ public class Constants {
     public static final String PROFILE_MENU_ITEM_SETTINGS = "Settings";
     public static final String PROFILE_MENU_ITEM_SIGNOUT = "Sign out";
     //wait custom time
-    public static final int IMPLICIT_WAIT_TIME_ONE_SECOND_IN_MILISECONDS = 1000;
-    public static final int EXPLICIT_WAIT_TIME_IN_SECONDS = 60;
+    public static final int WAIT_TIME_ONE_SECOND_IN_MILISECONDS = 1000;
+    public static final int WAIT_TIME_MAXIMUM_IN_SECONDS = 30;
     //items page actions
     public static final String ITEMS_PAGE_ACTION_ADD_CATEGORY = "Add Category";
     public static final String ITEMS_PAGE_ACTION_ADD_ITEM = "Add Item";

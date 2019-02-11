@@ -17,13 +17,13 @@ public class HeaderPage extends AbstractPage {
     private final String spinnerElementCssSelector = ".spinner";
 
     public void navigateToMenu(String menu) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
-        waitForTextToAppear(menu, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase()))).click();
     }
 
     public void clickOnProfileMenuItem(String profileMenuItem) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         profileImageElement.click();
         WebElement actionItem = getElementFromList(profileDropDownMenuItemsListCssSelector, profileMenuItem);
         actionItem.click();
@@ -31,6 +31,6 @@ public class HeaderPage extends AbstractPage {
 
     public void confirmSignout() {
         element(confirmLogoutButton).click();
-        waitForElementToDisappear(confirmLogoutButton, Constants.EXPLICIT_WAIT_TIME_IN_SECONDS);
+        waitForElementToDisappear(confirmLogoutButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 }
