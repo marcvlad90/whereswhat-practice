@@ -31,6 +31,5 @@ public class HeaderPage extends AbstractPage {
 
     public void confirmSignout() {
         element(confirmLogoutButton).click();
-        waitForElementToDisappear(confirmLogoutButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 }

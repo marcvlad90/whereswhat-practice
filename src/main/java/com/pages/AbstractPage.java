@@ -32,11 +32,6 @@ public class AbstractPage extends PageObject {
                 .cssSelector(cssSelector)));
     }
 
-    public void waitForElementToDisappear(final WebElement element, final int noOfSeconds) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
-        wait.until(ExpectedConditions.invisibilityOf(element));
-    }
-
     public void clickOnElementUsingJavascript(WebElement element) {
         JavascriptExecutor executor = (JavascriptExecutor)getDriver();
         executor.executeScript("arguments[0].click();", element);
