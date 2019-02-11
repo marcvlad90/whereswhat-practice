@@ -22,9 +22,6 @@ public class Test000CleanTheEnvironment extends BaseTest {
     @Test
     public void test000CleanTheEnvironment() {
         apiLoginSteps.loginAsAdmin();
-        while (apiCategorySteps.getTheNumberOfCategories() > 0) {
-            apiBookingsSteps.returnAllBookedItems();
-            apiCategorySteps.deleteAllCategories();
-        }
+        apiCategorySteps.forcedCategoriesDeletion();
     }
 }

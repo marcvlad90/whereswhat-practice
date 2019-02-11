@@ -10,6 +10,7 @@ import com.tools.utils.InstanceUtils;
 import com.tools.utils.SerenitySessionUtils;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
 
 import org.junit.Assert;
 
@@ -17,6 +18,16 @@ import java.util.List;
 
 public class ApiCategorySteps extends AbstractApiSteps {
     private static final long serialVersionUID = 1L;
+    private ApiCategorySteps apiCategorySteps;
+    private ApiBookingsSteps apiBookingsSteps;
+
+    @StepGroup
+    public void forcedCategoriesDeletion() {
+        while (apiCategorySteps.getTheNumberOfCategories() > 0) {
+            apiBookingsSteps.returnAllBookedItems();
+            apiCategorySteps.deleteAllCategories();
+        }
+    }
 
     @Step
     public void checkThatCategoryExists() {
