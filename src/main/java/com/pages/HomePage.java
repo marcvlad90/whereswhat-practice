@@ -7,6 +7,8 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 public class HomePage extends AbstractPage {
     @FindBy(css = ".sign-in-a")
     private WebElement loginButton;
@@ -22,5 +24,6 @@ public class HomePage extends AbstractPage {
     public void navigateToHomePage() {
         getDriver().get(EnvironmentConstants.BASE_URL);
         getDriver().manage().window().maximize();
+        getDriver().manage().timeouts().implicitlyWait(Constants.WAIT_TIME_IMPLICIT_WAIT_IN_SECONDS, TimeUnit.SECONDS);
     }
 }

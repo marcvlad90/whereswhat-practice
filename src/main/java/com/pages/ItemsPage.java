@@ -7,6 +7,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
@@ -51,9 +52,12 @@ public class ItemsPage extends AbstractPage {
     public void confirmDeletion() {
         element(confirmDeletionButton).waitUntilVisible();
         confirmDeletionButton.click();
+        getDriver().navigate().refresh();
     }
 
-    public void clickOnCategoryOrItemAction(String itemOrCategoryName, @SuppressWarnings("hiding") String actionsListCssSelector, String actionName) {
+    @SuppressWarnings("hiding")
+    public void clickOnCategoryOrItemAction(String itemOrCategoryName, String actionsListCssSelector, String actionName) {
+        waitForTextToAppear(itemOrCategoryName);
         WebElement container = getElementFromList(itemsAndCategoriesContainersCssSelector, itemOrCategoryName);
         container.findElement(By.cssSelector(".dropdown-toggle")).click();
         container.findElement(By.cssSelector(actionsListCssSelector)).click();
@@ -68,6 +72,7 @@ public class ItemsPage extends AbstractPage {
     }
 
     public void clickOnAction(String actionName) {
+        waitForTextToAppear(actionName);
         getElementFromList(actionsListCssSelector, actionName).click();
     }
 
@@ -95,7 +100,7 @@ public class ItemsPage extends AbstractPage {
 
     public void searchForItem(String itemName) {
         String[] itemWords = itemName.split(" ");
-        waitForElementsToBeVisible(searchInputField);
+        element(searchInputField).waitUntilVisible();
         searchInputField.clear();
         for (String itemLetter : itemWords) {
             searchInputField.sendKeys(itemLetter + " ");
@@ -136,16 +141,26 @@ public class ItemsPage extends AbstractPage {
         return propertyRowParts[1];
     }
 
-    public void checkIfCategoryOrItemIsPresentOrNot(boolean shouldBePresent, String itemTitle) {
-        if (shouldBePresent) {
-            Assert.assertTrue(String.format("%s was not found!", itemTitle),
-                    checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
-                            itemTitle)));
-        } else {
-            Assert.assertFalse(String.format("%s was found!", itemTitle),
-                    checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
-                            itemTitle)));
-        }
+    public void checkIfCategoryOrItemIsPresentOrNot(boolean shouldBePresent, String title) {
+        boolean staleElementException = false;
+        do {
+            try {
+                if (shouldBePresent) {
+                    waitForTextToAppear(title);
+                    Assert.assertTrue(String.format("%s was not found!", title),
+                            checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
+                                    title)));
+                } else {
+                    Assert.assertFalse(String.format("%s was found!", title),
+                            checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
+                                    title)));
+                    staleElementException = false;
+                }
+            } catch (StaleElementReferenceException e2) {
+                staleElementException = true;
+            }
+        } while (staleElementException);
+
     }
 
     public int getTheNumberOfItems() {

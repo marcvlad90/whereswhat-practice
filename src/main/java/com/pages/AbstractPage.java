@@ -8,8 +8,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,6 +24,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class AbstractPage extends PageObject {
@@ -39,16 +42,21 @@ public class AbstractPage extends PageObject {
         }
     }
 
-    public void waitForElementsToBeVisible(WebElement... elements) {
+    //    public void waitForElementToBeVisible(WebElement element) {
+    //        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
+    //                .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
+    //                .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
+    //                .ignoring(ElementNotVisibleException.class).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+    //        wait.until(ExpectedConditions.visibilityOf(element));
+    //    }
+
+    public void waitForElementToBeClickable(WebElement element, final int noOfSeconds) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
                 .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
-                .ignoring(ElementNotVisibleException.class);
-        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
-    }
-
-    public void waitForElementToBeClickable(WebElement element, final int noOfSeconds) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
+                .ignoring(ElementNotVisibleException.class).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
+                .ignoring(ElementNotInteractableException.class);
+        wait = new WebDriverWait(getDriver(), noOfSeconds);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 

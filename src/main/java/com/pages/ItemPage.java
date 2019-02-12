@@ -66,12 +66,14 @@ public class ItemPage extends AbstractPage {
     public void clickAddItemButton() {
         addItemButon.click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        getDriver().navigate().refresh();
 
     }
 
     public void clickUpdateItemButton() {
         updateItemButon.click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        getDriver().navigate().refresh();
     }
 
     public LocalDateTime getIntervalStartDate() {
@@ -109,7 +111,7 @@ public class ItemPage extends AbstractPage {
                     try {
                         if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-end")
                                 && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                                .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                                        .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                             break;
                         }
                     } catch (NullPointerException ex) {

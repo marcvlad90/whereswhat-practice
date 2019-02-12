@@ -17,10 +17,10 @@ public class HeaderPage extends AbstractPage {
     private final String spinnerElementCssSelector = ".spinner";
 
     public void navigateToMenu(String menu) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement menuItem = getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase())));
         waitForElementToBeClickable(menuItem, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         menuItem.click();
     }
 

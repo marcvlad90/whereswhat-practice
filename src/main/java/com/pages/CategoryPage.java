@@ -33,7 +33,6 @@ public class CategoryPage extends AbstractPage {
     }
 
     public void insertCategoryName(String categoryName) {
-        element(categoryNameField).waitUntilVisible();
         element(categoryNameField).clear();
         element(categoryNameField).sendKeys(categoryName);
     }
@@ -41,11 +40,13 @@ public class CategoryPage extends AbstractPage {
     public void clickAddCategoryButton() {
         addCategoryButton.click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        getDriver().navigate().refresh();
     }
 
     public void clickUpdateCategoryButton() {
         updateCategoryButton.click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        getDriver().navigate().refresh();
     }
 
 }
