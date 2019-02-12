@@ -33,6 +33,7 @@ public class CategoryPage extends AbstractPage {
     }
 
     public void insertCategoryName(String categoryName) {
+        element(categoryNameField).waitUntilVisible();
         element(categoryNameField).clear();
         element(categoryNameField).sendKeys(categoryName);
     }
