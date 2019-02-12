@@ -19,7 +19,9 @@ public class HeaderPage extends AbstractPage {
     public void navigateToMenu(String menu) {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase()))).click();
+        WebElement menuItem = getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase())));
+        waitForElementToBeClickable(menuItem, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        menuItem.click();
     }
 
     public void clickOnProfileMenuItem(String profileMenuItem) {

@@ -95,6 +95,7 @@ public class ItemsPage extends AbstractPage {
 
     public void searchForItem(String itemName) {
         String[] itemWords = itemName.split(" ");
+        waitForElementsToBeVisible(searchInputField);
         searchInputField.clear();
         for (String itemLetter : itemWords) {
             searchInputField.sendKeys(itemLetter + " ");

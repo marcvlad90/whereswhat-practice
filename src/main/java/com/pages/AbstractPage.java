@@ -8,9 +8,13 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -18,6 +22,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AbstractPage extends PageObject {
 
@@ -32,6 +37,19 @@ public class AbstractPage extends PageObject {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(org.openqa.selenium.By
                     .cssSelector(cssSelector)));
         }
+    }
+
+    public void waitForElementsToBeVisible(WebElement... elements) {
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
+                .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
+                .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
+                .ignoring(ElementNotVisibleException.class);
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    }
+
+    public void waitForElementToBeClickable(WebElement element, final int noOfSeconds) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), noOfSeconds);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void clickOnElementUsingJavascript(WebElement element) {
