@@ -73,7 +73,8 @@ public class ItemsPage extends AbstractPage {
 
     public void clickOnAction(String actionName) {
         waitForTextToAppear(actionName);
-        getElementFromList(actionsListCssSelector, actionName).click();
+        WebElement actionItem = getElementFromList(actionsListCssSelector, actionName);
+        clickOnElementUsingJavascript(actionItem);
     }
 
     public void insertNumberOfClones(String numberOfClones) {
