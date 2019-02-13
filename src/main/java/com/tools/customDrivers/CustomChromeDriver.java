@@ -34,14 +34,6 @@ public class CustomChromeDriver implements DriverSource {
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
         options.addArguments("start-maximized");
-        try {
-            String headlessArgument = System.getProperty("headlessArgument");
-            if (!headlessArgument.isEmpty()) {
-                options.addArguments(headlessArgument);
-            }
-        } catch (NullPointerException ex) {
-
-        }
         options.addArguments("disable-infobars");
         DesiredCapabilities cap = DesiredCapabilities.chrome();
         cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
