@@ -45,7 +45,9 @@ public class BookingsPage extends AbstractPage {
 
     public void clickSaveBookingButton() {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        element(saveBookingButton).click();
+        waitForElementToBeClickable(saveBookingButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        clickOnElementUsingJavascript(saveBookingButton);
+        //        element(saveBookingButton).click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
@@ -137,14 +139,15 @@ public class BookingsPage extends AbstractPage {
     public void extendBooking(String endDate) {
         selectDate(endDatePickerElement, endDate);
         selectHour(endHourField, endDate);
-        saveBookingChangesButton.click();
+        clickOnElementUsingJavascript(saveBookingChangesButton);
     }
 
     public void navigateToBookingsTab(String tab) {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement tabElement = getDriver()
                 .findElement(By.cssSelector(bookingsTabsCssSelector.replace("textToReplace()", tab.toLowerCase().replace(" ", "-"))));
-        tabElement.click();
+        waitForElementToBeClickable(tabElement, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        clickOnElementUsingJavascript(tabElement);
     }
 
     public void navigateToTheFirstBookingsTabFound(String... tabs) {
@@ -176,14 +179,15 @@ public class BookingsPage extends AbstractPage {
         List<WebElement> itemBookingsContainers = getAllBookingsContainersOfAnItem(itemName);
         for (WebElement itemBookingContainer : itemBookingsContainers) {
             if (checkIfChildElementExists(itemBookingContainer, returnItemButtonCssSelector)) {
-                itemBookingContainer.findElement(By.cssSelector(returnItemButtonCssSelector)).click();
+                clickOnElementUsingJavascript(itemBookingContainer.findElement(By.cssSelector(returnItemButtonCssSelector)));
                 confirmBookingReturn();
+                waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
             }
         }
     }
 
     public void confirmBookingReturn() {
-        returnItemConfirmButton.click();
+        clickOnElementUsingJavascript(returnItemConfirmButton);
     }
 
     public boolean checkThatBookingContainerHasTheCorrectDetail(WebElement bookingContainer, String bookingDetailName, String bookingDetailValue) {

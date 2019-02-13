@@ -44,8 +44,8 @@ public class ItemsPage extends AbstractPage {
     }
 
     public void clickOnDownloadCsvTemplate() {
+        waitForElementToBeClickable(downloadTemplateButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         downloadTemplateButton.click();
-        System.out.println("downoad file path is: " + Constants.DOWNLOAD_FILE_PATH);
         getDriver().navigate().refresh();
     }
 
@@ -154,7 +154,6 @@ public class ItemsPage extends AbstractPage {
                     Assert.assertFalse(String.format("%s was found!", title),
                             checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
                                     title)));
-                    staleElementException = false;
                 }
             } catch (StaleElementReferenceException e2) {
                 staleElementException = true;

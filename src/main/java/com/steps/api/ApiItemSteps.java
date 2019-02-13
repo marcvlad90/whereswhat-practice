@@ -71,7 +71,6 @@ public class ApiItemSteps extends AbstractApiSteps {
         AbstractApiSteps.extraHeaders.put("Content-Type", "multipart/form-data");
         System.out.println("Append file path is; " + Constants.DOWNLOAD_FILE_PATH + fileName);
         CSVWriters.appendInCsv(items, Constants.DOWNLOAD_FILE_PATH + fileName, areMultipleCategories);
-
         String fileNameOnDisk = uploadCSVResource(ApiUrlConstants.CSV_UPLOAD, Constants.DOWNLOAD_FILE_PATH, fileName);
         JsonPath jsonPath = new JsonPath(fileNameOnDisk);
         String fileNameProcessed = jsonPath.get("file");
