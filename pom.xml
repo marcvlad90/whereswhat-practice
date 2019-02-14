@@ -12,8 +12,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<serenity.version>1.9.36</serenity.version>
-		<selenium.version>3.9.1</selenium.version>
+		<serenity.version>2.0.40</serenity.version>
+		<selenium.version>3.14.0</selenium.version>
 	</properties>
 	<repositories>
 		<repository>
