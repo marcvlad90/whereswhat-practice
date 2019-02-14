@@ -3,6 +3,7 @@ package com.tests;
 import com.steps.api.ApiBookingsSteps;
 import com.steps.api.ApiCategorySteps;
 import com.steps.api.ApiLoginSteps;
+import com.steps.api.flowsteps.ApiCategoriesFlowSteps;
 
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -21,6 +22,8 @@ public class BaseTest {
     private ApiCategorySteps apiCategoriesSteps;
     @Steps
     private ApiLoginSteps apiLoginSteps;
+    @Steps
+    private ApiCategoriesFlowSteps apiCategoriesFlowSteps;
 
     @Before
     public void setup() {
@@ -34,8 +37,9 @@ public class BaseTest {
     public void tearDown() {
         StepEventBus.getEventBus().clearStepFailures();
         apiLoginSteps.loginAsAdmin();
-        apiBookingsSteps.returnAllBookedItemsFromSession();
-        apiCategoriesSteps.deleteAllCategoriesFromSession();
+        //        apiBookingsSteps.returnAllBookedItemsFromSession();
+        //        apiCategoriesSteps.deleteAllCategoriesFromSession();
+        apiCategoriesFlowSteps.forcedDeleteAllCategories();
         webdriver.quit();
     }
 }
