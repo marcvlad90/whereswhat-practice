@@ -147,14 +147,15 @@ public class ItemsPage extends AbstractPage {
         do {
             try {
                 if (shouldBePresent) {
-                    waitForTextToAppear(title);
                     Assert.assertTrue(String.format("%s was not found!", title),
                             checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
                                     title)));
+                    staleElementException = false;
                 } else {
                     Assert.assertFalse(String.format("%s was found!", title),
                             checkIfElementExists(getElementFromList(itemsAndCategoriesTitlesCssSelector,
                                     title)));
+                    staleElementException = false;
                 }
             } catch (StaleElementReferenceException e2) {
                 staleElementException = true;

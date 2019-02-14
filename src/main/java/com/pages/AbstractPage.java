@@ -107,13 +107,16 @@ public class AbstractPage extends PageObject {
     }
 
     public WebElement getElementFromList(String elementsListCssSelector, String elementIdentifierText) {
-        List<WebElement> elements = getDriver().findElements(org.openqa.selenium.By.cssSelector(elementsListCssSelector));
-        for (WebElement element : elements) {
-            if (element.getText().contains(elementIdentifierText)) {
-                return element;
+        if (!getDriver().findElements(org.openqa.selenium.By.cssSelector(elementsListCssSelector)).isEmpty()) {
+            List<WebElement> elements = getDriver().findElements(org.openqa.selenium.By.cssSelector(elementsListCssSelector));
+            for (WebElement element : elements) {
+                if (element.getText().contains(elementIdentifierText)) {
+                    return element;
+                }
             }
         }
         return null;
+
     }
 
     public WebElement getElementFromList(List<WebElement> elements, String elementIdentifierText) {
