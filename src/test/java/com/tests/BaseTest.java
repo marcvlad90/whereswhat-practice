@@ -37,8 +37,6 @@ public class BaseTest {
     public void tearDown() {
         StepEventBus.getEventBus().clearStepFailures();
         apiLoginSteps.loginAsAdmin();
-        //        apiBookingsSteps.returnAllBookedItemsFromSession();
-        //        apiCategoriesSteps.deleteAllCategoriesFromSession();
         apiCategoriesFlowSteps.forcedDeleteAllCategories();
         webdriver.quit();
     }

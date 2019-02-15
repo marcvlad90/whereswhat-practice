@@ -200,8 +200,6 @@
 					<systemPropertyVariables>
 						<webdriver.driver>chrome</webdriver.driver>
 						<webdriver.chrome.driver>src/test/resources/drivers/chromedriver.exe</webdriver.chrome.driver>
-						<webdriver.driver>firefox</webdriver.driver>
-						<webdriver.chrome.driver>src/test/resources/drivers/geckodriver.exe</webdriver.chrome.driver>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
