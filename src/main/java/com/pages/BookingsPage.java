@@ -216,6 +216,7 @@ public class BookingsPage extends AbstractPage {
     }
 
     public WebElement getSpecificBookingContainer(Booking booking) {
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         if (!getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).isEmpty() && !containsText("No bookings to be displayed")) {
             waitForListToLoad(bookingsContainersCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, false);
         }
