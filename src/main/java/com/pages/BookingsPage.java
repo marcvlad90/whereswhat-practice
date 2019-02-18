@@ -216,32 +216,32 @@ public class BookingsPage extends AbstractPage {
     }
 
     public WebElement getSpecificBookingContainer(Booking booking) {
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        if (!getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).isEmpty() && !containsText("No bookings to be displayed")) {
-            waitForListToLoad(bookingsContainersCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, false);
-        }
-        List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
-        for (WebElement bookingContainer : bookingContainers) {
-            if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()
-                    .equalsIgnoreCase(booking.getItem().getTitle())) {
-                System.out.println("Booking title matches!");
-                if (bookingContainer.findElement(By.cssSelector(".status-label")).getText().equalsIgnoreCase(booking.getStatus())) {
-                    System.out.println("Booking status matches!");
-                    if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Booked from", booking.getStartDate().replace(", 0", ", "))) {
-                        System.out.println("Booking start date matches!");
-                        if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Request to extend until", booking.getEndDate()
-                                .replace(", 0", ", "))
-                                || checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "to", booking.getEndDate().replace(", 0", ", "))) {
-                            System.out.println("Booking end date matches!");
-                            if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Booked by", booking.getUser().getName())) {
-                                System.out.println("Booking user matches!");
-                                return bookingContainer;
+        int numberOfTries = 0;
+        do {
+            numberOfTries++;
+            List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
+            for (WebElement bookingContainer : bookingContainers) {
+                if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()
+                        .equalsIgnoreCase(booking.getItem().getTitle())) {
+                    System.out.println("Booking title matches!");
+                    if (bookingContainer.findElement(By.cssSelector(".status-label")).getText().equalsIgnoreCase(booking.getStatus())) {
+                        System.out.println("Booking status matches!");
+                        if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Booked from", booking.getStartDate().replace(", 0", ", "))) {
+                            System.out.println("Booking start date matches!");
+                            if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Request to extend until", booking.getEndDate()
+                                    .replace(", 0", ", "))
+                                    || checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "to", booking.getEndDate().replace(", 0", ", "))) {
+                                System.out.println("Booking end date matches!");
+                                if (checkThatBookingContainerHasTheCorrectDetail(bookingContainer, "Booked by", booking.getUser().getName())) {
+                                    System.out.println("Booking user matches!");
+                                    return bookingContainer;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
+        } while ((numberOfTries < 3) && !containsText("No bookings to be displayed"));
         return null;
     }
 }
