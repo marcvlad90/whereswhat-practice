@@ -6,7 +6,6 @@ import com.tools.constants.SerenityKeyConstants;
 import com.tools.entities.Booking;
 import com.tools.entities.BookingsCollection;
 import com.tools.entities.Category;
-import com.tools.entities.Item;
 import com.tools.factories.BookingFactory;
 import com.tools.utils.DateFormatter;
 import com.tools.utils.DateUtils;
@@ -208,16 +207,10 @@ public class ApiBookingsSteps extends AbstractApiSteps {
 
     @Step
     public void returnAllBookedItemsFromSession() {
-        List<Item> items = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEMS);
+        List<Booking> bookings = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
         try {
-            BookingsCollection[] bookings = getResource(ApiUrlConstants.BOOKINGS + "?perPage=9999", BookingsCollection[].class);
-            for (int i = 0; i < bookings.length; i++) {
-                for (Item item : items) {
-                    if (bookings[i].getItem().getId() == item.getId()) {
-                        returnBookedItem(bookings[i]);
-                        break;
-                    }
-                }
+            for (int i = 0; i < bookings.size(); i++) {
+                returnBookedItem(bookings.get(i));
             }
         } catch (NullPointerException e) {
             e.getMessage();
