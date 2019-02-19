@@ -39,7 +39,6 @@ public class BaseTest {
         apiLoginSteps.loginAsAdmin();
         apiBookingsSteps.returnAllBookedItemsFromSession();
         apiCategoriesSteps.deleteAllCategoriesFromSession();
-        //        apiCategoriesFlowSteps.forcedDeleteAllCategories();
         webdriver.quit();
     }
 }

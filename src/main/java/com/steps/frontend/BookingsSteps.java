@@ -12,7 +12,6 @@ import org.junit.Assert;
 
 public class BookingsSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
-
     private BookingsPage bookingsPage;
 
     @Step

@@ -244,14 +244,14 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
                 DateUtils.addHoursToDate(numberOfHoursToExtend,
                         DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDate(), DateConstants.WW_PATTERN)),
-                DateConstants.WW_PATTERN)
-                .toString());
+                        DateConstants.WW_PATTERN)
+                        .toString());
         bookingExtendRequest.setEndDatePending(DateFormatter
                 .formatDate(
                         DateUtils.addDaysToDate(numberOfDaysToExtend,
                                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN)),
-                        DateConstants.WW_PATTERN)
-                .toString());
+                                DateConstants.WW_PATTERN)
+                                .toString());
         bookingExtendRequest.setStatus(null);
         bookingExtendRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_RETURN_DATE_PATTERN).toString());
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
@@ -282,14 +282,14 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
                 DateUtils.addHoursToDate(numberOfHoursToExtend,
                         DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDate(), DateConstants.WW_PATTERN)),
-                DateConstants.WW_PATTERN)
-                .toString());
+                        DateConstants.WW_PATTERN)
+                        .toString());
         bookingExtendRequest.setEndDatePending(DateFormatter
                 .formatDate(
                         DateUtils.addDaysToDate(numberOfDaysToExtend,
                                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN)),
-                        DateConstants.WW_PATTERN)
-                .toString());
+                                DateConstants.WW_PATTERN)
+                                .toString());
         bookingExtendRequest.setStatus(null);
         bookingExtendRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_RETURN_DATE_PATTERN).toString());
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
