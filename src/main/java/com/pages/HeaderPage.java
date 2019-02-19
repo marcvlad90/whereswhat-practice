@@ -5,6 +5,7 @@ import com.tools.constants.Constants;
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 public class HeaderPage extends AbstractPage {
@@ -31,12 +32,18 @@ public class HeaderPage extends AbstractPage {
             clickOnElementUsingJavascript(profileDropdown);
         }
         WebElement actionItem = getElementFromList(profileDropDownMenuItemsListCssSelector, profileMenuItem);
-        waitABit(1000);
         actionItem.click();
     }
 
-    public void confirmSignout() {
-        element(confirmLogoutButton).waitUntilClickable();
-        confirmLogoutButton.click();
+    public void logout() {
+        do {
+            try {
+                clickOnProfileMenuItem(Constants.PROFILE_MENU_ITEM_SIGNOUT);
+                element(confirmLogoutButton).waitUntilClickable();
+                confirmLogoutButton.click();
+            } catch (WebDriverException e) {
+                e.getMessage();
+            }
+        } while (checkIfElementExists(profileDropDownCssSelector));
     }
 }

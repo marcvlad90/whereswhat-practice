@@ -1,7 +1,6 @@
 package com.steps.frontend;
 
 import com.pages.HeaderPage;
-import com.tools.constants.Constants;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.thucydides.core.annotations.Step;
@@ -25,7 +24,6 @@ public class HeaderSteps extends AbstractSteps {
 
     @Step
     public void logout() {
-        headerPage.clickOnProfileMenuItem(Constants.PROFILE_MENU_ITEM_SIGNOUT);
-        headerPage.confirmSignout();
+        headerPage.logout();
     }
 }
