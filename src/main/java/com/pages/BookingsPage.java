@@ -218,9 +218,7 @@ public class BookingsPage extends AbstractPage {
     }
 
     public WebElement getSpecificBookingContainer(Booking booking) {
-        int numberOfTries = 0;
-        do {
-            numberOfTries++;
+        if (!containsText("No bookings to be displayed")) {
             List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             for (WebElement bookingContainer : bookingContainers) {
                 if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()
@@ -243,7 +241,7 @@ public class BookingsPage extends AbstractPage {
                     }
                 }
             }
-        } while ((numberOfTries < 3) && !containsText("No bookings to be displayed"));
+        }
         return null;
     }
 }
