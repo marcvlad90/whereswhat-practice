@@ -54,7 +54,7 @@ public class ItemPage extends AbstractPage {
     }
 
     public void insertItemName(String itemName) {
-        element(itemNameField).waitUntilVisible();
+        waitForElementToAppear(itemNameField, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         element(itemNameField).clear();
         element(itemNameField).sendKeys(itemName);
     }
@@ -111,7 +111,7 @@ public class ItemPage extends AbstractPage {
                     try {
                         if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-end")
                                 && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                                        .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                                .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                             break;
                         }
                     } catch (NullPointerException ex) {
