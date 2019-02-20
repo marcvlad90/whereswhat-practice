@@ -45,12 +45,12 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        Test000CleanTheEnvironment.class,
-        Test001UiLogin.class,
-        Test002UiCRUDCategory.class,
-        Test003UiCRUDItem.class,
-        Test004UiBookItem.class,
-        Test005UiReturnItem.class,
+    Test000CleanTheEnvironment.class,
+    Test001UiLogin.class,
+    Test002UiCRUDCategory.class,
+    Test003UiCRUDItem.class,
+    Test004UiBookItem.class,
+    Test005UiReturnItem.class,
     Test006UiExtendBooking.class,
     Test007UiCloneItem.class,
     Test011UiEmailNotification.class,
@@ -81,10 +81,10 @@ import org.junit.runners.Suite.SuiteClasses;
     Test036UiSearchItemByTag.class,
     Test037UiMoveItemInAnotherCategory.class,
     Test038UiBookItemAsRegularUser.class,
-        Test039UiAcceptSupervisionedBooking.class,
-        Test040UiDeclineSupervisionedBooking.class,
-//        Test041UiAcceptSupervisionedExtendedBooking.class,
-//        Test042UiDeclineSupervisionedExtendedBooking.class,
+    Test039UiAcceptSupervisionedBooking.class,
+    Test040UiDeclineSupervisionedBooking.class,
+    //        Test041UiAcceptSupervisionedExtendedBooking.class,
+    //        Test042UiDeclineSupervisionedExtendedBooking.class,
 })
 public class TestsSuiteUI {
 

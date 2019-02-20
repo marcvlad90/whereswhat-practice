@@ -146,8 +146,10 @@ public class BookingsPage extends AbstractPage {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement tabElement = getDriver()
                 .findElement(By.cssSelector(bookingsTabsCssSelector.replace("textToReplace()", tab.toLowerCase().replace(" ", "-"))));
-        waitForElementToBeClickable(tabElement, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        clickOnElementUsingJavascript(tabElement);
+        do {
+            waitForElementToBeClickable(tabElement, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+            clickOnElementUsingJavascript(tabElement);
+        } while (!getDriver().findElement(By.cssSelector(".clearFilter.active >a")).getText().toLowerCase().contentEquals(tab.toLowerCase()));
     }
 
     public void navigateToTheFirstBookingsTabFound(String... tabs) {

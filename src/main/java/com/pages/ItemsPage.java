@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
@@ -100,16 +101,27 @@ public class ItemsPage extends AbstractPage {
     }
 
     public void searchForItem(String itemName) {
-        String[] itemWords = itemName.split(" ");
-        waitForElementToAppear(searchInputField, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        searchInputField.clear();
-        for (String itemLetter : itemWords) {
-            searchInputField.sendKeys(itemLetter + " ");
-            waitABit(Constants.WAIT_TIME_ONE_SECOND_IN_MILISECONDS);
-            if (containsText(itemName) || containsText("No results")) {
-                break;
+        int numberOfTries = 0;
+        boolean isSearchCompleted = false;
+        do {
+            try {
+                numberOfTries++;
+                String[] itemWords = itemName.split(" ");
+                waitForElementToAppear(searchInputField, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+                searchInputField.clear();
+                for (String itemLetter : itemWords) {
+                    searchInputField.sendKeys(itemLetter + " ");
+                    waitABit(Constants.WAIT_TIME_ONE_SECOND_IN_MILISECONDS);
+                    if (containsText(itemName) || containsText("No results")) {
+                        break;
+                    }
+                }
+                isSearchCompleted = true;
+            } catch (WebDriverException e) {
+                e.getMessage();
             }
-        }
+        } while ((numberOfTries < 3) && !isSearchCompleted);
+
     }
 
     public void clickOnBookButton(String itemTitle) {
