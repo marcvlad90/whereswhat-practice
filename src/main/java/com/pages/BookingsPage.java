@@ -218,6 +218,7 @@ public class BookingsPage extends AbstractPage {
     public WebElement getSpecificBookingContainer(Booking booking) {
         int numberOfTries = 0;
         do {
+            System.out.println("try number " + numberOfTries);
             numberOfTries++;
             List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             for (WebElement bookingContainer : bookingContainers) {

@@ -1,6 +1,7 @@
 package com.pages;
 
 import com.tools.constants.Constants;
+import com.tools.constants.EnvironmentConstants;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -38,12 +39,13 @@ public class HeaderPage extends AbstractPage {
     public void logout() {
         do {
             try {
+                getDriver().navigate().to(EnvironmentConstants.BASE_URL);
                 clickOnProfileMenuItem(Constants.PROFILE_MENU_ITEM_SIGNOUT);
                 element(confirmLogoutButton).waitUntilClickable();
                 confirmLogoutButton.click();
             } catch (WebDriverException e) {
                 e.getMessage();
             }
-        } while (checkIfElementExists(profileDropDownCssSelector));
+        } while (!containsAllText("LOGIN", "FREE SIGN UP"));
     }
 }
