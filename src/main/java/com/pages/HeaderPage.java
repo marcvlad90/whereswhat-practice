@@ -20,9 +20,11 @@ public class HeaderPage extends AbstractPage {
     public void navigateToMenu(String menu) {
         waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         WebElement menuItem = getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase())));
-        waitForElementToBeClickable(menuItem, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
-        clickOnElementUsingJavascript(menuItem);
+        while (!getDriver().findElement(By.cssSelector("#menu ul li.current")).getText().toLowerCase().contentEquals(menu.toLowerCase())) {
+            waitForElementToBeClickable(menuItem, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+            waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+            clickOnElementUsingJavascript(menuItem);
+        }
     }
 
     public void clickOnProfileMenuItem(String profileMenuItem) {
