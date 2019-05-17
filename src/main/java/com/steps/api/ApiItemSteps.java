@@ -95,10 +95,8 @@ public class ApiItemSteps extends AbstractApiSteps {
     @Step
     public void checkThatItemExists(int itemId, int categoryId, String itemName) {
         Item itemResponse = getResource(ApiUrlConstants.ITEMS + "/" + itemId, Item.class);
-        if (!(itemResponse.getId() == itemId) && !(itemResponse.getCategory().getId() == categoryId) && !itemResponse.getTitle().contentEquals(itemName)) {
-            Assert.fail(String.format("The item %s does not exist under %s category!", itemName, itemResponse.getCategory().getName()));
-        }
-
+        Assert.assertFalse(String.format("The item %s does not exist under %s category!", itemName, itemResponse.getCategory().getName()),
+                !(itemResponse.getId() == itemId) && !(itemResponse.getCategory().getId() == categoryId) && !itemResponse.getTitle().contentEquals(itemName));
     }
 
     @Step

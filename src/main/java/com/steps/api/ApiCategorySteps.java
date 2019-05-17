@@ -21,10 +21,8 @@ public class ApiCategorySteps extends AbstractApiSteps {
     @Step
     public void checkThatCategoryExists(int categoryId, String categoryName) {
         Category categoryResponse = getResource(ApiUrlConstants.CATEGORIES + "/" + categoryId, Category.class);
-        if (!(categoryResponse.getId() == categoryId) && !categoryResponse.getName().contentEquals(categoryName)) {
-            Assert.fail(String.format("Category %s does not exist! ", categoryName));
-        }
-
+        Assert.assertFalse(String.format("Category %s does not exist! ", categoryName), !(categoryResponse.getId() == categoryId)
+                && !categoryResponse.getName().contentEquals(categoryName));
     }
 
     @Step

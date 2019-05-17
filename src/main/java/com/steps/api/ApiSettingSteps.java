@@ -42,18 +42,9 @@ public class ApiSettingSteps extends AbstractApiSteps {
 
     @Step
     public void checkThatLocationExists() {
-        boolean isFound = false;
-        Location locationRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.LOCATION);
-        LocationsCollection[] locations = getResource(ApiUrlConstants.LOCATIONS + "?perPage=9999", LocationsCollection[].class);
-        for (int i = 0; i < locations.length; i++) {
-            if (locations[i].getId().intValue() == locationRequest.getId()) {
-                if (locations[i].getName().contentEquals(locationRequest.getName())) {
-                    isFound = true;
-                    break;
-                }
-            }
-        }
-        Assert.assertTrue(String.format("Location %s was not found!", locationRequest.getName()), isFound);
+        Location location = SerenitySessionUtils.getFromSession(SerenityKeyConstants.LOCATION);
+        Location expectedLocation = getResource(ApiUrlConstants.LOCATIONS + "/" + location.getId(), Location.class);
+        Assert.assertTrue(String.format("Location %s was not found!", location.getName()), location.getName().contentEquals(expectedLocation.getName()));
     }
 
     @Step

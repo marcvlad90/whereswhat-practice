@@ -6,6 +6,7 @@ import com.tools.constants.SerenityKeyConstants;
 import com.tools.entities.Booking;
 import com.tools.entities.BookingsCollection;
 import com.tools.entities.Category;
+import com.tools.entities.Item;
 import com.tools.factories.BookingFactory;
 import com.tools.utils.DateFormatter;
 import com.tools.utils.DateUtils;
@@ -82,73 +83,76 @@ public class ApiBookingsSteps extends AbstractApiSteps {
     @SuppressWarnings("null")
     @Step
     public void checkIfBookingOfItemExists(Boolean shouldExist) {
-        Booking booking = getBooking();
+        Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        Booking expectedBooking = getBooking(booking, item);
         if (shouldExist) {
-            Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", booking.getItem().getTitle()), booking != null);
+            Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", expectedBooking.getItem().getTitle()),
+                    expectedBooking != null);
         } else {
             try {
-                Assert.assertTrue(String.format("Booking of item %s exists and it should not!", booking.getItem().getTitle()),
-                        booking == null);
-            } catch (Exception e) {
+                Assert.assertTrue(String.format("Booking of item %s exists and it should not!", expectedBooking.getItem().getTitle()),
+                        expectedBooking == null);
+            } catch (NullPointerException e) {
                 e.getMessage();
             }
         }
     }
 
+    @SuppressWarnings("null")
     @Step
     public void checkIfBookingsOfItemsExist(Boolean shouldExist) {
-        List<Booking> bookings = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
-        for (int i = 0; i < bookings.size(); i++) {
-            if (shouldExist) {
-                Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", bookings.get(i).getItem().getTitle()),
-                        getBooking(bookings.get(i)) != null);
-            } else {
-                try {
-                    Assert.assertTrue(String.format("Booking of item %s exists and it should not!", bookings.get(i).getItem().getTitle()),
-                            getBooking(bookings.get(i)) == null);
-                } catch (Exception e) {
-                    e.getMessage();
+        List<Booking> bookingsList = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
+        List<Item> itemsList = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEMS);
+        for (Item item : itemsList) {
+            for (Booking booking : bookingsList) {
+                Booking expectedBooking = getBooking(booking, item);
+                if (shouldExist) {
+                    Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", expectedBooking.getItem().getTitle()),
+                            expectedBooking != null);
+                    break;
+                } else {
+                    try {
+                        Assert.assertTrue(String.format("Booking of item %s exists and it should not!", expectedBooking.getItem().getTitle()),
+                                expectedBooking == null);
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
                 }
             }
         }
     }
 
     @Step
-    public void checkThatItemsAreBooked() {
-        Booking booking = getBooking();
-        Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", booking.getItem().getTitle()), booking != null);
-    }
-
-    @Step
-    public Booking getBooking(Booking booking) {
-        BookingsCollection[] bookings = getResource(ApiUrlConstants.BOOKINGS + "?perPage=9999", BookingsCollection[].class);
-        for (int i = 0; i < bookings.length; i++) {
-            if ((bookings[i].getId() == booking.getId()) && (bookings[i].getItem().getId() == booking.getItem().getId())) {
-                bookings[i].setStartDate(DateFormatter.formatDate(
-                        DateUtils.parseStringIntoDate(bookings[i].getStartDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
-                bookings[i].setEndDate(DateFormatter.formatDate(
-                        DateUtils.parseStringIntoDate(bookings[i].getEndDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
-                if (bookings[i].getReturnDate() != null) {
-                    bookings[i].setEndDate(DateFormatter.formatStringDate(bookings[i].getReturnDate(), DateConstants.WW_PATTERN));
+    public Booking getBooking(Booking booking, Item item) {
+        List<Booking> bookingsList = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
+        for (Booking bookingItem : bookingsList) {
+            try {
+                Booking bookingResponse = getResource(ApiUrlConstants.BOOKINGS + "/" + booking.getId(), Booking.class);
+                if ((bookingResponse.getId() == bookingItem.getId()) && (bookingResponse.getItem().getId() == item.getId())) {
+                    bookingResponse.setStartDate(DateFormatter.formatDate(
+                            DateUtils.parseStringIntoDate(bookingResponse.getStartDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
+                    bookingResponse.setEndDate(DateFormatter.formatDate(
+                            DateUtils.parseStringIntoDate(bookingResponse.getEndDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
+                    if (bookingResponse.getReturnDate() != null) {
+                        bookingResponse.setEndDate(DateFormatter.formatStringDate(bookingResponse.getReturnDate(), DateConstants.WW_PATTERN));
+                    }
+                    if ((bookingResponse.getStartDate().equals(booking.getStartDate()) && (bookingResponse.getEndDate().equals(bookingItem.getEndDate())))) {
+                        return bookingResponse;
+                    }
                 }
-                if ((bookings[i].getItemId() == booking.getItemId()) && (bookings[i].getStartDate().equals(
-                        booking.getStartDate()) && (bookings[i].getEndDate().equals(booking.getEndDate())))) {
-                    return bookings[i];
-                }
+            } catch (NullPointerException e) {
+                e.getMessage();
             }
         }
         return null;
     }
 
     @Step
-    public Booking getBooking() {
-        Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
-        return getBooking(booking);
-    }
-
-    @Step
     public void checkThatBookedItemWasReturned() {
-        Assert.assertTrue("The booking was not returned!", getBooking().isReturnItem());
+        Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        Assert.assertTrue("The booking was not returned!", getBooking(booking, item).isReturnItem());
     }
 
     @Step

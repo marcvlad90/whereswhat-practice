@@ -22,7 +22,7 @@ public class Test014ApiDeleteBooking extends BaseTest {
     @Steps
     private ApiItemSteps apiItemSteps;
     @Steps
-    private ApiBookingsSteps apiBookingSteps;
+    private ApiBookingsSteps apiBookingsSteps;
 
     @Before
     public void dataPrep() {
@@ -33,8 +33,9 @@ public class Test014ApiDeleteBooking extends BaseTest {
 
     @Test
     public void test014ApiDeleteBooking() {
-        apiBookingSteps.bookItem(1, 1, 1, 1, 1, 1);
-        apiBookingSteps.deleteItemBooking();
-        apiBookingSteps.checkIfBookingOfItemExists(false);
+        apiBookingsSteps.bookItem(1, 1, 1, 1, 1, 1);
+        apiBookingsSteps.deleteItemBooking();
+        apiBookingsSteps.checkIfBookingOfItemExists(false);
+        apiBookingsSteps.checkIfBookingsOfItemsExist(false);
     }
 }
