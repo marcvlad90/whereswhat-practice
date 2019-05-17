@@ -24,11 +24,6 @@ public class AlertFactory {
         emailIndividualNotificationReceiveOption.setEventId("IndividualNotification");
         emailIndividualNotificationReceiveOption.setEnabled(true);
         emailReceiveOptions[0] = emailIndividualNotificationReceiveOption;
-        //        EmailReceiveOption emailSummaryNotificationReceiveOption = new EmailReceiveOption();
-        //        emailSummaryNotificationReceiveOption.setUserId(user.getId());
-        //        emailSummaryNotificationReceiveOption.setEventId("NotificationSummary");
-        //        emailSummaryNotificationReceiveOption.setEnabled(false);
-        //        emailReceiveOptions[1] = emailSummaryNotificationReceiveOption;
         alert.setNotificationsCollection(notifications);
         alert.setEmailReceiveOptionsCollection(emailReceiveOptions);
         return alert;

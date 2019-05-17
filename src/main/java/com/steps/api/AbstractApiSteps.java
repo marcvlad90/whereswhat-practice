@@ -133,7 +133,6 @@ public class AbstractApiSteps extends ScenarioSteps {
                 .spec(getSpecWithExtraHeaders())
                 .when().get(path)
                 .then()
-                .assertThat().statusCode(anyOf(is(201), is(200), is(302)))
                 .extract().as(responseClass);
     }
 
@@ -144,7 +143,6 @@ public class AbstractApiSteps extends ScenarioSteps {
                 .spec(getSpecWithExtraHeaders())
                 .when().get(path)
                 .then()
-                .assertThat().statusCode(anyOf(is(201), is(204), is(200), is(302)))
                 .extract().asString();
 
         @SuppressWarnings("unchecked")

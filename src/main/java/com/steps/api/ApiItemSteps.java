@@ -93,44 +93,25 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void checkThatItemExists() {
-        boolean isFound = false;
-        Item itemRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
-        Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-        ItemsCollection[] items = getResource(ApiUrlConstants.ITEMS + "?per_page=9999&category_id=" + category.getId(),
-                ItemsCollection[].class);
-        for (int i = 0; i < items.length; i++) {
-            if (items[i].getId() == itemRequest.getId()) {
-                if (items[i].getTitle().contentEquals(itemRequest.getTitle())) {
-                    if (items[i].getCategory().getName().contentEquals(category.getName())) {
-                        isFound = true;
-                        break;
-                    }
-                }
-            }
+    public void checkThatItemExists(int itemId, int categoryId, String itemName) {
+        Item itemResponse = getResource(ApiUrlConstants.ITEMS + "/" + itemId, Item.class);
+        if (!(itemResponse.getId() == itemId) && !(itemResponse.getCategory().getId() == categoryId) && !itemResponse.getTitle().contentEquals(itemName)) {
+            Assert.fail(String.format("The item %s does not exist under %s category!", itemName, itemResponse.getCategory().getName()));
         }
-        Assert.assertTrue(String.format("The item %s does not exist under %s category!", itemRequest.getTitle(), category.getName()), isFound);
+
+    }
+
+    @Step
+    public void checkThatItemExists() {
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        checkThatItemExists(item.getId(), item.getCategoryId(), item.getTitle());
     }
 
     @Step
     public void checkThatItemsExist() {
-        List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         List<Item> items = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEMS);
-        for (Category category : categories) {
-            ItemsCollection[] itemsCollection = getResource(ApiUrlConstants.ITEMS + "?per_page=9999&category_id=" + category.getId(),
-                    ItemsCollection[].class);
-            boolean isItemFound = false;
-            for (Item item : items) {
-                for (int i = 0; i < itemsCollection.length; i++) {
-                    if (itemsCollection[i].getId() == item.getId()) {
-                        if (itemsCollection[i].getTitle().contentEquals(item.getTitle())) {
-                            isItemFound = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            Assert.assertTrue("Not all items exist!", isItemFound);
+        for (Item item : items) {
+            checkThatItemExists(item.getId(), item.getCategory().getId(), item.getTitle());
         }
     }
 
@@ -183,10 +164,10 @@ public class ApiItemSteps extends AbstractApiSteps {
 
     @Step
     public void renameItem() {
-        Item itemRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
-        itemRequest.setTitle(itemRequest.getTitle() + " Updated");
-        updateResource(ApiUrlConstants.UPDATE_ITEM, itemRequest, itemRequest.getId());
-        SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, itemRequest);
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        item.setTitle(item.getTitle() + " Updated");
+        updateResource(ApiUrlConstants.UPDATE_ITEM, item, item.getId());
+        SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, item);
     }
 
     @Step
@@ -199,14 +180,14 @@ public class ApiItemSteps extends AbstractApiSteps {
 
     @Step
     public void deleteItem() {
-        Item itemRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
-        deleteResource(ApiUrlConstants.ITEMS, itemRequest.getId());
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        deleteResource(ApiUrlConstants.ITEMS, item.getId());
     }
 
     @Step
-    public void deleteAllItemsFromCategory() {
+    public void deleteAllItemsFromCategory(int categoryId) {
         Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-        ItemsCollection[] items = getResource(ApiUrlConstants.ITEMS + "?per_page=9999&category_id=" + category.getId(),
+        ItemsCollection[] items = getResource(ApiUrlConstants.ITEMS + "?per_page=9999" + category.getId(),
                 ItemsCollection[].class);
         for (int i = 0; i < items.length; i++) {
             deleteResourceWithoutAssertion(ApiUrlConstants.ITEMS, items[i].getId());
@@ -214,14 +195,16 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
+    public void deleteAllItemsFromCategory() {
+        Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
+        deleteAllItemsFromCategory(category.getId());
+    }
+
+    @Step
     public void deleteAllItemsFromCompany() {
         List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         for (Category category : categories) {
-            ItemsCollection[] items = getResource(ApiUrlConstants.ITEMS + "?per_page=9999" + category.getId(),
-                    ItemsCollection[].class);
-            for (int i = 0; i < items.length; i++) {
-                deleteResourceWithoutAssertion(ApiUrlConstants.ITEMS, items[i].getId());
-            }
+            deleteAllItemsFromCategory(category.getId());
         }
     }
 

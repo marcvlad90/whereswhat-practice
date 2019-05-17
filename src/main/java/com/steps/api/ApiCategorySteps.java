@@ -19,36 +19,25 @@ public class ApiCategorySteps extends AbstractApiSteps {
     private static final long serialVersionUID = 1L;
 
     @Step
-    public void checkThatCategoryExists() {
-        boolean isCategoryFound = false;
-        Category categoryRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-        CategoriesCollection[] categories = getResource(ApiUrlConstants.CATEGORIES + "?perPage=9999", CategoriesCollection[].class);
-        for (int i = 0; i < categories.length; i++) {
-            if (categories[i].getId() == categoryRequest.getId()) {
-                if (categories[i].getName().contentEquals(categoryRequest.getName())) {
-                    isCategoryFound = true;
-                    break;
-                }
-            }
+    public void checkThatCategoryExists(int categoryId, String categoryName) {
+        Category categoryResponse = getResource(ApiUrlConstants.CATEGORIES + "/" + categoryId, Category.class);
+        if (!(categoryResponse.getId() == categoryId) && !categoryResponse.getName().contentEquals(categoryName)) {
+            Assert.fail(String.format("Category %s does not exist! ", categoryName));
         }
-        Assert.assertTrue(String.format("Category %s does not exist! ", categoryRequest.getName()), isCategoryFound);
+
+    }
+
+    @Step
+    public void checkThatCategoryExists() {
+        Category categoryRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
+        checkThatCategoryExists(categoryRequest.getId(), categoryRequest.getName());
     }
 
     @Step
     public void checkThatCategoriesExist() {
-        boolean isCategoryFound = false;
         List<Category> categoryRequests = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
-        CategoriesCollection[] categories = getResource(ApiUrlConstants.CATEGORIES + "?perPage=9999", CategoriesCollection[].class);
         for (Category categoryRequest : categoryRequests) {
-            for (int i = 0; i < categories.length; i++) {
-                if (categories[i].getId() == categoryRequest.getId()) {
-                    if (categories[i].getName().contentEquals(categoryRequest.getName())) {
-                        isCategoryFound = true;
-                        break;
-                    }
-                }
-            }
-            Assert.assertTrue(String.format("Category %s does not exist! ", categoryRequest.getName()), isCategoryFound);
+            checkThatCategoryExists(categoryRequest.getId(), categoryRequest.getName());
         }
     }
 

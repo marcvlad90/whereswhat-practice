@@ -35,6 +35,5 @@ public class Test002ApiUiValidationCRUDCategory extends BaseTest {
         itemsFlowSteps.checkIfCategoriesArePresentOrNot(true);
         apiCategorySteps.deleteAllCategoriesFromSession();
         itemsFlowSteps.checkIfCategoriesArePresentOrNot(false);
-        apiCategorySteps.deleteAllCategories();
     }
 }

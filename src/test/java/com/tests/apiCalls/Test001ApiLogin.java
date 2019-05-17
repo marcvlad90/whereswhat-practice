@@ -21,6 +21,5 @@ public class Test001ApiLogin extends BaseTest {
         apiLoginSteps.checkThatYouAreLoggedIn();
         apiLoginSteps.loginAsRegularUser();
         apiLoginSteps.checkThatYouAreLoggedIn();
-
     }
 }
