@@ -5,8 +5,6 @@ import com.tests.apiCalls.Test001ApiLogin;
 import com.tests.apiCalls.Test002ApiCRUDCategory;
 import com.tests.apiCalls.Test003ApiCRUDItem;
 import com.tests.apiCalls.Test004ApiBookItem;
-import com.tests.apiCalls.Test005ApiReturnItem;
-import com.tests.apiCalls.Test006ApiExtendBooking;
 import com.tests.apiCalls.Test007ApiCloneItem;
 import com.tests.apiCalls.Test008ApiCrudLocation;
 import com.tests.apiCalls.Test009ApiLocateItem;
@@ -39,8 +37,6 @@ import com.tests.apiCalls.Test037ApiMoveItemInAnotherCategory;
 import com.tests.apiCalls.Test038ApiBookItemAsRegularUser;
 import com.tests.apiCalls.Test039ApiAcceptSupervisionedBooking;
 import com.tests.apiCalls.Test040ApiDeclineSupervisionedBooking;
-import com.tests.apiCalls.Test041ApiAcceptSupervisionedExtendedBooking;
-import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -53,8 +49,8 @@ import org.junit.runners.Suite.SuiteClasses;
     Test002ApiCRUDCategory.class,
     Test003ApiCRUDItem.class,
     Test004ApiBookItem.class,
-    Test005ApiReturnItem.class,
-    Test006ApiExtendBooking.class,
+    //    Test005ApiReturnItem.class,
+    //    Test006ApiExtendBooking.class,
     Test007ApiCloneItem.class,
     Test008ApiCrudLocation.class,
     Test009ApiLocateItem.class,
@@ -87,8 +83,8 @@ import org.junit.runners.Suite.SuiteClasses;
     Test038ApiBookItemAsRegularUser.class,
     Test039ApiAcceptSupervisionedBooking.class,
     Test040ApiDeclineSupervisionedBooking.class,
-    Test041ApiAcceptSupervisionedExtendedBooking.class,
-    Test042ApiDeclineSupervisionedExtendedBooking.class,
+    //        Test041ApiAcceptSupervisionedExtendedBooking.class,
+    //        Test042ApiDeclineSupervisionedExtendedBooking.class,
 })
 public class TestsSuiteApiCalls {
 
