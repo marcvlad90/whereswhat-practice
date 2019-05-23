@@ -4,7 +4,6 @@ import com.tests.apiCallsUIValidation.Test002ApiUiValidationCRUDCategory;
 import com.tests.apiCallsUIValidation.Test003ApiUiValidationCRUDItem;
 import com.tests.apiCallsUIValidation.Test004ApiUiValidationBookItem;
 import com.tests.apiCallsUIValidation.Test007ApiUiValidationCloneItem;
-import com.tests.apiCallsUIValidation.Test008ApiUiValidationCrudLocation;
 import com.tests.apiCallsUIValidation.Test012ApiUiValidationBookItemMultipleTimesForDifferentPeriods;
 import com.tests.apiCallsUIValidation.Test013ApiUiValidationBookItemMultipleTimesCommonPeriods;
 import com.tests.apiCallsUIValidation.Test014ApiUiValidationDeleteBooking;
@@ -46,7 +45,6 @@ import org.junit.runners.Suite.SuiteClasses;
         //        Test005ApiUiValidationReturnItem.class,
         //        Test006ApiUiValidationExtendBooking.class,
         Test007ApiUiValidationCloneItem.class,
-        Test008ApiUiValidationCrudLocation.class,
         Test012ApiUiValidationBookItemMultipleTimesForDifferentPeriods.class,
         Test013ApiUiValidationBookItemMultipleTimesCommonPeriods.class,
         Test014ApiUiValidationDeleteBooking.class,
