@@ -17,8 +17,6 @@ import net.thucydides.core.annotations.Step;
 
 import org.junit.Assert;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ApiBookingsSteps extends AbstractApiSteps {
@@ -260,16 +258,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN),
                 DateConstants.WW_RETURN_DATE_PATTERN).toString());
-        LocalDateTime startDate = DateUtils.parseStringIntoDate((bookingExtendRequest.getStartDate()), DateConstants.WW_PATTERN);
-        LocalDateTime endDatePending = DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(),
-                DateConstants.WW_RETURN_DATE_PATTERN);
-        if (ChronoUnit.DAYS.between(startDate, endDatePending) > 0) {
-            bookingExtendRequest.setFullDaysBookingNumber(ChronoUnit.DAYS.between(
-                    startDate.plusMinutes(60 - startDate.getMinute()).plusHours(23 - startDate.getHour()),
-                    endDatePending.minusMinutes(endDatePending.getMinute()).minusHours(endDatePending.getHour())));
-        } else {
-            bookingExtendRequest.setFullDaysBookingNumber(0);
-        }
+        bookingExtendRequest.setFullDaysBookingNumber();
         Booking bookingExtendResponse = updateResource(ApiUrlConstants.UPDATED_BOOKING, bookingExtendRequest, Booking.class, bookingExtendRequest.getId());
         bookingExtendRequest = (Booking)InstanceUtils.mergeObjects(bookingExtendRequest, bookingExtendResponse);
         bookingExtendRequest.setEndDate(DateFormatter.formatStringDate(bookingExtendResponse.getEndDate(), DateConstants.WW_PATTERN));

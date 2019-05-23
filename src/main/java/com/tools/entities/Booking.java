@@ -2,8 +2,13 @@ package com.tools.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tools.constants.DateConstants;
+import com.tools.utils.DateUtils;
 
 import org.junit.Ignore;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Booking {
@@ -48,8 +53,17 @@ public class Booking {
         return fullDaysBookingNumber;
     }
 
-    public void setFullDaysBookingNumber(long fullDaysBookingNumber) {
-        this.fullDaysBookingNumber = fullDaysBookingNumber;
+    public void setFullDaysBookingNumber() {
+        LocalDateTime startDateDateType = DateUtils.parseStringIntoDate((getStartDate()), DateConstants.WW_PATTERN);
+        LocalDateTime endDateDateType = DateUtils.parseStringIntoDate((getEndDate()), DateConstants.WW_PATTERN);
+        System.out.println("START " + startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()));
+        System.out.println("END " + endDateDateType);
+        //        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(
+        //                startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()),
+        //                endDateDateType.minusMinutes(endDateDateType.getMinute()).minusHours(endDateDateType.getHour()));
+        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(
+                startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()),
+                endDateDateType);
     }
 
     @JsonProperty("note")

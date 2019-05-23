@@ -6,9 +6,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        TestsSuiteApiCalls.class,
-        TestsSuiteUI.class,
-        TestsSuiteApiCallsUIValidation.class,
+    TestsSuiteApiCalls.class,
+    TestsSuiteUI.class,
+    TestsSuiteApiCallsUIValidation.class,
 })
 public class MainSuite {
 

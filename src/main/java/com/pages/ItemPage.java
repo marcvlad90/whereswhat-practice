@@ -93,45 +93,33 @@ public class ItemPage extends AbstractPage {
         }
     }
 
-    public int getAllConsecutiveFullDaysOfBooking(String endDate) {
+    public int getAllConsecutiveDisplayedFullDaysOfBooking(String endDate) {
         int numberOfFullDays = 0;
         List<WebElement> dayDivs = getDriver().findElements(By.cssSelector(".fc-time-grid-event"));
         for (int i = 0; i < dayDivs.size(); i++) {
             if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-not-end")) {
                 numberOfFullDays++;
-            } else if (dayDivs.get(i).getAttribute("class").contains("fc-start")) {
-                numberOfFullDays = 0;
-            } else {
-                try {
-                    if (!dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full").equals(null)
-                            && !dayDivs.get(i).getAttribute("data-full").contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
-                        numberOfFullDays = 0;
-                    }
-                } catch (NullPointerException e) {
-                    try {
-                        if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-end")
-                                && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                                .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
-                            break;
-                        }
-                    } catch (NullPointerException ex) {
-                    }
-                }
+            }
+            else if (dayDivs.get(i).getAttribute("class").contains("fc-end")) {
+                return numberOfFullDays;
+            } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")) {
+                return 0;
             }
         }
         return numberOfFullDays;
     }
 
-    public int navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(String endDateString) {
+    public int navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(String startDateString, String endDateString) {
+        navigateToCalendarDate(startDateString);
         int numberOfFullDays = 0;
         LocalDateTime endDateValue = DateUtils.parseStringIntoDate(endDateString, DateConstants.WW_PATTERN);
         while (getIntervalStartDate().isAfter(endDateValue)) {
             previousIntervalElement.click();
         }
-        numberOfFullDays += getAllConsecutiveFullDaysOfBooking(endDateString);
+        numberOfFullDays += getAllConsecutiveDisplayedFullDaysOfBooking(endDateString);
         while (!getIntervalStartDate().plusDays(7).isAfter(endDateValue)) {
             nextIntervalElement.click();
-            numberOfFullDays += getAllConsecutiveFullDaysOfBooking(endDateString);
+            numberOfFullDays += getAllConsecutiveDisplayedFullDaysOfBooking(endDateString);
         }
         return numberOfFullDays;
     }
@@ -151,7 +139,7 @@ public class ItemPage extends AbstractPage {
         navigateToCalendarDate(startDateString);
         if (checkIfElementExists("a[class*='fc-time-grid-event'] .fc-time[data-full*='" + startDateString.split(", ")[1].replaceFirst("^0+(?!$)", "") + " - "
                 + "']")) {
-            navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(endDateString);
+            navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(startDateString, endDateString);
             if (checkIfElementExists("a[class*='fc-time-grid-event'] .fc-time[data-full*=' - "
                     + endDateString.split(", ")[1].replaceFirst("^0+(?!$)", "") + "']")) {
                 isBookingPresent = true;
@@ -161,8 +149,7 @@ public class ItemPage extends AbstractPage {
     }
 
     public int getFullDaysBookingNumber(String startDateString, String endDateString) {
-        navigateToCalendarDate(startDateString);
-        return navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(endDateString);
+        return navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(startDateString, endDateString);
     }
 
     public void clickOnBooking(String startDateString) {

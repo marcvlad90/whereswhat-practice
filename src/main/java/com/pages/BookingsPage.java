@@ -59,6 +59,7 @@ public class BookingsPage extends AbstractPage {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         waitForListToLoad(getDriver().findElements(By.cssSelector(hourPickerFieldValuesCssSelector)), Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, true);
         actions.moveToElement(getDriver().findElements(By.cssSelector(hourPickerFieldValuesCssSelector)).get(0)).build().perform();
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         clickOnElementFromList(hourPickerFieldValuesCssSelector, hour);
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }

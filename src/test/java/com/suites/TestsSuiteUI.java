@@ -5,7 +5,7 @@ import com.tests.UI.Test001UiLogin;
 import com.tests.UI.Test002UiCRUDCategory;
 import com.tests.UI.Test003UiCRUDItem;
 import com.tests.UI.Test004UiBookItem;
-import com.tests.UI.Test005UiReturnItem;
+import com.tests.UI.Test007UiCloneItem;
 import com.tests.UI.Test011UiEmailNotification;
 import com.tests.UI.Test012UiBookItemMultipleTimesForDifferentPeriods;
 import com.tests.UI.Test013UiBookItemMultipleTimesCommonPeriods;
@@ -17,7 +17,6 @@ import com.tests.UI.Test018UiImportItemsInDifferentCategories;
 import com.tests.UI.Test019UiBookItemForShortPeriods;
 import com.tests.UI.Test020UiBookItemInTheFarAwayFuture;
 import com.tests.UI.Test021UiBookItemFromCalendar;
-import com.tests.UI.Test022UiExtendBookingWithFailure;
 import com.tests.UI.Test023UiBookItemWithStartDateGreaterThanEndDate;
 import com.tests.UI.Test024UiBookItemMultipleTimesWithNoInterruption;
 import com.tests.UI.Test025UiEditBookedItem;
@@ -48,9 +47,9 @@ import org.junit.runners.Suite.SuiteClasses;
         Test002UiCRUDCategory.class,
         Test003UiCRUDItem.class,
         Test004UiBookItem.class,
-        Test005UiReturnItem.class,
+        //    Test005UiReturnItem.class,
         //    Test006UiExtendBooking.class,
-        //    Test007UiCloneItem.class,
+        Test007UiCloneItem.class,
         Test011UiEmailNotification.class,
         Test012UiBookItemMultipleTimesForDifferentPeriods.class,
         Test013UiBookItemMultipleTimesCommonPeriods.class,
@@ -62,7 +61,7 @@ import org.junit.runners.Suite.SuiteClasses;
         Test019UiBookItemForShortPeriods.class,
         Test020UiBookItemInTheFarAwayFuture.class,
         Test021UiBookItemFromCalendar.class,
-        Test022UiExtendBookingWithFailure.class,
+        //    Test022UiExtendBookingWithFailure.class,
         Test023UiBookItemWithStartDateGreaterThanEndDate.class,
         Test024UiBookItemMultipleTimesWithNoInterruption.class,
         Test025UiEditBookedItem.class,
@@ -81,8 +80,8 @@ import org.junit.runners.Suite.SuiteClasses;
         Test038UiBookItemAsRegularUser.class,
         Test039UiAcceptSupervisionedBooking.class,
         Test040UiDeclineSupervisionedBooking.class,
-    //    Test041UiAcceptSupervisionedExtendedBooking.class,
-    //    Test042UiDeclineSupervisionedExtendedBooking.class,
+//    Test041UiAcceptSupervisionedExtendedBooking.class,
+//    Test042UiDeclineSupervisionedExtendedBooking.class,
 })
 public class TestsSuiteUI {
 

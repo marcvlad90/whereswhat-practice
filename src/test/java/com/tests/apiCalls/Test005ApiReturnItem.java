@@ -29,7 +29,7 @@ public class Test005ApiReturnItem extends BaseTest {
         apiLoginSteps.loginAsAdmin();
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingSteps.bookItem(0, 0, -5, 1, 1, 1);
     }
 
     @Test

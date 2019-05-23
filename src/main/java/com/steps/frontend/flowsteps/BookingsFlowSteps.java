@@ -20,8 +20,6 @@ import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class BookingsFlowSteps extends AbstractSteps {
@@ -124,10 +122,7 @@ public class BookingsFlowSteps extends AbstractSteps {
         bookingsSteps.declineBooking(booking);
         booking.setStatus("accepted");
         booking.setEndDate(booking.getEndDateInitial());
-        LocalDateTime startDate = DateUtils.parseStringIntoDate((booking.getStartDate()), DateConstants.WW_PATTERN);
-        LocalDateTime newEndDate = DateUtils.parseStringIntoDate((booking.getEndDateInitial()), DateConstants.WW_PATTERN);
-        booking.setFullDaysBookingNumber(ChronoUnit.DAYS.between(startDate.plusMinutes(60 - startDate.getMinute()).plusHours(23 - startDate.getHour()),
-                newEndDate.minusMinutes(newEndDate.getMinute()).minusHours(newEndDate.getHour())));
+        booking.setFullDaysBookingNumber();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, booking);
     }
 
@@ -219,25 +214,9 @@ public class BookingsFlowSteps extends AbstractSteps {
     public void extendBookedItemViaCalendar(int numberOfDaysToExtend, int numberOfHoursToExtend) {
         Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
         booking.setEndDate(DateFormatter.formatDate(
-                DateUtils.addHoursToDate(numberOfHoursToExtend,
-                        DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
-                        DateConstants.WW_PATTERN)
-                        .toString());
-        booking.setFullDaysBookingNumber(booking.getFullDaysBookingNumber() + numberOfDaysToExtend);
-        booking.setEndDate(DateFormatter
-                .formatDate(
-                        DateUtils.addDaysToDate(numberOfDaysToExtend,
-                                DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
-                                DateConstants.WW_PATTERN)
-                                .toString());
-        LocalDateTime startDate = DateUtils.parseStringIntoDate((booking.getStartDate()), DateConstants.WW_PATTERN);
-        LocalDateTime newEndDate = DateUtils.parseStringIntoDate((booking.getEndDate()), DateConstants.WW_PATTERN);
-        if (ChronoUnit.DAYS.between(startDate, newEndDate) > 0) {
-            booking.setFullDaysBookingNumber(ChronoUnit.DAYS.between(startDate.plusMinutes(60 - startDate.getMinute()).plusHours(23 - startDate.getHour()),
-                    newEndDate.minusMinutes(newEndDate.getMinute()).minusHours(newEndDate.getHour())));
-        } else {
-            booking.setFullDaysBookingNumber(0);
-        }
+                DateUtils.addHoursToDate(numberOfHoursToExtend, DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
+                DateConstants.WW_PATTERN).toString());
+        booking.setFullDaysBookingNumber();
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.searchForItem(booking.getItem().getTitle());
         itemsSteps.clickOnItem(booking.getItem().getTitle());

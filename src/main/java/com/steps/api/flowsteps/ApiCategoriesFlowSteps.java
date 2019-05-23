@@ -16,10 +16,11 @@ public class ApiCategoriesFlowSteps extends AbstractApiSteps {
 
     @StepGroup
     public void forcedDeleteAllCategories() {
-        while (apiCategorySteps.getTheNumberOfCategories() > 0) {
+        int initialNumberOfCategories;
+        do {
+            initialNumberOfCategories = apiCategorySteps.getTheNumberOfCategories();
             apiBookingsSteps.returnAllBookedItems();
             apiCategorySteps.deleteAllCategories();
-        }
+        } while (initialNumberOfCategories > apiCategorySteps.getTheNumberOfCategories());
     }
-
 }

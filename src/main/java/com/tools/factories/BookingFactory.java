@@ -30,15 +30,9 @@ public class BookingFactory {
         startDate = DateUtils.roundLocalDateTimeToNearestMinutes(startDate, 5);
         LocalDateTime endDate = DateUtils.addDaysHoursAndMinutesToDate(startDate, 0, category.getDefaultBookingLength(), 0);
         endDate = DateUtils.roundLocalDateTimeToNearestMinutes(endDate, 5);
-        if (ChronoUnit.DAYS.between(startDate, endDate) > 0) {
-            bookingRequest.setFullDaysBookingNumber(ChronoUnit.DAYS.between(
-                    startDate.plusMinutes(60 - startDate.getMinute()).plusHours(23 - startDate.getHour()),
-                    endDate.minusMinutes(endDate.getMinute()).minusHours(endDate.getHour())));
-        } else {
-            bookingRequest.setFullDaysBookingNumber(0);
-        }
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
+        bookingRequest.setFullDaysBookingNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());
@@ -81,15 +75,9 @@ public class BookingFactory {
         startDate = DateUtils.roundLocalDateTimeToNearestMinutes(startDate, 5);
         LocalDateTime endDate = DateUtils.addDaysHoursAndMinutesToDate(startDate, forHowManyDays, forHowManyHours, forHowManyMinutes);
         endDate = DateUtils.roundLocalDateTimeToNearestMinutes(endDate, 5);
-        if (ChronoUnit.DAYS.between(startDate, endDate) > 0) {
-            bookingRequest.setFullDaysBookingNumber(ChronoUnit.DAYS.between(
-                    startDate.plusMinutes(60 - startDate.getMinute()).plusHours(23 - startDate.getHour()),
-                    endDate.minusMinutes(endDate.getMinute()).minusHours(endDate.getHour())));
-        } else {
-            bookingRequest.setFullDaysBookingNumber(0);
-        }
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
+        bookingRequest.setFullDaysBookingNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());
