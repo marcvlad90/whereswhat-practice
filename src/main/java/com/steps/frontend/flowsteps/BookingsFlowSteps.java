@@ -74,6 +74,9 @@ public class BookingsFlowSteps extends AbstractSteps {
             if (shouldBePresent) {
                 Assert.assertTrue("The booking was not found in the calendar!",
                         itemSteps.isBookingPresentInCalendar(bookings.get(i).getStartDate(), bookings.get(i).getEndDate()));
+                System.out.println("Actual full days booking number is "
+                        + itemSteps.getFullDaysBookingNumber(bookings.get(i).getStartDate(), bookings.get(i).getEndDate())
+                        + " and the expected full days booking number is " + bookings.get(i).getFullDaysBookingNumber());
                 Assert.assertTrue("The booking days number is incorrect!",
                         itemSteps.getFullDaysBookingNumber(bookings.get(i).getStartDate(), bookings.get(i).getEndDate()) == bookings.get(i)
                         .getFullDaysBookingNumber());

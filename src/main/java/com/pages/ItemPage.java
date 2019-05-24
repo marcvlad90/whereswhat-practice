@@ -97,10 +97,14 @@ public class ItemPage extends AbstractPage {
         int numberOfFullDays = 0;
         List<WebElement> dayDivs = getDriver().findElements(By.cssSelector(".fc-time-grid-event"));
         for (int i = 0; i < dayDivs.size(); i++) {
+            System.out.println("iteration " + i);
+            System.out.println("number of days is: " + numberOfFullDays);
             if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-not-end")) {
                 numberOfFullDays++;
             }
-            else if (dayDivs.get(i).getAttribute("class").contains("fc-end")) {
+            else if (dayDivs.get(i).getAttribute("class").contains("fc-end")
+                    && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
+                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return numberOfFullDays;
             } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")) {
                 return 0;
