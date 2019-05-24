@@ -104,9 +104,11 @@ public class ItemPage extends AbstractPage {
             }
             else if (dayDivs.get(i).getAttribute("class").contains("fc-end")
                     && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return numberOfFullDays;
-            } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")) {
+            } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")
+                    && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
+                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return 0;
             }
         }
