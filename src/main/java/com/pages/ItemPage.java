@@ -2,6 +2,7 @@ package com.pages;
 
 import com.tools.constants.Constants;
 import com.tools.constants.DateConstants;
+import com.tools.entities.Booking;
 import com.tools.utils.DateUtils;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -93,12 +94,14 @@ public class ItemPage extends AbstractPage {
         }
     }
 
+    public int getAllCalendarHeaderConsecutiveDisplayedFullDaysOfBooking(String endDate) {
+        return Integer.parseInt(getDriver().findElement(By.cssSelector(".fc-content-skeleton tr>td.fc-event-container")).getAttribute("colspan"));
+    }
+
     public int getAllConsecutiveDisplayedFullDaysOfBooking(String endDate) {
         int numberOfFullDays = 0;
         List<WebElement> dayDivs = getDriver().findElements(By.cssSelector(".fc-time-grid-event"));
         for (int i = 0; i < dayDivs.size(); i++) {
-            System.out.println("iteration " + i);
-            System.out.println("number of days is: " + numberOfFullDays);
             if (dayDivs.get(i).getAttribute("class").contains("fc-not-start fc-not-end")) {
                 numberOfFullDays++;
             }
@@ -115,7 +118,22 @@ public class ItemPage extends AbstractPage {
         return numberOfFullDays;
     }
 
-    public int navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(String startDateString, String endDateString) {
+    public int getTheCalendarHeaderFullDaysBookingNumber(String startDateString, String endDateString) {
+        navigateToCalendarDate(startDateString);
+        int numberOfFullDays = 0;
+        LocalDateTime endDateValue = DateUtils.parseStringIntoDate(endDateString, DateConstants.WW_PATTERN);
+        while (getIntervalStartDate().isAfter(endDateValue)) {
+            previousIntervalElement.click();
+        }
+        numberOfFullDays += getAllCalendarHeaderConsecutiveDisplayedFullDaysOfBooking(endDateString);
+        while (!getIntervalStartDate().plusDays(7).isAfter(endDateValue)) {
+            nextIntervalElement.click();
+            numberOfFullDays += getAllCalendarHeaderConsecutiveDisplayedFullDaysOfBooking(endDateString);
+        }
+        return numberOfFullDays;
+    }
+
+    public int getTheFullDaysBookingNumber(String startDateString, String endDateString) {
         navigateToCalendarDate(startDateString);
         int numberOfFullDays = 0;
         LocalDateTime endDateValue = DateUtils.parseStringIntoDate(endDateString, DateConstants.WW_PATTERN);
@@ -131,6 +149,7 @@ public class ItemPage extends AbstractPage {
     }
 
     public void navigateToCalendarDate(String date) {
+        waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         LocalDateTime expectedDate = DateUtils.parseStringIntoDate(date, DateConstants.WW_PATTERN);
         while (!getIntervalStartDate().plusDays(7).isAfter(expectedDate)) {
             nextIntervalElement.click();
@@ -145,7 +164,7 @@ public class ItemPage extends AbstractPage {
         navigateToCalendarDate(startDateString);
         if (checkIfElementExists("a[class*='fc-time-grid-event'] .fc-time[data-full*='" + startDateString.split(", ")[1].replaceFirst("^0+(?!$)", "") + " - "
                 + "']")) {
-            navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(startDateString, endDateString);
+            getTheFullDaysBookingNumber(startDateString, endDateString);
             if (checkIfElementExists("a[class*='fc-time-grid-event'] .fc-time[data-full*=' - "
                     + endDateString.split(", ")[1].replaceFirst("^0+(?!$)", "") + "']")) {
                 isBookingPresent = true;
@@ -154,8 +173,20 @@ public class ItemPage extends AbstractPage {
         return isBookingPresent;
     }
 
+    public boolean isFullDaysBookingPresentInCalendarHeader(Booking booking) {
+        int calendarHeaderFullDaysBookingNumber = getTheCalendarHeaderFullDaysBookingNumber(booking.getStartDate(), booking.getEndDate());
+        if (calendarHeaderFullDaysBookingNumber == booking.getFullDaysBookingNumber()) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getCalendarHeaderFullDaysBookingNumber(String startDateString, String endDateString) {
+        return getTheCalendarHeaderFullDaysBookingNumber(startDateString, endDateString);
+    }
+
     public int getFullDaysBookingNumber(String startDateString, String endDateString) {
-        return navigateToCalendarIntervalAndGetTheFullDaysBookingNumber(startDateString, endDateString);
+        return getTheFullDaysBookingNumber(startDateString, endDateString);
     }
 
     public void clickOnBooking(String startDateString) {

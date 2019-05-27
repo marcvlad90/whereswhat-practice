@@ -60,6 +60,21 @@ public class BookingsFlowSteps extends AbstractSteps {
     }
 
     @StepGroup
+    public void checkIfFullDaysBookingIsPresentOrNotInTheCalendarHeader(boolean shouldBePresent) {
+        Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
+        headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
+        itemsSteps.searchForItem(booking.getItem().getTitle());
+        itemsSteps.clickOnItem(booking.getItem().getTitle());
+        if (shouldBePresent) {
+            Assert.assertTrue("The booking was not found in the calendar!",
+                    itemSteps.isFullDaysBookingPresentInCalendarHeader(booking));
+        } else {
+            Assert.assertFalse("The booking was found in the calendar and it should not!",
+                    itemSteps.isFullDaysBookingPresentInCalendarHeader(booking));
+        }
+    }
+
+    @StepGroup
     public void checkIfBookingsArePresentOrNotInTheCalendar(boolean shouldBePresent) {
         List<Booking> bookings = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);

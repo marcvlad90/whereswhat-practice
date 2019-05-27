@@ -42,7 +42,9 @@ public class Test030UiBookItemForWholeDays extends BaseTest {
     public void test030UiBookItemForWholeDays() {
         bookingsFlowSteps.bookItemForWholeDays(2, 2);
         bookingsFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(true);
-        bookingsFlowSteps.bookItemForWholeDays(100, 100);
+        bookingsFlowSteps.checkIfFullDaysBookingIsPresentOrNotInTheCalendarHeader(true);
+        bookingsFlowSteps.bookItemForWholeDays(10, 100);
         bookingsFlowSteps.checkIfBookingsArePresentOrNotByCheckingDetails(true);
+        bookingsFlowSteps.checkIfFullDaysBookingIsPresentOrNotInTheCalendarHeader(true);
     }
 }

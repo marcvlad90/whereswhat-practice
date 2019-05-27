@@ -37,6 +37,7 @@ public class HeaderPage extends AbstractPage {
     }
 
     public void logout() {
+        int numberOfAttempts = 0;
         do {
             try {
                 getDriver().navigate().to(EnvironmentConstants.BASE_URL);
@@ -44,8 +45,9 @@ public class HeaderPage extends AbstractPage {
                 element(confirmLogoutButton).waitUntilClickable();
                 confirmLogoutButton.click();
             } catch (WebDriverException e) {
+                numberOfAttempts++;
                 e.getMessage();
             }
-        } while (!containsAllText("LOGIN", "FREE SIGN UP"));
+        } while (!containsAllText("LOGIN", "FREE SIGN UP") && (numberOfAttempts < 10));
     }
 }

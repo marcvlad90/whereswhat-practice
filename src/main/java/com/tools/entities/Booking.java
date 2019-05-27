@@ -61,9 +61,7 @@ public class Booking {
         //        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(
         //                startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()),
         //                endDateDateType.minusMinutes(endDateDateType.getMinute()).minusHours(endDateDateType.getHour()));
-        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(
-                startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()),
-                endDateDateType);
+        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(startDateDateType, endDateDateType);
     }
 
     @JsonProperty("note")

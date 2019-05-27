@@ -48,7 +48,7 @@ public class BookingsSteps extends AbstractSteps {
         Assert.assertTrue(
                 "The failing booking error message is not present!",
                 bookingsPage.checkIfElementExists(".message-alert") ||
-                bookingsPage.checkIfElementExists(".noty_text"));
+                        bookingsPage.checkIfElementExists(".noty_text"));
     }
 
     @Step

@@ -1,6 +1,7 @@
 package com.steps.frontend;
 
 import com.pages.ItemPage;
+import com.tools.entities.Booking;
 
 import net.thucydides.core.annotations.Step;
 
@@ -21,6 +22,11 @@ public class ItemSteps extends AbstractSteps {
     @Step
     public boolean isBookingPresentInCalendar(String startDateString, String endDateString) {
         return itemPage.isBookingPresentInCalendar(startDateString, endDateString);
+    }
+
+    @Step
+    public boolean isFullDaysBookingPresentInCalendarHeader(Booking booking) {
+        return itemPage.isFullDaysBookingPresentInCalendarHeader(booking);
     }
 
     @Step

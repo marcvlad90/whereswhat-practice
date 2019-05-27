@@ -54,6 +54,7 @@ public class BookingFactory {
         LocalDateTime endDate = DateUtils.addDaysToDate(forHowManyDays, startDate);
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
+        bookingRequest.setFullDaysBookingNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());
