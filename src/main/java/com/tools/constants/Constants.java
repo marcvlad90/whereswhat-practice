@@ -18,6 +18,7 @@ public class Constants {
     //wait custom time
     public static final int WAIT_TIME_ONE_SECOND_IN_MILISECONDS = 1000;
     public static final int WAIT_TIME_MAXIMUM_IN_SECONDS = 30;
+    public static final int WAIT_TIME_MAXIMUM_IN_MILISECONDS = 30;
     public static final int WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS = 500;
     //items page actions
     public static final String ITEMS_PAGE_ACTION_ADD_CATEGORY = "Add Category";

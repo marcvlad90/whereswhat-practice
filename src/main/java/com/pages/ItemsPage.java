@@ -40,7 +40,7 @@ public class ItemsPage extends AbstractPage {
     private final String spinnerElementCssSelector = ".spinner";
 
     public void selectCategoryForImport(String categoryName) {
-        element(importItemsCategoriesDropDown).waitUntilVisible();
+        waitForElementToAppear(importItemsCategoriesDropDown, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         element(importItemsCategoriesDropDown).selectByVisibleText(categoryName);
     }
 
@@ -143,6 +143,7 @@ public class ItemsPage extends AbstractPage {
             Assert.assertTrue("The item is under another category",
                     propertyValue.contentEquals(getItemPropertyValue(itemTitle, propertyName)));
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 

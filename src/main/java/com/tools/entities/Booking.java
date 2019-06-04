@@ -50,6 +50,7 @@ public class Booking {
     }
 
     public long getFullDaysBookingNumber() {
+        System.out.println("The expected number of full days booking is: " + fullDaysBookingNumber);
         return fullDaysBookingNumber;
     }
 
@@ -58,10 +59,7 @@ public class Booking {
         LocalDateTime endDateDateType = DateUtils.parseStringIntoDate((getEndDate()), DateConstants.WW_PATTERN);
         System.out.println("START " + startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()));
         System.out.println("END " + endDateDateType);
-        //        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(
-        //                startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()),
-        //                endDateDateType.minusMinutes(endDateDateType.getMinute()).minusHours(endDateDateType.getHour()));
-        this.fullDaysBookingNumber = ChronoUnit.DAYS.between(startDateDateType, endDateDateType);
+        this.fullDaysBookingNumber = startDateDateType.until(endDateDateType, ChronoUnit.DAYS);
     }
 
     @JsonProperty("note")

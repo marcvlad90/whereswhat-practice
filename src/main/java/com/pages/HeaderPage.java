@@ -18,7 +18,7 @@ public class HeaderPage extends AbstractPage {
     private final String profileDropDownCssSelector = ".dropdown-toggle";
 
     public void navigateToMenu(String menu) {
-        waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        waitForTextToAppear(menu, Constants.WAIT_TIME_MAXIMUM_IN_MILISECONDS);
         WebElement menuItem = getDriver().findElement(By.cssSelector(menuItemsCssSelector.replace("textToReplace()", menu.toLowerCase())));
         waitForElementToBeClickable(menuItem, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
@@ -37,6 +37,7 @@ public class HeaderPage extends AbstractPage {
     }
 
     public void logout() {
+        getDriver().manage().deleteAllCookies();
         int numberOfAttempts = 0;
         do {
             try {

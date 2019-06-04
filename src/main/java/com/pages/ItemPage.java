@@ -9,10 +9,12 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ItemPage extends AbstractPage {
@@ -95,7 +97,11 @@ public class ItemPage extends AbstractPage {
     }
 
     public int getAllCalendarHeaderConsecutiveDisplayedFullDaysOfBooking(String endDate) {
-        return Integer.parseInt(getDriver().findElement(By.cssSelector(".fc-content-skeleton tr>td.fc-event-container")).getAttribute("colspan"));
+        try {
+            return Integer.parseInt(getDriver().findElement(By.cssSelector(".fc-content-skeleton tr>td.fc-event-container")).getAttribute("colspan"));
+        } catch (NoSuchElementException e) {
+            return 0;
+        }
     }
 
     public int getAllConsecutiveDisplayedFullDaysOfBooking(String endDate) {
@@ -137,6 +143,19 @@ public class ItemPage extends AbstractPage {
         navigateToCalendarDate(startDateString);
         int numberOfFullDays = 0;
         LocalDateTime endDateValue = DateUtils.parseStringIntoDate(endDateString, DateConstants.WW_PATTERN);
+        LocalDateTime startDateValue = DateUtils.parseStringIntoDate(startDateString, DateConstants.WW_PATTERN);
+        if ((startDateValue.until(endDateValue, ChronoUnit.DAYS) > 0)
+                && (((endDateValue.getHour() > startDateValue.getHour()) || ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
+                        .getMinute() >= startDateValue.getMinute()))))) {
+            //            if ((endDateValue.getHour() > startDateValue.getHour()) || ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
+            //                    .getMinute() >= startDateValue.getMinute()))) {
+            numberOfFullDays = 1;
+            //            }
+            //            else if ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
+            //                    .getMinute() >= startDateValue.getMinute())) {
+            //                numberOfFullDays = 1;
+            //            }
+        }
         while (getIntervalStartDate().isAfter(endDateValue)) {
             previousIntervalElement.click();
         }
@@ -145,6 +164,7 @@ public class ItemPage extends AbstractPage {
             nextIntervalElement.click();
             numberOfFullDays += getAllConsecutiveDisplayedFullDaysOfBooking(endDateString);
         }
+        System.out.println("The actual number of full days booking is: " + numberOfFullDays);
         return numberOfFullDays;
     }
 
@@ -183,10 +203,6 @@ public class ItemPage extends AbstractPage {
 
     public int getCalendarHeaderFullDaysBookingNumber(String startDateString, String endDateString) {
         return getTheCalendarHeaderFullDaysBookingNumber(startDateString, endDateString);
-    }
-
-    public int getFullDaysBookingNumber(String startDateString, String endDateString) {
-        return getTheFullDaysBookingNumber(startDateString, endDateString);
     }
 
     public void clickOnBooking(String startDateString) {

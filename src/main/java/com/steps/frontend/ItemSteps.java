@@ -16,7 +16,7 @@ public class ItemSteps extends AbstractSteps {
 
     @Step
     public int getFullDaysBookingNumber(String startDateString, String endDateString) {
-        return itemPage.getFullDaysBookingNumber(startDateString, endDateString);
+        return itemPage.getTheFullDaysBookingNumber(startDateString, endDateString);
     }
 
     @Step
