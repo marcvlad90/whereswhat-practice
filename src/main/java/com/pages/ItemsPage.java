@@ -40,7 +40,7 @@ public class ItemsPage extends AbstractPage {
     private final String spinnerElementCssSelector = ".spinner";
 
     public void selectCategoryForImport(String categoryName) {
-        waitForElementToAppear(importItemsCategoriesDropDown, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
+        waitForElementToAppear(importItemsCategoriesDropDown, Constants.WAIT_TIME_MAXIMUM_IN_MILISECONDS);
         element(importItemsCategoriesDropDown).selectByVisibleText(categoryName);
     }
 
