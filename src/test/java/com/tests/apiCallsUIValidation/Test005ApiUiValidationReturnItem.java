@@ -36,10 +36,10 @@ public class Test005ApiUiValidationReturnItem extends BaseTest {
         apiLoginSteps.loginAsAdmin();
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingSteps.bookItemFromNow(1, 1, 1);
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingSteps.bookItemFromNow(1, 1, 1);
     }
 
     @Test

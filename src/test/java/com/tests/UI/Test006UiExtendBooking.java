@@ -36,7 +36,7 @@ public class Test006UiExtendBooking extends BaseTest {
         loginFlowSteps.loginAsAdmin();
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingsSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingsSteps.bookItemFromNow(1, 1, 1);
     }
 
     @Test

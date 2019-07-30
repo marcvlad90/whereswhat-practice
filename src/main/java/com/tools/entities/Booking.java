@@ -54,7 +54,7 @@ public class Booking {
         return fullDaysBookingNumber;
     }
 
-    public void setFullDaysBookingNumber() {
+    public void setBookingFullDaysNumber() {
         LocalDateTime startDateDateType = DateUtils.parseStringIntoDate((getStartDate()), DateConstants.WW_PATTERN);
         LocalDateTime endDateDateType = DateUtils.parseStringIntoDate((getEndDate()), DateConstants.WW_PATTERN);
         System.out.println("START " + startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()));

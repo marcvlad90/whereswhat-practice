@@ -29,7 +29,7 @@ public class Test006ApiExtendBooking extends BaseTest {
         apiLoginSteps.loginAsAdmin();
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingsSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingsSteps.bookItemFromNow(1, 1, 1);
     }
 
     @Test

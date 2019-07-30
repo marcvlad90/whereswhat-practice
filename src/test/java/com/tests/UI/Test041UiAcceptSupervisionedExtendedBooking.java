@@ -39,7 +39,7 @@ public class Test041UiAcceptSupervisionedExtendedBooking extends BaseTest {
         apiCategorySteps.createSupervisionedCategory();
         apiItemSteps.createItem();
         apiLoginSteps.loginAsRegularUser();
-        apiBookingsSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingsSteps.bookItemFromNow(1, 1, 1);
         apiLoginSteps.loginAsAdmin();
         apiBookingsSteps.acceptItemBooking();
     }

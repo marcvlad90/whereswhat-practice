@@ -140,7 +140,7 @@ public class BookingsFlowSteps extends AbstractSteps {
         bookingsSteps.declineBooking(booking);
         booking.setStatus("accepted");
         booking.setEndDate(booking.getEndDateInitial());
-        booking.setFullDaysBookingNumber();
+        booking.setBookingFullDaysNumber();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, booking);
     }
 
@@ -234,7 +234,7 @@ public class BookingsFlowSteps extends AbstractSteps {
         booking.setEndDate(DateFormatter.formatDate(
                 DateUtils.addHoursToDate(numberOfHoursToExtend, DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
                 DateConstants.WW_PATTERN).toString());
-        booking.setFullDaysBookingNumber();
+        booking.setBookingFullDaysNumber();
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.searchForItem(booking.getItem().getTitle());
         itemsSteps.clickOnItem(booking.getItem().getTitle());
@@ -293,8 +293,9 @@ public class BookingsFlowSteps extends AbstractSteps {
         itemSteps.confirmBookingReturn();
         booking.setStatus("Completed");
         booking.setCanReturn(false);
-        String newEndDate = DateFormatter.formatDate(DateUtils.addHoursToDate(1, DateUtils.getCurrentDate()), DateConstants.WW_PATTERN).toString();
+        String newEndDate = DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_PATTERN).toString();
         booking.setEndDate(newEndDate);
+        booking.setBookingFullDaysNumber();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, booking);
         SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.BOOKINGS, booking);
     }

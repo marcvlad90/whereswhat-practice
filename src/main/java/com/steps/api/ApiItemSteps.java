@@ -95,8 +95,8 @@ public class ApiItemSteps extends AbstractApiSteps {
     @Step
     public void checkThatItemExists(int itemId, int categoryId, String itemName) {
         Item itemResponse = getResource(ApiUrlConstants.ITEMS + "/" + itemId, Item.class);
-        Assert.assertFalse(String.format("The item %s does not exist under %s category!", itemName, itemResponse.getCategory().getName()),
-                !(itemResponse.getId() == itemId) && !(itemResponse.getCategory().getId() == categoryId) && !itemResponse.getTitle().contentEquals(itemName));
+        Assert.assertTrue(String.format("The item %s does not exist under %s category!", itemName, itemResponse.getCategory().getName()),
+                (itemResponse.getId() == itemId) && (itemResponse.getCategory().getId() == categoryId) && itemResponse.getTitle().contentEquals(itemName));
     }
 
     @Step
@@ -163,9 +163,8 @@ public class ApiItemSteps extends AbstractApiSteps {
     @Step
     public void renameItem() {
         Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
-        item.setTitle(item.getTitle() + " Updated");
+        item.setTitle(item.getTitle() + RandomString.make(10));
         updateResource(ApiUrlConstants.UPDATE_ITEM, item, item.getId());
-        SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, item);
     }
 
     @Step

@@ -39,4 +39,10 @@ public class ApiLoginSteps extends AbstractApiSteps {
         User user = SerenitySessionUtils.getFromSession(SerenityKeyConstants.USER);
         Assert.assertTrue("You are not logged in!", !user.getAuthenticationToken().isEmpty());
     }
+
+    @Step
+    public void logout() {
+        deleteResource(ApiUrlConstants.LOGOUT);
+        AbstractApiSteps.extraHeaders.remove(HeaderConstants.API_HEADER_AUTHORIZATION);
+    }
 }

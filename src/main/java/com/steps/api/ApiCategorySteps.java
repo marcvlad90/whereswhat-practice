@@ -9,6 +9,7 @@ import com.tools.factories.CategoryFactory;
 import com.tools.utils.InstanceUtils;
 import com.tools.utils.SerenitySessionUtils;
 
+import net.bytebuddy.utility.RandomString;
 import net.thucydides.core.annotations.Step;
 
 import org.junit.Assert;
@@ -21,8 +22,8 @@ public class ApiCategorySteps extends AbstractApiSteps {
     @Step
     public void checkThatCategoryExists(int categoryId, String categoryName) {
         Category categoryResponse = getResource(ApiUrlConstants.CATEGORIES + "/" + categoryId, Category.class);
-        Assert.assertFalse(String.format("Category %s does not exist! ", categoryName), !(categoryResponse.getId() == categoryId)
-                && !categoryResponse.getName().contentEquals(categoryName));
+        Assert.assertTrue(String.format("Category %s does not exist! ", categoryName), (categoryResponse.getId() == categoryId)
+                && categoryResponse.getName().contentEquals(categoryName));
     }
 
     @Step
@@ -102,9 +103,7 @@ public class ApiCategorySteps extends AbstractApiSteps {
     @Step
     public void renameCategory() {
         Category categoryRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-
-        categoryRequest.setName(categoryRequest.getName() + " Updated");
-
+        categoryRequest.setName(categoryRequest.getName() + RandomString.make(10));
         updateResource(ApiUrlConstants.UPDATE_CATEGORY,
                 categoryRequest, categoryRequest.getId());
     }

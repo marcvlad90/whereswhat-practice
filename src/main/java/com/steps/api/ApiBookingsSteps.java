@@ -35,6 +35,19 @@ public class ApiBookingsSteps extends AbstractApiSteps {
     }
 
     @Step
+    public void bookItemFromNow(int forHowManyDays, int forHowManyHours, int forHowManyMinutes) {
+        if (DateUtils.getCurrentDate().getSecond() > 55) {
+            waitABit(5000);
+        }
+        Booking bookingRequest = BookingFactory.getApiBookingFromNowInstance(forHowManyDays, forHowManyHours, forHowManyDays);
+        Booking bookingResponse = createResource(ApiUrlConstants.BOOKINGS, bookingRequest, Booking.class);
+        bookingRequest = (Booking)InstanceUtils.mergeObjects(bookingRequest, bookingResponse);
+        bookingRequest.setEndDateInitial(bookingRequest.getEndDate());
+        SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, bookingRequest);
+        SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.BOOKINGS, bookingRequest);
+    }
+
+    @Step
     public void bookItemWithDefaultSetLength() {
         Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
         Booking bookingRequest = BookingFactory.getApiParameterizedBookingInstance(0, 0, 0, 0, category.getDefaultBookingLength(), 0);
@@ -86,7 +99,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         Booking expectedBooking = getBooking(booking, item);
         if (shouldExist) {
             Assert.assertTrue(String.format("Booking of item %s does not exist or its details are incorrect!", expectedBooking.getItem().getTitle()),
-                    expectedBooking != null);
+                    expectedBooking.getItem().getTitle().contentEquals(item.getTitle()));
         } else {
             try {
                 Assert.assertTrue(String.format("Booking of item %s exists and it should not!", expectedBooking.getItem().getTitle()),
@@ -162,7 +175,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
                 waitABit(5000);
             }
             bookingReturnRequest.setEndDate(DateFormatter.formatDate(
-                    DateUtils.getCurrentDate().plusHours(1), DateConstants.WW_PATTERN));
+                    DateUtils.getCurrentDate(), DateConstants.WW_PATTERN));
             Booking bookingReturnResponse = updateResource(ApiUrlConstants.UPDATED_BOOKING, bookingReturnRequest, Booking.class,
                     bookingReturnRequest.getId());
             try {
@@ -170,6 +183,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
             } catch (IllegalArgumentException e) {
                 e.getMessage();
             }
+            bookingReturnRequest.setBookingFullDaysNumber();
             SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, bookingReturnRequest);
             SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.BOOKINGS, bookingReturnRequest);
         }
@@ -187,6 +201,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingRequest.setStatus("accepted");
         Booking bookingResponse = updateResource(ApiUrlConstants.UPDATED_BOOKING, bookingRequest, Booking.class, bookingRequest.getId());
         bookingRequest.setEndDate(DateFormatter.formatStringDate(bookingResponse.getEndDate(), DateConstants.WW_PATTERN));
+        bookingRequest.setBookingFullDaysNumber();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, bookingRequest);
     }
 
@@ -204,6 +219,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingRequest.setStatus("accepted");
         Booking bookingReponse = updateResource(ApiUrlConstants.UPDATED_BOOKING, bookingRequest, Booking.class, bookingRequest.getId());
         bookingRequest.setEndDate(DateFormatter.formatStringDate(bookingReponse.getEndDate(), DateConstants.WW_PATTERN));
+        bookingRequest.setBookingFullDaysNumber();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.BOOKING, bookingRequest);
     }
 
@@ -245,23 +261,23 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
                 DateUtils.addHoursToDate(numberOfHoursToExtend,
                         DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDate(), DateConstants.WW_PATTERN)),
-                DateConstants.WW_PATTERN)
-                .toString());
+                        DateConstants.WW_PATTERN)
+                        .toString());
         bookingExtendRequest.setEndDatePending(DateFormatter
                 .formatDate(
                         DateUtils.addDaysToDate(numberOfDaysToExtend,
                                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN)),
-                        DateConstants.WW_PATTERN)
-                .toString());
+                                DateConstants.WW_PATTERN)
+                                .toString());
         bookingExtendRequest.setStatus(null);
         bookingExtendRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_RETURN_DATE_PATTERN).toString());
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(
                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN),
                 DateConstants.WW_RETURN_DATE_PATTERN).toString());
-        bookingExtendRequest.setFullDaysBookingNumber();
         Booking bookingExtendResponse = updateResource(ApiUrlConstants.UPDATED_BOOKING, bookingExtendRequest, Booking.class, bookingExtendRequest.getId());
         bookingExtendRequest = (Booking)InstanceUtils.mergeObjects(bookingExtendRequest, bookingExtendResponse);
         bookingExtendRequest.setEndDate(DateFormatter.formatStringDate(bookingExtendResponse.getEndDate(), DateConstants.WW_PATTERN));
+        bookingExtendRequest.setBookingFullDaysNumber();
         if (bookingExtendResponse.getExtensionStatus().equals("pending")) {
             bookingExtendRequest.setStatus("pending");
         }
@@ -278,7 +294,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
                 .formatDate(
                         DateUtils.addDaysToDate(numberOfDaysToExtend,
                                 DateUtils.parseStringIntoDate(bookingExtendRequest.getEndDatePending(), DateConstants.WW_PATTERN)), DateConstants.WW_PATTERN)
-                .toString());
+                                .toString());
         bookingExtendRequest.setStatus(null);
         bookingExtendRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_RETURN_DATE_PATTERN).toString());
         bookingExtendRequest.setEndDatePending(DateFormatter.formatDate(

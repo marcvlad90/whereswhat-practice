@@ -32,7 +32,7 @@ public class BookingFactory {
         endDate = DateUtils.roundLocalDateTimeToNearestMinutes(endDate, 5);
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
-        bookingRequest.setFullDaysBookingNumber();
+        bookingRequest.setBookingFullDaysNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());
@@ -54,7 +54,7 @@ public class BookingFactory {
         LocalDateTime endDate = DateUtils.addDaysToDate(forHowManyDays, startDate);
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
-        bookingRequest.setFullDaysBookingNumber();
+        bookingRequest.setBookingFullDaysNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());
@@ -63,22 +63,44 @@ public class BookingFactory {
 
     public static Booking getApiParameterizedBookingInstance(int howManyDaysFromNow, int howManyHoursFromNow, int howManyMinutesFromNow, int forHowManyDays,
             int forHowManyHours, int forHowManyMinutes) {
-        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
         User userRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.USER);
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
         Booking bookingRequest = new Booking();
         bookingRequest.setItemId(item.getId());
         bookingRequest.setUserId(userRequest.getId());
         bookingRequest.setItem(item);
         bookingRequest.setUser(userRequest);
         bookingRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_PATTERN));
-        LocalDateTime startDate = DateUtils.addDaysHoursAndMinutesToDate(DateUtils.getCurrentDate(), howManyDaysFromNow, howManyHoursFromNow,
-                howManyMinutesFromNow);
-        startDate = DateUtils.roundLocalDateTimeToNearestMinutes(startDate, 5);
-        LocalDateTime endDate = DateUtils.addDaysHoursAndMinutesToDate(startDate, forHowManyDays, forHowManyHours, forHowManyMinutes);
-        endDate = DateUtils.roundLocalDateTimeToNearestMinutes(endDate, 5);
+        LocalDateTime startDate = DateUtils.roundLocalDateTimeToNearestMinutes(
+                DateUtils.addDaysHoursAndMinutesToDate(DateUtils.getCurrentDate(), howManyDaysFromNow, howManyHoursFromNow,
+                        howManyMinutesFromNow), 5);
         bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
+        LocalDateTime endDate = DateUtils.roundLocalDateTimeToNearestMinutes(
+                DateUtils.addDaysHoursAndMinutesToDate(startDate, forHowManyDays, forHowManyHours, forHowManyMinutes), 5);
         bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
-        bookingRequest.setFullDaysBookingNumber();
+        bookingRequest.setBookingFullDaysNumber();
+        System.out.println("client date is: " + bookingRequest.getClientTime());
+        System.out.println("start date is: " + bookingRequest.getStartDate());
+        System.out.println("end date is: " + bookingRequest.getEndDate());
+        return bookingRequest;
+    }
+
+    public static Booking getApiBookingFromNowInstance(int forHowManyDays,
+            int forHowManyHours, int forHowManyMinutes) {
+        User userRequest = SerenitySessionUtils.getFromSession(SerenityKeyConstants.USER);
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        Booking bookingRequest = new Booking();
+        bookingRequest.setItemId(item.getId());
+        bookingRequest.setUserId(userRequest.getId());
+        bookingRequest.setItem(item);
+        bookingRequest.setUser(userRequest);
+        bookingRequest.setClientTime(DateFormatter.formatDate(DateUtils.getCurrentDate(), DateConstants.WW_PATTERN));
+        LocalDateTime startDate = DateUtils.getCurrentDate();
+        bookingRequest.setStartDate(DateFormatter.formatDate(startDate, DateConstants.WW_PATTERN));
+        LocalDateTime endDate = DateUtils.roundLocalDateTimeToNearestMinutes(
+                DateUtils.addDaysHoursAndMinutesToDate(startDate, forHowManyDays, forHowManyHours, forHowManyMinutes), 5);
+        bookingRequest.setEndDate(DateFormatter.formatDate(endDate, DateConstants.WW_PATTERN));
+        bookingRequest.setBookingFullDaysNumber();
         System.out.println("client date is: " + bookingRequest.getClientTime());
         System.out.println("start date is: " + bookingRequest.getStartDate());
         System.out.println("end date is: " + bookingRequest.getEndDate());

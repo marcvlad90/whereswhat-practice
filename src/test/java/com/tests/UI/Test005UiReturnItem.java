@@ -36,7 +36,7 @@ public class Test005UiReturnItem extends BaseTest {
         loginFlowSteps.loginAsAdmin();
         apiCategorySteps.createCategory();
         apiItemSteps.createItem();
-        apiBookingSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingSteps.bookItemFromNow(1, 1, 1);
     }
 
     @Test
