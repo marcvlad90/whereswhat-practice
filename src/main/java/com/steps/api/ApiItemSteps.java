@@ -212,7 +212,7 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void uploadImageToAllItemsFromSession(String fileName) {
+    public void uploadImageToAllItems(String fileName) {
         List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         for (Category category : categories) {
             ItemsCollection[] items = getResource(ApiUrlConstants.ITEMS + "?per_page=9999" + category.getId(),

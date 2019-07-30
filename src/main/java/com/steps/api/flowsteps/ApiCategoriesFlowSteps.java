@@ -19,8 +19,8 @@ public class ApiCategoriesFlowSteps extends AbstractApiSteps {
         int initialNumberOfCategories;
         do {
             initialNumberOfCategories = apiCategorySteps.getTheNumberOfCategories();
-            apiBookingsSteps.returnAllBookedItems();
-            apiCategorySteps.deleteAllCategories();
+            apiBookingsSteps.returnAllBookedItemsFromCompany();
+            apiCategorySteps.deleteAllCategoriesFromCompany();
         } while (initialNumberOfCategories > apiCategorySteps.getTheNumberOfCategories());
     }
 }

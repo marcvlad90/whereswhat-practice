@@ -33,7 +33,7 @@ public class Test002ApiUiValidationCRUDCategory extends BaseTest {
         apiCategorySteps.createCategory();
         apiCategorySteps.renameCategory();
         itemsFlowSteps.checkIfCategoriesArePresentOrNot(true);
-        apiCategorySteps.deleteAllCategoriesFromSession();
+        apiCategorySteps.deleteAllCategories();
         itemsFlowSteps.checkIfCategoriesArePresentOrNot(false);
     }
 }

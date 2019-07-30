@@ -114,7 +114,7 @@ public class ApiCategorySteps extends AbstractApiSteps {
     }
 
     @Step
-    public void deleteAllCategories() {
+    public void deleteAllCategoriesFromCompany() {
         CategoriesCollection[] categories = getResource(ApiUrlConstants.CATEGORIES + "?perPage=9999", CategoriesCollection[].class);
         for (int i = 0; i < categories.length; i++) {
             try {
@@ -133,7 +133,7 @@ public class ApiCategorySteps extends AbstractApiSteps {
     }
 
     @Step
-    public void uploadImageToCategoriesFromSession(String fileName) {
+    public void uploadImageToCategories(String fileName) {
         List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         for (Category category : categories) {
             uploadResourceToEntity(ApiUrlConstants.UPLOAD_IMAGE_FILE, Constants.TEST_DATA_FILE_PATH + fileName, SerenityKeyConstants.CATEGORY,
@@ -143,7 +143,7 @@ public class ApiCategorySteps extends AbstractApiSteps {
     }
 
     @Step
-    public void deleteAllCategoriesFromSession() {
+    public void deleteAllCategories() {
         try {
             List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
             for (Category category : categories) {

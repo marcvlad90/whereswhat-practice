@@ -36,7 +36,7 @@ public class Test010ApiUploadImageForCategoryAndItem extends BaseTest {
     public void test010ApiUploadImageForCategoryAndItem() {
         apiCategorySteps.uploadImageToCategory("category.png");
         apiItemSteps.uploadImageToItem("item.png");
-        apiCategorySteps.uploadImageToCategoriesFromSession("category.png");
-        apiItemSteps.uploadImageToAllItemsFromSession("item.png");
+        apiCategorySteps.uploadImageToCategories("category.png");
+        apiItemSteps.uploadImageToAllItems("item.png");
     }
 }

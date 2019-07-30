@@ -47,7 +47,7 @@ public class Test005ApiUiValidationReturnItem extends BaseTest {
         apiBookingSteps.returnBookedItem();
         bookingFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(true);
         bookingFlowSteps.checkIfBookingIsPresentOrNotInTheCalendar(true);
-        apiBookingSteps.returnAllBookedItemsFromSession();
+        apiBookingSteps.returnAllBookedItems();
         bookingFlowSteps.checkIfBookingsArePresentOrNotByCheckingDetails(true);
         bookingFlowSteps.checkIfBookingIsPresentOrNotInTheCalendar(true);
     }

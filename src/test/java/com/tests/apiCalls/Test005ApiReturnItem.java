@@ -36,7 +36,7 @@ public class Test005ApiReturnItem extends BaseTest {
     public void test005ApiReturnItem() {
         apiBookingSteps.returnBookedItem();
         apiBookingSteps.checkThatBookedItemWasReturned();
-        apiBookingSteps.returnAllBookedItemsFromSession();
+        apiBookingSteps.returnAllBookedItems();
         apiBookingSteps.checkThatAllBookedItemsWereReturned();
     }
 }

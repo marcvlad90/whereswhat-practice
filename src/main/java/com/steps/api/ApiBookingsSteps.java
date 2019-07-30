@@ -224,7 +224,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void returnAllBookedItemsFromSession() {
+    public void returnAllBookedItems() {
         List<Booking> bookings = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
         try {
             for (int i = 0; i < bookings.size(); i++) {
@@ -236,7 +236,7 @@ public class ApiBookingsSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void returnAllBookedItems() {
+    public void returnAllBookedItemsFromCompany() {
         try {
             BookingsCollection[] bookings = getResource(ApiUrlConstants.BOOKINGS + "?perPage=9999", BookingsCollection[].class);
             for (int i = 0; i < bookings.length; i++) {
