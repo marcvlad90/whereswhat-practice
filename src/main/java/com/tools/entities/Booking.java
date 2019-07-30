@@ -8,6 +8,7 @@ import com.tools.utils.DateUtils;
 import org.junit.Ignore;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -55,7 +56,12 @@ public class Booking {
     }
 
     public void setBookingFullDaysNumber() {
-        LocalDateTime startDateDateType = DateUtils.parseStringIntoDate((getStartDate()), DateConstants.WW_PATTERN);
+        LocalDateTime startDateDateType;
+        try {
+            startDateDateType = DateUtils.parseStringIntoDate((getStartDate()), DateConstants.WW_PATTERN);
+        } catch (DateTimeParseException e) {
+            startDateDateType = DateUtils.parseStringIntoDate((getStartDate()), DateConstants.WW_RETURN_DATE_PATTERN);
+        }
         LocalDateTime endDateDateType = DateUtils.parseStringIntoDate((getEndDate()), DateConstants.WW_PATTERN);
         System.out.println("START " + startDateDateType.plusMinutes(60 - startDateDateType.getMinute()).plusHours(23 - startDateDateType.getHour()));
         System.out.println("END " + endDateDateType);
