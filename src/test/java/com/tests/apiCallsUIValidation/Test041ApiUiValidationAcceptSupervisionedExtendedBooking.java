@@ -46,7 +46,7 @@ public class Test041ApiUiValidationAcceptSupervisionedExtendedBooking extends Ba
         apiLoginSteps.loginAsRegularUser();
         apiBookingsSteps.extendBooking(1, 1);
         loginFlowSteps.loginAsRegularUser();
-        bookingsFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(true);
+        bookingsFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(false);
         apiLoginSteps.loginAsAdmin();
         apiBookingsSteps.acceptItemBooking();
         bookingsFlowSteps.checkIfBookingIsPresentOrNotByCheckingDetails(true);
