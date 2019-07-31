@@ -36,10 +36,10 @@ public class BaseTest {
     @After
     public void tearDown() {
         StepEventBus.getEventBus().clearStepFailures();
-        //        apiLoginSteps.logout();
-        //        apiLoginSteps.loginAsAdmin();
-        //        apiBookingsSteps.returnAllBookedItems();
-        //        apiCategoriesSteps.deleteAllCategories();
-        //        webdriver.quit();
+        apiLoginSteps.logout();
+        apiLoginSteps.loginAsAdmin();
+        apiBookingsSteps.returnAllBookedItems();
+        apiCategoriesSteps.deleteAllCategories();
+        webdriver.quit();
     }
 }
