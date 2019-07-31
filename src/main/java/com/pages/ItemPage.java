@@ -101,6 +101,8 @@ public class ItemPage extends AbstractPage {
             return Integer.parseInt(getDriver().findElement(By.cssSelector(".fc-content-skeleton tr>td.fc-event-container")).getAttribute("colspan"));
         } catch (NoSuchElementException e) {
             return 0;
+        } catch (NumberFormatException e1) {
+            return 1;
         }
     }
 

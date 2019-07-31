@@ -52,7 +52,7 @@ public class BookingsFlowSteps extends AbstractSteps {
                     itemSteps.isBookingPresentInCalendar(booking.getStartDate(), booking.getEndDate()));
             Assert.assertTrue("The booking days number is incorrect!",
                     itemSteps.getFullDaysBookingNumber(booking.getStartDate(), booking.getEndDate()) == booking
-                    .getFullDaysBookingNumber());
+                            .getFullDaysBookingNumber());
         } else {
             Assert.assertFalse("The booking was found in the calendar and it should not!",
                     itemSteps.isBookingPresentInCalendar(booking.getStartDate(), booking.getEndDate()));
@@ -94,7 +94,7 @@ public class BookingsFlowSteps extends AbstractSteps {
                         + " and the expected full days booking number is " + bookings.get(i).getFullDaysBookingNumber());
                 Assert.assertTrue("The booking days number is incorrect!",
                         itemSteps.getFullDaysBookingNumber(bookings.get(i).getStartDate(), bookings.get(i).getEndDate()) == bookings.get(i)
-                        .getFullDaysBookingNumber());
+                                .getFullDaysBookingNumber());
             } else {
                 Assert.assertFalse("The booking was found in the calendar and it should not!",
                         itemSteps.isBookingPresentInCalendar(bookings.get(i).getStartDate(), bookings.get(i).getEndDate()));
@@ -255,14 +255,14 @@ public class BookingsFlowSteps extends AbstractSteps {
         booking.setEndDate(DateFormatter.formatDate(
                 DateUtils.addHoursToDate(numberOfHoursToExtend,
                         DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
-                        DateConstants.WW_PATTERN)
-                        .toString());
+                DateConstants.WW_PATTERN)
+                .toString());
         booking.setEndDate(DateFormatter
                 .formatDate(
                         DateUtils.addDaysToDate(numberOfDaysToExtend,
                                 DateUtils.parseStringIntoDate(booking.getEndDate(), DateConstants.WW_PATTERN)),
-                                DateConstants.WW_PATTERN)
-                                .toString());
+                        DateConstants.WW_PATTERN)
+                .toString());
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.searchForItem(booking.getItem().getTitle());
         itemsSteps.clickOnItem(booking.getItem().getTitle());
