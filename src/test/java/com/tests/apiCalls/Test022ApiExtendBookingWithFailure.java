@@ -34,12 +34,12 @@ public class Test022ApiExtendBookingWithFailure extends BaseTest {
     public void test022ApiExtendBookingWithFailure() {
         apiItemSteps.createItem();
         apiBookingsSteps.bookItem(3, 3, 3, 3, 3, 3);
-        apiBookingsSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingsSteps.bookItemFromNow(1, 1, 1);
         apiBookingsSteps.extendBookingWithFailure(3, 3);
         apiBookingsSteps.checkIfBookingOfItemExists(false);
         apiItemSteps.createItem();
         apiBookingsSteps.bookItem(3, 3, 3, 3, 3, 3);
-        apiBookingsSteps.bookItem(0, 0, 0, 1, 1, 1);
+        apiBookingsSteps.bookItemFromNow(1, 1, 1);
         apiBookingsSteps.extendBookingWithFailure(10, 10);
         apiBookingsSteps.checkIfBookingOfItemExists(false);
     }

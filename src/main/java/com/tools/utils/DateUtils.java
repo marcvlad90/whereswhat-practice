@@ -21,6 +21,11 @@ public class DateUtils {
         return date;
     }
 
+    public static LocalDateTime addDaysAndHoursToDate(LocalDateTime date, int days, int hours) {
+        date = DateUtils.addHoursToDate(hours, addDaysToDate(hours, date));
+        return date;
+    }
+
     public static LocalDateTime addHoursToDate(int hours, LocalDateTime date) {
         return date.plusMinutes(hours * 60);
     }

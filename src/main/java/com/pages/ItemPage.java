@@ -113,11 +113,11 @@ public class ItemPage extends AbstractPage {
             }
             else if (dayDivs.get(i).getAttribute("class").contains("fc-end")
                     && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return numberOfFullDays;
             } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")
                     && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return 0;
             }
         }
@@ -147,14 +147,14 @@ public class ItemPage extends AbstractPage {
         if ((startDateValue.until(endDateValue, ChronoUnit.DAYS) > 0)
                 && (((endDateValue.getHour() > startDateValue.getHour()) || ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
                         .getMinute() >= startDateValue.getMinute()))))) {
-            //            if ((endDateValue.getHour() > startDateValue.getHour()) || ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
-            //                    .getMinute() >= startDateValue.getMinute()))) {
-            numberOfFullDays = 1;
-            //            }
-            //            else if ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
-            //                    .getMinute() >= startDateValue.getMinute())) {
-            //                numberOfFullDays = 1;
-            //            }
+            if ((endDateValue.getHour() > startDateValue.getHour()) || ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
+                    .getMinute() >= startDateValue.getMinute()))) {
+                numberOfFullDays = 1;
+            }
+            else if ((endDateValue.getHour() == startDateValue.getHour()) && (endDateValue
+                    .getMinute() >= startDateValue.getMinute())) {
+                numberOfFullDays = 1;
+            }
         }
         while (getIntervalStartDate().isAfter(endDateValue)) {
             previousIntervalElement.click();
@@ -164,7 +164,6 @@ public class ItemPage extends AbstractPage {
             nextIntervalElement.click();
             numberOfFullDays += getAllConsecutiveDisplayedFullDaysOfBooking(endDateString);
         }
-        System.out.println("The actual number of full days booking is: " + numberOfFullDays);
         return numberOfFullDays;
     }
 

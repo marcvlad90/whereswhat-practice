@@ -1,6 +1,5 @@
 package com.suites;
 
-import com.tests.Test000CleanTheEnvironment;
 import com.tests.apiCalls.Test001ApiLogin;
 import com.tests.apiCalls.Test002ApiCRUDCategory;
 import com.tests.apiCalls.Test003ApiCRUDItem;
@@ -46,7 +45,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    Test000CleanTheEnvironment.class,
+    //Test000CleanTheEnvironment.class,
     Test001ApiLogin.class,
     Test002ApiCRUDCategory.class,
     Test003ApiCRUDItem.class,

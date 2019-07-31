@@ -39,7 +39,7 @@ public class Test041ApiAcceptSupervisionedExtendedBooking extends BaseTest {
     public void test041ApiAcceptSupervisionedExtendedBooking() {
         apiLoginSteps.loginAsRegularUser();
         apiBookingsSteps.extendBooking(1, 1);
-        apiBookingsSteps.checkIfBookingOfItemExists(true);
+        apiBookingsSteps.checkIfBookingOfItemExists(false);
         apiLoginSteps.loginAsAdmin();
         apiBookingsSteps.acceptItemBooking();
         apiBookingsSteps.checkIfBookingOfItemExists(true);
