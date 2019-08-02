@@ -1,5 +1,9 @@
 package com.suites;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
 import com.tests.apiCalls.Test001ApiLogin;
 import com.tests.apiCalls.Test002ApiCRUDCategory;
 import com.tests.apiCalls.Test003ApiCRUDItem;
@@ -38,10 +42,6 @@ import com.tests.apiCalls.Test039ApiAcceptSupervisionedBooking;
 import com.tests.apiCalls.Test040ApiDeclineSupervisionedBooking;
 import com.tests.apiCalls.Test041ApiAcceptSupervisionedExtendedBooking;
 import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({

@@ -4,6 +4,7 @@ import java.io.File;
 
 public class Constants {
     public static final String TEST_DATA_FILE_PATH = "src/test/resources/files/";
+    public static final String WEB_DRIVERS_PATH = "src/test/resources/drivers/";
     public static final String DOWNLOAD_FILE_PATH = System.getProperty("user.home") + File.separator;
     //header menu items
     public static final String MENU_ITEM_ITEMS = "ITEMS";

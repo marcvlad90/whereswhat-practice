@@ -1,6 +1,6 @@
 package com.tools.customDrivers;
 
-import com.tools.constants.Constants;
+import java.util.HashMap;
 
 import net.thucydides.core.webdriver.DriverSource;
 
@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.util.HashMap;
+import com.tools.constants.Constants;
 
 public class CustomChromeDriver implements DriverSource {
 
@@ -27,6 +27,7 @@ public class CustomChromeDriver implements DriverSource {
     @SuppressWarnings("deprecation")
     private WebDriver setCustomChrome() {
         System.out.println("Custom chrome driver instance is created now...");
+        System.setProperty("webdriver.chrome.driver", Constants.WEB_DRIVERS_PATH + "chromedriver.exe");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("download.default_directory", Constants.DOWNLOAD_FILE_PATH);
         chromePrefs.put("plugins.always_open_pdf_externally", true);
