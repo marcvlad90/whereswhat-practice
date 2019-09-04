@@ -1,8 +1,7 @@
 package com.pages;
 
-import com.tools.constants.Constants;
-import com.tools.entities.Booking;
-import com.tools.utils.DateUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -10,8 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.tools.constants.Constants;
+import com.tools.entities.Booking;
+import com.tools.utils.DateUtils;
 
 public class BookingsPage extends AbstractPage {
     @FindBy(css = "div[style*='block'] div.datepicker")
@@ -218,8 +218,20 @@ public class BookingsPage extends AbstractPage {
         return false;
     }
 
+    public void loadAllBookingContainers() {
+        int bookingsContainersSize;
+        do {
+            List<WebElement> bookingsContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
+            bookingsContainersSize = bookingsContainers.size();
+            clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
+            waitABit(400);
+
+        } while (bookingsContainersSize < getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).size());
+    }
+
     public WebElement getSpecificBookingContainer(Booking booking) {
         if (!containsText("No bookings to be displayed")) {
+            loadAllBookingContainers();
             List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             for (WebElement bookingContainer : bookingContainers) {
                 if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()

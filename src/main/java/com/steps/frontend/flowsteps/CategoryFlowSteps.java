@@ -1,5 +1,8 @@
 package com.steps.frontend.flowsteps;
 
+import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
+
 import com.steps.frontend.AbstractSteps;
 import com.steps.frontend.CategorySteps;
 import com.steps.frontend.HeaderSteps;
@@ -9,9 +12,6 @@ import com.tools.constants.SerenityKeyConstants;
 import com.tools.entities.Category;
 import com.tools.factories.CategoryFactory;
 import com.tools.utils.SerenitySessionUtils;
-
-import net.thucydides.core.annotations.StepGroup;
-import net.thucydides.core.annotations.Steps;
 
 public class CategoryFlowSteps extends AbstractSteps {
     /**

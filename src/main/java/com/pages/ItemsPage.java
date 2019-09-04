@@ -1,6 +1,7 @@
 package com.pages;
 
-import com.tools.constants.Constants;
+import java.io.File;
+import java.util.List;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 
@@ -11,8 +12,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
-import java.io.File;
-import java.util.List;
+import com.tools.constants.Constants;
 
 public class ItemsPage extends AbstractPage {
     @FindBy(css = ".page-header.row input")
@@ -56,7 +56,6 @@ public class ItemsPage extends AbstractPage {
         getDriver().navigate().refresh();
     }
 
-    @SuppressWarnings("hiding")
     public void clickOnCategoryOrItemAction(String itemOrCategoryName, String actionsListCssSelector, String actionName) {
         waitForTextToAppear(itemOrCategoryName);
         WebElement container = getElementFromList(itemsAndCategoriesContainersCssSelector, itemOrCategoryName);

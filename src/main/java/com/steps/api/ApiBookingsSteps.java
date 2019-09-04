@@ -1,5 +1,12 @@
 package com.steps.api;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import net.thucydides.core.annotations.Step;
+
+import org.junit.Assert;
+
 import com.tools.constants.ApiUrlConstants;
 import com.tools.constants.DateConstants;
 import com.tools.constants.SerenityKeyConstants;
@@ -12,13 +19,6 @@ import com.tools.utils.DateFormatter;
 import com.tools.utils.DateUtils;
 import com.tools.utils.InstanceUtils;
 import com.tools.utils.SerenitySessionUtils;
-
-import net.thucydides.core.annotations.Step;
-
-import org.junit.Assert;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class ApiBookingsSteps extends AbstractApiSteps {
     private static final long serialVersionUID = 1L;
@@ -92,7 +92,6 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         deleteResource(ApiUrlConstants.BOOKINGS, bookingRequest.getId());
     }
 
-    @SuppressWarnings("null")
     @Step
     public void checkIfBookingOfItemExists(Boolean shouldExist) {
         Booking booking = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKING);
@@ -111,7 +110,6 @@ public class ApiBookingsSteps extends AbstractApiSteps {
         }
     }
 
-    @SuppressWarnings("null")
     @Step
     public void checkIfBookingsOfItemsExist(Boolean shouldExist) {
         List<Booking> bookingsList = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
