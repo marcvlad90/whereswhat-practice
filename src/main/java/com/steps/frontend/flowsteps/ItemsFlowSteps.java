@@ -1,5 +1,10 @@
 package com.steps.frontend.flowsteps;
 
+import java.util.List;
+
+import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
+
 import com.steps.frontend.AbstractSteps;
 import com.steps.frontend.HeaderSteps;
 import com.steps.frontend.ItemsSteps;
@@ -9,11 +14,6 @@ import com.tools.entities.Category;
 import com.tools.entities.Item;
 import com.tools.utils.CSVWriters;
 import com.tools.utils.SerenitySessionUtils;
-
-import net.thucydides.core.annotations.StepGroup;
-import net.thucydides.core.annotations.Steps;
-
-import java.util.List;
 
 public class ItemsFlowSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;

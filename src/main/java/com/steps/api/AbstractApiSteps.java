@@ -4,6 +4,14 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.thucydides.core.steps.ScenarioSteps;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.restassured.builder.MultiPartSpecBuilder;
 import com.jayway.restassured.builder.RequestSpecBuilder;
@@ -12,14 +20,6 @@ import com.jayway.restassured.specification.RequestSpecification;
 import com.tools.constants.ApiUrlConstants;
 import com.tools.constants.HeaderConstants;
 
-import net.thucydides.core.steps.ScenarioSteps;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class AbstractApiSteps extends ScenarioSteps {
     private static final long serialVersionUID = 1L;
     public static RequestSpecification tokenSpec = null;
@@ -27,11 +27,11 @@ public class AbstractApiSteps extends ScenarioSteps {
 
     public static RequestSpecification getSpecWithExtraHeaders() {
         tokenSpec = new RequestSpecBuilder()
-        .setContentType(ContentType.JSON)
-        .setBaseUri(ApiUrlConstants.BASE_URI)
-        .addHeader(HeaderConstants.API_HEADER_USER_AGENT, "web_agent")
-        .addHeaders(extraHeaders)
-        .build();
+                .setContentType(ContentType.JSON)
+                .setBaseUri(ApiUrlConstants.BASE_URI)
+                .addHeader(HeaderConstants.API_HEADER_USER_AGENT, "web_agent")
+                .addHeaders(extraHeaders)
+                .build();
         return tokenSpec;
     }
 
@@ -77,11 +77,11 @@ public class AbstractApiSteps extends ScenarioSteps {
 
     protected static void updateResource(String path, Object requestBody, Object... params) {
         given().relaxedHTTPSValidation()
-        .spec(getSpecWithExtraHeaders())
-        .body(requestBody)
-        .when().put(path, params)
-        .then()
-        .assertThat().statusCode(anyOf(is(201), is(200), is(302)));
+                .spec(getSpecWithExtraHeaders())
+                .body(requestBody)
+                .when().put(path, params)
+                .then()
+                .assertThat().statusCode(anyOf(is(201), is(200), is(302)));
     }
 
     protected String uploadCSVResource(String path, String pathToFile, String fileName) {
@@ -106,13 +106,13 @@ public class AbstractApiSteps extends ScenarioSteps {
     public static RequestSpecification getUploadFileSpecWithExtraHeaders(String entityType, int entity_id) {
 
         tokenSpec = new RequestSpecBuilder()
-        .setContentType("multipart/form-data")
-        .setBaseUri(ApiUrlConstants.BASE_URI)
-        .addHeader(HeaderConstants.API_HEADER_USER_AGENT, "web_agent")
-        .addHeader(HeaderConstants.API_HEADER_ENTITY_TYPE, entityType)
-        .addHeader(HeaderConstants.API_HEADER_ENTITY_ID, String.valueOf(entity_id))
-        .addHeaders(extraHeaders)
-        .build();
+                .setContentType("multipart/form-data")
+                .setBaseUri(ApiUrlConstants.BASE_URI)
+                .addHeader(HeaderConstants.API_HEADER_USER_AGENT, "web_agent")
+                .addHeader(HeaderConstants.API_HEADER_ENTITY_TYPE, entityType)
+                .addHeader(HeaderConstants.API_HEADER_ENTITY_ID, String.valueOf(entity_id))
+                .addHeaders(extraHeaders)
+                .build();
 
         return tokenSpec;
     }
@@ -153,27 +153,27 @@ public class AbstractApiSteps extends ScenarioSteps {
 
     protected static void deleteResource(String path, int id) {
         given().relaxedHTTPSValidation()
-        .spec(getSpecWithExtraHeaders())
-        .when().delete(path + "/" + id)
-        .then()
-        .assertThat().statusCode(anyOf(is(201), is(200), is(302)))
-        .extract().response().asString();
+                .spec(getSpecWithExtraHeaders())
+                .when().delete(path + "/" + id)
+                .then()
+                .assertThat().statusCode(anyOf(is(201), is(200), is(302)))
+                .extract().response().asString();
     }
 
     protected static void deleteResourceWithoutAssertion(String path, int id) {
         given().relaxedHTTPSValidation()
-        .spec(getSpecWithExtraHeaders())
-        .when().delete(path + "/" + id)
-        .then()
-        .extract().response().asString();
+                .spec(getSpecWithExtraHeaders())
+                .when().delete(path + "/" + id)
+                .then()
+                .extract().response().asString();
     }
 
     protected static void deleteResource(String path) {
         given().relaxedHTTPSValidation()
-        .spec(getSpecWithExtraHeaders())
-        .when().delete(path)
-        .then()
-        .assertThat().statusCode(anyOf(is(200), is(201), is(204), is(302)))
-        .extract().response().asString();
+                .spec(getSpecWithExtraHeaders())
+                .when().delete(path)
+                .then()
+                .assertThat().statusCode(anyOf(is(200), is(201), is(204), is(302)))
+                .extract().response().asString();
     }
 }

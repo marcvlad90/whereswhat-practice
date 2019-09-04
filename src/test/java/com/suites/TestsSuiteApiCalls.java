@@ -45,7 +45,7 @@ import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    //Test000CleanTheEnvironment.class,
+    //        Test000CleanTheEnvironment.class,
     Test001ApiLogin.class,
     Test002ApiCRUDCategory.class,
     Test003ApiCRUDItem.class,
