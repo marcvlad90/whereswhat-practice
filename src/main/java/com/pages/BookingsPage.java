@@ -47,7 +47,6 @@ public class BookingsPage extends AbstractPage {
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         waitForElementToBeClickable(saveBookingButton, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
         clickOnElementUsingJavascript(saveBookingButton);
-        //        element(saveBookingButton).click();
         waitForElementToDisappear(spinnerElementCssSelector, Constants.WAIT_TIME_MAXIMUM_IN_SECONDS);
     }
 
@@ -223,9 +222,10 @@ public class BookingsPage extends AbstractPage {
         do {
             List<WebElement> bookingsContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             bookingsContainersSize = bookingsContainers.size();
-            clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
-            waitABit(400);
-
+            if ((bookingsContainersSize % 10) == 0) {
+                clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
+                waitABit(400);
+            }
         } while (bookingsContainersSize < getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).size());
     }
 
