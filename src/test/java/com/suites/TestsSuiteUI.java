@@ -1,5 +1,9 @@
 package com.suites;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
 import com.tests.UI.Test001UiLogin;
 import com.tests.UI.Test002UiCRUDCategory;
 import com.tests.UI.Test003UiCRUDItem;
@@ -39,10 +43,6 @@ import com.tests.UI.Test039UiAcceptSupervisionedBooking;
 import com.tests.UI.Test040UiDeclineSupervisionedBooking;
 import com.tests.UI.Test041UiAcceptSupervisionedExtendedBooking;
 import com.tests.UI.Test042UiDeclineSupervisionedExtendedBooking;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({

@@ -223,8 +223,8 @@ public class BookingsPage extends AbstractPage {
             List<WebElement> bookingsContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             bookingsContainersSize = bookingsContainers.size();
             if ((bookingsContainersSize % 10) == 0) {
-                clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
                 waitABit(400);
+                clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
             }
         } while (bookingsContainersSize < getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).size());
     }
