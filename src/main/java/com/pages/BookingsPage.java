@@ -217,7 +217,7 @@ public class BookingsPage extends AbstractPage {
         return false;
     }
 
-    public void loadAllBookingContainers() {
+    public void waitForAllBookingContainersToLoad() {
         int bookingsContainersSize;
         do {
             List<WebElement> bookingsContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
@@ -231,7 +231,7 @@ public class BookingsPage extends AbstractPage {
 
     public WebElement getSpecificBookingContainer(Booking booking) {
         if (!containsText("No bookings to be displayed")) {
-            loadAllBookingContainers();
+            waitForAllBookingContainersToLoad();
             List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             for (WebElement bookingContainer : bookingContainers) {
                 if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()
