@@ -46,7 +46,7 @@ import com.tests.UI.Test042UiDeclineSupervisionedExtendedBooking;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    //Test000CleanTheEnvironment.class,
+    //        Test000CleanTheEnvironment.class,
     Test001UiLogin.class,
     Test002UiCRUDCategory.class,
     Test003UiCRUDItem.class,

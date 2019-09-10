@@ -4,7 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.tests.Test000CleanTheEnvironment;
 import com.tests.UI.Test002UiCRUDCategory;
 import com.tests.UI.Test003UiCRUDItem;
 import com.tests.UI.Test004UiBookItem;
@@ -22,21 +21,21 @@ import com.tests.UI.Test041UiAcceptSupervisionedExtendedBooking;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        Test000CleanTheEnvironment.class,
-        Test002UiCRUDCategory.class,
-        Test003UiCRUDItem.class,
-        Test004UiBookItem.class,
-        Test005UiReturnItem.class,
-        Test006UiExtendBooking.class,
-        Test007UiCloneItem.class,
-        Test011UiEmailNotification.class,
-        Test014UiDeleteBooking.class,
-        Test018UiImportItemsInDifferentCategories.class,
-        Test021UiBookItemFromCalendar.class,
-        Test036UiSearchItemByTag.class,
-        Test038UiBookItemAsRegularUser.class,
-        Test039UiAcceptSupervisionedBooking.class,
-        Test041UiAcceptSupervisionedExtendedBooking.class,
+    //        Test000CleanTheEnvironment.class,
+    Test002UiCRUDCategory.class,
+    Test003UiCRUDItem.class,
+    Test004UiBookItem.class,
+    Test005UiReturnItem.class,
+    Test006UiExtendBooking.class,
+    Test007UiCloneItem.class,
+    Test011UiEmailNotification.class,
+    Test014UiDeleteBooking.class,
+    Test018UiImportItemsInDifferentCategories.class,
+    Test021UiBookItemFromCalendar.class,
+    Test036UiSearchItemByTag.class,
+    Test038UiBookItemAsRegularUser.class,
+    Test039UiAcceptSupervisionedBooking.class,
+    Test041UiAcceptSupervisionedExtendedBooking.class,
 })
 public class SmokeTestsSuiteUI {
 

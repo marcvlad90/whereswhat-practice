@@ -1,8 +1,8 @@
 package com.steps.frontend;
 
-import com.pages.CategoryPage;
-
 import net.thucydides.core.annotations.Step;
+
+import com.pages.CategoryPage;
 
 public class CategorySteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;

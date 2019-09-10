@@ -1,17 +1,17 @@
 package com.steps.frontend;
 
-import com.pages.ItemsPage;
-import com.tools.constants.SerenityKeyConstants;
-import com.tools.entities.Category;
-import com.tools.entities.Item;
-import com.tools.utils.SerenitySessionUtils;
+import java.util.List;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 
 import org.junit.Assert;
 
-import java.util.List;
+import com.pages.ItemsPage;
+import com.tools.constants.SerenityKeyConstants;
+import com.tools.entities.Category;
+import com.tools.entities.Item;
+import com.tools.utils.SerenitySessionUtils;
 
 public class ItemsSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
@@ -39,6 +39,7 @@ public class ItemsSteps extends AbstractSteps {
 
     @Step
     public void clickOnCategoryAction(String categoryName, String actionName) {
+        itemsPage.loadAllCategoriesList();
         itemsPage.clickOnCategoryAction(categoryName, actionName);
     }
 
@@ -80,6 +81,7 @@ public class ItemsSteps extends AbstractSteps {
     @Step
     public void checkIfCategoryIsPresentOrNot(boolean shouldBePresent) {
         Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
+        itemsPage.loadAllCategoriesList();
         itemsPage.checkIfCategoryOrItemIsPresentOrNot(shouldBePresent, category.getName());
     }
 
@@ -87,6 +89,7 @@ public class ItemsSteps extends AbstractSteps {
     public void checkIfCategoriesArePresentOrNot(boolean shouldBePresent) {
         List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         for (Category category : categories) {
+            itemsPage.loadAllCategoriesList();
             itemsPage.checkIfCategoryOrItemIsPresentOrNot(shouldBePresent, category.getName());
         }
     }

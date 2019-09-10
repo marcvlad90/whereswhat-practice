@@ -1,13 +1,13 @@
 package com.pages;
 
-import com.tools.constants.Constants;
+import java.io.File;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.io.File;
+import com.tools.constants.Constants;
 
 public class CategoryPage extends AbstractPage {
 

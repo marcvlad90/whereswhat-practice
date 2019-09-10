@@ -1,15 +1,15 @@
 package com.tests.UI;
 
-import com.steps.frontend.flowsteps.CategoryFlowSteps;
-import com.steps.frontend.flowsteps.ItemsFlowSteps;
-import com.steps.frontend.flowsteps.LoginFlowSteps;
-import com.tests.BaseTest;
-
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.steps.frontend.flowsteps.CategoryFlowSteps;
+import com.steps.frontend.flowsteps.ItemsFlowSteps;
+import com.steps.frontend.flowsteps.LoginFlowSteps;
+import com.tests.BaseTest;
 
 @RunWith(SerenityRunner.class)
 public class Test002UiCRUDCategory extends BaseTest {

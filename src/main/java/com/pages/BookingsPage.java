@@ -217,21 +217,25 @@ public class BookingsPage extends AbstractPage {
         return false;
     }
 
-    public void waitForAllBookingContainersToLoad() {
+    public void loadAllBookingsList() {
         int bookingsContainersSize;
+        int i = 0;
         do {
             List<WebElement> bookingsContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             bookingsContainersSize = bookingsContainers.size();
             if ((bookingsContainersSize % 10) == 0) {
+                for (int j = i; j < bookingsContainers.size(); j++) {
+                    clickOn(bookingsContainers.get(j));
+                }
+                i = i + 10;
                 waitABit(400);
-                clickOn(bookingsContainers.get(bookingsContainers.size() - 1));
             }
         } while (bookingsContainersSize < getDriver().findElements(By.cssSelector(bookingsContainersCssSelector)).size());
     }
 
     public WebElement getSpecificBookingContainer(Booking booking) {
+        loadAllBookingsList();
         if (!containsText("No bookings to be displayed")) {
-            waitForAllBookingContainersToLoad();
             List<WebElement> bookingContainers = getDriver().findElements(By.cssSelector(bookingsContainersCssSelector));
             for (WebElement bookingContainer : bookingContainers) {
                 if (bookingContainer.findElement(By.cssSelector(".booking-details-container a")).getText()

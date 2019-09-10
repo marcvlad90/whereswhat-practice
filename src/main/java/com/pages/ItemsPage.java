@@ -35,6 +35,7 @@ public class ItemsPage extends AbstractPage {
     private WebElement downloadTemplateButton;
     private final String itemsAndCategoriesTitlesCssSelector = "ul#categories_container>li h3>span";
     private final String itemsAndCategoriesContainersCssSelector = "ul#categories_container>li";
+    private final String itemsAndCategoriesContainersXpathSelector = "//ul[@id='categories_container']/li";
     private final String actionsListCssSelector = ".collection-action-container>.collection-action-member";
     private final String saveItemsImportButtonCssSelector = "button[class*='process-csv']";
     private final String spinnerElementCssSelector = ".spinner";
@@ -56,6 +57,22 @@ public class ItemsPage extends AbstractPage {
         getDriver().navigate().refresh();
     }
 
+    public void loadAllCategoriesList() {
+        getDriver().navigate().refresh();
+        int categoriesContainersSize;
+        int i = 0;
+        do {
+            List<WebElement> categoriesContainers = getDriver().findElements(By.xpath(itemsAndCategoriesContainersXpathSelector));
+            categoriesContainersSize = categoriesContainers.size();
+            if ((categoriesContainersSize % 10) == 0) {
+                for (int j = i; j < categoriesContainers.size(); j++) {
+                    clickOn(categoriesContainers.get(j));
+                }
+                i = i + 10;
+            }
+        } while (categoriesContainersSize < getDriver().findElements(By.xpath(itemsAndCategoriesContainersXpathSelector)).size());
+    }
+
     public void clickOnCategoryOrItemAction(String itemOrCategoryName, String actionsListCssSelector, String actionName) {
         waitForTextToAppear(itemOrCategoryName);
         WebElement container = getElementFromList(itemsAndCategoriesContainersCssSelector, itemOrCategoryName);
@@ -72,6 +89,7 @@ public class ItemsPage extends AbstractPage {
     }
 
     public void clickOnAction(String actionName) {
+        loadAllCategoriesList();
         waitForTextToAppear(actionName);
         WebElement actionItem = getElementFromList(actionsListCssSelector, actionName);
         clickOnElementUsingJavascript(actionItem);

@@ -1,6 +1,12 @@
 package com.pages;
 
-import com.tools.constants.Constants;
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -19,13 +25,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+import com.tools.constants.Constants;
 
 public class AbstractPage extends PageObject {
 
@@ -35,6 +35,7 @@ public class AbstractPage extends PageObject {
     }
 
     public void waitForElementToDisappear(final String cssSelector, final int noOfSeconds) {
+        @SuppressWarnings("deprecation")
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
                 .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
                 .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
@@ -45,11 +46,12 @@ public class AbstractPage extends PageObject {
     }
 
     public void waitForElementToBeClickable(WebElement element, final int noOfSeconds) {
+        @SuppressWarnings("deprecation")
         Wait<WebDriver> wait = new FluentWait<WebDriver>(getDriver())
-                .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
-                .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
-                .ignoring(ElementNotVisibleException.class).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
-                .ignoring(ElementNotInteractableException.class);
+        .withTimeout(Constants.WAIT_TIME_MAXIMUM_IN_SECONDS, TimeUnit.SECONDS)
+        .pollingEvery(Constants.WAIT_TIME_FLUENT_WAIT_POLLING_IN_MILISECONDS, TimeUnit.MILLISECONDS)
+        .ignoring(ElementNotVisibleException.class).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
+        .ignoring(ElementNotInteractableException.class);
         wait = new WebDriverWait(getDriver(), noOfSeconds);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -173,7 +175,6 @@ public class AbstractPage extends PageObject {
         return null;
     }
 
-    @SuppressWarnings("unused")
     public <T> void verifyObjects(T obj1, T obj2)
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
@@ -193,7 +194,6 @@ public class AbstractPage extends PageObject {
         }
     }
 
-    @SuppressWarnings("unused")
     public <T> void verifyObjectsIgnoreNull(T obj1, T obj2)
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
