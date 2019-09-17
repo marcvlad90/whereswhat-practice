@@ -32,6 +32,7 @@ public class ItemFactory {
             itemCustomFields[i] = new CustomField();
             itemCustomFields[i].setValue(category.getCustomFields()[i].getName() + " Value");
             itemCustomFields[i].setCustomFieldId(category.getCustomFields()[i].getId());
+            itemCustomFields[i].setCustomFieldName(category.getCustomFields()[i].getName());
         }
         Item item = new Item();
         item.setTitle(RandomString.make(10) + " - Item");

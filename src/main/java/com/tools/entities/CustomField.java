@@ -9,6 +9,16 @@ public class CustomField {
     private int id;
     private String value;
     private int customFieldId;
+    private String customFieldName;
+
+    @JsonProperty("custom_field_name")
+    public String getCustomFieldName() {
+        return customFieldName;
+    }
+
+    public void setCustomFieldName(String customFieldName) {
+        this.customFieldName = customFieldName;
+    }
 
     @JsonProperty("custom_field_id")
     public Integer getCustomFieldId() {

@@ -1,5 +1,8 @@
 package com.steps.frontend.flowsteps;
 
+import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
+
 import com.steps.frontend.AbstractSteps;
 import com.steps.frontend.HeaderSteps;
 import com.steps.frontend.ItemSteps;
@@ -11,9 +14,6 @@ import com.tools.entities.Item;
 import com.tools.factories.ItemFactory;
 import com.tools.utils.SerenitySessionUtils;
 
-import net.thucydides.core.annotations.StepGroup;
-import net.thucydides.core.annotations.Steps;
-
 public class ItemFlowSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
 
@@ -23,6 +23,15 @@ public class ItemFlowSteps extends AbstractSteps {
     private ItemsSteps itemsSteps;
     @Steps
     private ItemSteps itemSteps;
+
+    @StepGroup
+    public void checkItemCustomFieldValues() {
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
+        itemsSteps.searchForItem(item.getTitle());
+        itemsSteps.clickOnItem(item.getTitle());
+        itemSteps.checkItemCustomFieldValues(item);
+    }
 
     @StepGroup
     public void uploadImageToItem(String imageName) {
@@ -41,6 +50,20 @@ public class ItemFlowSteps extends AbstractSteps {
         itemsSteps.clickOnItemAction(item.getTitle(), Constants.ACTION_CLONE);
         itemsSteps.insertNumberOfClones(String.valueOf(numberOfClones));
         itemsSteps.clickOnCloneButton();
+    }
+
+    @StepGroup
+    public void createItemWithCustomFields() {
+        Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
+        Item item = ItemFactory.getItemWithCustomFieldsInstance();
+        headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
+        itemsSteps.clickOnAction(Constants.ITEMS_PAGE_ACTION_ADD_ITEM);
+        itemSteps.insertItemName(item.getTitle());
+        itemSteps.selectItemCategory(category.getName());
+        itemSteps.populateItemCustomAttributesFields(item);
+        itemSteps.clickAddItemButton();
+        SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, item);
+        SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.ITEMS, item);
     }
 
     @StepGroup

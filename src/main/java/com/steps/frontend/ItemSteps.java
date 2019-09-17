@@ -1,13 +1,19 @@
 package com.steps.frontend;
 
+import net.thucydides.core.annotations.Step;
+
 import com.pages.ItemPage;
 import com.tools.entities.Booking;
-
-import net.thucydides.core.annotations.Step;
+import com.tools.entities.Item;
 
 public class ItemSteps extends AbstractSteps {
     private static final long serialVersionUID = 1L;
     private ItemPage itemPage;
+
+    @Step
+    public void checkItemCustomFieldValues(Item item) {
+        itemPage.checkItemCustomFieldValues(item);
+    }
 
     @Step
     public void navigateToCalendarDate(String startDate) {
@@ -67,6 +73,11 @@ public class ItemSteps extends AbstractSteps {
     @Step
     public void insertItemName(String itemName) {
         itemPage.insertItemName(itemName);
+    }
+
+    @Step
+    public void populateItemCustomAttributesFields(Item item) {
+        itemPage.populateItemCustomAttributesFields(item);
     }
 
     @Step

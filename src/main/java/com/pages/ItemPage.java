@@ -1,21 +1,24 @@
 package com.pages;
 
-import com.tools.constants.Constants;
-import com.tools.constants.DateConstants;
-import com.tools.entities.Booking;
-import com.tools.utils.DateUtils;
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
+import com.tools.constants.Constants;
+import com.tools.constants.DateConstants;
+import com.tools.entities.Booking;
+import com.tools.entities.CustomField;
+import com.tools.entities.Item;
+import com.tools.utils.DateUtils;
 
 public class ItemPage extends AbstractPage {
     @FindBy(id = "item_title")
@@ -46,6 +49,22 @@ public class ItemPage extends AbstractPage {
     private WebElement uploadImageOkButton;
     private final String spinnerElementCssSelector = ".spinner";
 
+    public void checkItemCustomFieldValues(Item item) {
+        List<WebElement> customPropertiesList = getDriver().findElements(By.cssSelector(".properties-display>.property-display"));
+        for (CustomField customField : item.getItemCustomFields()) {
+            boolean isPropertyFound = false;
+            for (WebElement customPropertyItem : customPropertiesList) {
+                if (customPropertyItem.getText().toLowerCase()
+                        .contentEquals(customField.getCustomFieldName().toLowerCase() + ": " + customField.getValue())) {
+                    isPropertyFound = true;
+                    break;
+                }
+            }
+            Assert.assertFalse(String.format("Property %s having %s value was not found!", customField.getCustomFieldName(), customField.getValue()),
+                    isPropertyFound);
+        }
+    }
+
     public void uploadImageToItem(String filePath) {
         selectImageToUploadButton.click();
         final File fNewTwo = new File(filePath);
@@ -64,6 +83,19 @@ public class ItemPage extends AbstractPage {
 
     public void selectItemCategory(String categoryName) {
         element(itemCategoryDrownDown).selectByVisibleText(categoryName);
+    }
+
+    public void populateItemCustomAttributesFields(Item item) {
+        List<WebElement> customFieldGroupsWebElements = getDriver().findElements(
+                By.cssSelector("div[class*='custom-fields']>div[class='form-group ']"));
+        for (WebElement customFieldGroupWebElement : customFieldGroupsWebElements) {
+            for (CustomField customField : item.getItemCustomFields()) {
+                if (customField.getCustomFieldName().toLowerCase()
+                        .contentEquals(customFieldGroupWebElement.findElement(By.cssSelector("label")).getText().toLowerCase())) {
+                    customFieldGroupWebElement.findElement(By.cssSelector("input")).sendKeys(customField.getValue());
+                }
+            }
+        }
     }
 
     public void clickAddItemButton() {
@@ -115,11 +147,11 @@ public class ItemPage extends AbstractPage {
             }
             else if (dayDivs.get(i).getAttribute("class").contains("fc-end")
                     && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return numberOfFullDays;
             } else if (dayDivs.get(i).getAttribute("class").contains("fc-short")
                     && dayDivs.get(i).findElement(By.cssSelector(".fc-content .fc-time")).getAttribute("data-full")
-                            .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
+                    .contains(endDate.split(", ")[1].replaceFirst("^0+(?!$)", ""))) {
                 return 0;
             }
         }

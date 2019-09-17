@@ -14,6 +14,7 @@ import com.tools.constants.ApiUrlConstants;
 import com.tools.constants.Constants;
 import com.tools.constants.SerenityKeyConstants;
 import com.tools.entities.Category;
+import com.tools.entities.CustomField;
 import com.tools.entities.Item;
 import com.tools.entities.ItemsCollection;
 import com.tools.entities.Location;
@@ -103,6 +104,24 @@ public class ApiItemSteps extends AbstractApiSteps {
     public void checkThatItemExists() {
         Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
         checkThatItemExists(item.getId(), item.getCategoryId(), item.getTitle());
+    }
+
+    @Step
+    public void checkItemCustomFieldValues() {
+        Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
+        Item itemResponse = getResource(ApiUrlConstants.ITEMS + "/" + item.getId(), Item.class);
+        for (CustomField customField : item.getItemCustomFields()) {
+            boolean isCustomFieldFound = false;
+            for (CustomField responseCustomField : itemResponse.getItemCustomFields()) {
+                if (customField.getCustomFieldName().toLowerCase().contentEquals(responseCustomField.getCustomFieldName().toLowerCase())) {
+                    isCustomFieldFound = true;
+                    Assert.assertTrue((String.format("Custom field %s value is %s instead of %s", responseCustomField.getCustomFieldName(),
+                            responseCustomField.getValue(), customField.getValue())), responseCustomField.getValue().contentEquals(customField.getValue()));
+                    break;
+                }
+            }
+            Assert.assertTrue((String.format("%s field name was not found!", customField.getCustomFieldName())), isCustomFieldFound);
+        }
     }
 
     @Step
