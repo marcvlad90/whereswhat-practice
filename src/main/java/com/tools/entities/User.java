@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    private String email, password, name, authenticationToken, role;
+    private String email;
+    private String password;
+    private String name;
+    private String authenticationToken;
+    private String role;
     private int id;
     private int companyId;
 

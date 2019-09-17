@@ -1,7 +1,9 @@
 package com.tools.entities;
 
 public class Mail {
-    private String sender, subject, mailContent;
+    private String sender;
+    private String subject;
+    private String mailContent;
 
     public String getSender() {
         return sender;

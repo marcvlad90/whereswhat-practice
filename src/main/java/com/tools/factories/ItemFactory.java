@@ -1,14 +1,15 @@
 package com.tools.factories;
 
-import com.tools.constants.SerenityKeyConstants;
-import com.tools.entities.Category;
-import com.tools.entities.Item;
-import com.tools.utils.SerenitySessionUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.bytebuddy.utility.RandomString;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.tools.constants.SerenityKeyConstants;
+import com.tools.entities.Category;
+import com.tools.entities.CustomField;
+import com.tools.entities.Item;
+import com.tools.utils.SerenitySessionUtils;
 
 public class ItemFactory {
     public static Item getItemInstance() {
@@ -16,9 +17,26 @@ public class ItemFactory {
         Item item = new Item();
         item.setTitle(RandomString.make(10) + " - Item");
         item.setCategoryId(category.getId());
-        item.setCustomFields(new Object[0]);
+        item.setItemCustomFields(new CustomField[0]);
         item.setRetainedImage(null);
         item.setItemCode(null);
+        item.setItemCode("Tag" + RandomString.make(10));
+        return item;
+    }
+
+    public static Item getItemWithCustomFieldsInstance() {
+        Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
+        int numberOfAttributes = category.getCustomFields().length;
+        CustomField[] itemCustomFields = new CustomField[numberOfAttributes];
+        for (int i = 0; i < numberOfAttributes; i++) {
+            itemCustomFields[i] = new CustomField();
+            itemCustomFields[i].setValue(category.getCustomFields()[i].getName() + " Value");
+            itemCustomFields[i].setCustomFieldId(category.getCustomFields()[i].getId());
+        }
+        Item item = new Item();
+        item.setTitle(RandomString.make(10) + " - Item");
+        item.setCategoryId(category.getId());
+        item.setItemCustomFields(itemCustomFields);
         item.setItemCode("Tag" + RandomString.make(10));
         return item;
     }
@@ -30,7 +48,7 @@ public class ItemFactory {
             Item item = new Item();
             //item clasic properties
             item.setTitle(RandomString.make(10) + " - Item");
-            item.setCustomFields(new Object[0]);
+            item.setItemCustomFields(new CustomField[0]);
             item.setCategoryId(category.getId());
             item.setCategory(category);
 
@@ -51,7 +69,7 @@ public class ItemFactory {
                 Item item = new Item();
                 //item clasic properties
                 item.setTitle(RandomString.make(10) + " - Item");
-                item.setCustomFields(new Object[0]);
+                item.setItemCustomFields(new CustomField[0]);
                 item.setCategoryId(category.getId());
                 item.setCategory(category);
 

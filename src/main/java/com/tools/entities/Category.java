@@ -11,6 +11,7 @@ public class Category {
     private int defaultBookingLength;
     private int maxBookingLength;
     private boolean needsApproval;
+    private CustomField[] customFields;
 
     @JsonProperty("needs_approval")
     public boolean isNeedsApproval() {
@@ -58,7 +59,7 @@ public class Category {
     }
 
     @JsonProperty("id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -66,4 +67,12 @@ public class Category {
         this.id = id;
     }
 
+    @JsonProperty("custom_fields")
+    public CustomField[] getCustomFields() {
+        return customFields;
+    }
+
+    public void setCustomFields(CustomField[] customFields) {
+        this.customFields = customFields;
+    }
 }

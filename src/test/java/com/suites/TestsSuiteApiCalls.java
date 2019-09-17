@@ -29,7 +29,6 @@ import com.tests.apiCalls.Test025ApiEditBookedItem;
 import com.tests.apiCalls.Test026ApiDeleteBookedItem;
 import com.tests.apiCalls.Test027ApiCloneBookedItem;
 import com.tests.apiCalls.Test028ApiBookClonedItem;
-import com.tests.apiCalls.Test029ApiBookImportedItem;
 import com.tests.apiCalls.Test030ApiBookItemForWholeDays;
 import com.tests.apiCalls.Test031ApiChangeDefaultBookingLength;
 import com.tests.apiCalls.Test032ApiChangeMaximumBookingLength;
@@ -42,6 +41,7 @@ import com.tests.apiCalls.Test039ApiAcceptSupervisionedBooking;
 import com.tests.apiCalls.Test040ApiDeclineSupervisionedBooking;
 import com.tests.apiCalls.Test041ApiAcceptSupervisionedExtendedBooking;
 import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
+import com.tests.apiCalls.Test043ApiCreateItemWithCustomAttributes;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -71,7 +71,6 @@ import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
     Test026ApiDeleteBookedItem.class,
     Test027ApiCloneBookedItem.class,
     Test028ApiBookClonedItem.class,
-    Test029ApiBookImportedItem.class,
     Test030ApiBookItemForWholeDays.class,
     Test031ApiChangeDefaultBookingLength.class,
     Test032ApiChangeMaximumBookingLength.class,
@@ -84,6 +83,7 @@ import com.tests.apiCalls.Test042ApiDeclineSupervisionedExtendedBooking;
     Test040ApiDeclineSupervisionedBooking.class,
     Test041ApiAcceptSupervisionedExtendedBooking.class,
     Test042ApiDeclineSupervisionedExtendedBooking.class,
+    Test043ApiCreateItemWithCustomAttributes.class,
 })
 public class TestsSuiteApiCalls {
 

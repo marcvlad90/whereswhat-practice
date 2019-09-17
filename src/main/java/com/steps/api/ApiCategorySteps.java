@@ -1,20 +1,21 @@
 package com.steps.api;
 
-import com.tools.constants.ApiUrlConstants;
-import com.tools.constants.Constants;
-import com.tools.constants.SerenityKeyConstants;
-import com.tools.entities.CategoriesCollection;
-import com.tools.entities.Category;
-import com.tools.factories.CategoryFactory;
-import com.tools.utils.InstanceUtils;
-import com.tools.utils.SerenitySessionUtils;
+import java.util.List;
 
 import net.bytebuddy.utility.RandomString;
 import net.thucydides.core.annotations.Step;
 
 import org.junit.Assert;
 
-import java.util.List;
+import com.tools.constants.ApiUrlConstants;
+import com.tools.constants.Constants;
+import com.tools.constants.SerenityKeyConstants;
+import com.tools.entities.CategoriesCollection;
+import com.tools.entities.Category;
+import com.tools.entities.CustomField;
+import com.tools.factories.CategoryFactory;
+import com.tools.utils.InstanceUtils;
+import com.tools.utils.SerenitySessionUtils;
 
 public class ApiCategorySteps extends AbstractApiSteps {
     private static final long serialVersionUID = 1L;
@@ -44,6 +45,19 @@ public class ApiCategorySteps extends AbstractApiSteps {
     public void createCategory() {
         Category categoryRequest = CategoryFactory.getCategoryInstance();
         Category categoryResponse = createResource(ApiUrlConstants.CATEGORIES, categoryRequest, Category.class);
+        categoryRequest = (Category)InstanceUtils.mergeObjects(categoryRequest, categoryResponse);
+        SerenitySessionUtils.putOnSession(SerenityKeyConstants.CATEGORY, categoryRequest);
+        SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.CATEGORIES, categoryRequest);
+    }
+
+    @Step
+    public void createCategoryWithCustomAttributes(int numberOfAttributes) {
+        Category categoryRequest = CategoryFactory.getCustomFieldsCategoryInstance(numberOfAttributes);
+        Category categoryResponse = createResource(ApiUrlConstants.CATEGORIES, categoryRequest, Category.class);
+        for (int i = 0; i < categoryRequest.getCustomFields().length; i++) {
+            categoryRequest.getCustomFields()[i] = (CustomField)InstanceUtils.mergeObjects(categoryRequest.getCustomFields()[i],
+                    categoryResponse.getCustomFields()[i]);
+        }
         categoryRequest = (Category)InstanceUtils.mergeObjects(categoryRequest, categoryResponse);
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.CATEGORY, categoryRequest);
         SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.CATEGORIES, categoryRequest);

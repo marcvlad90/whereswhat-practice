@@ -1,13 +1,13 @@
 package com.tests;
 
-import com.steps.api.ApiLoginSteps;
-import com.steps.api.flowsteps.ApiCategoriesFlowSteps;
-
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.steps.api.ApiLoginSteps;
+import com.steps.api.flowsteps.ApiCategoriesFlowSteps;
 
 @RunWith(SerenityRunner.class)
 public class Test000CleanTheEnvironment extends BaseTest {
@@ -19,6 +19,6 @@ public class Test000CleanTheEnvironment extends BaseTest {
     @Test
     public void test000CleanTheEnvironment() {
         apiLoginSteps.loginAsAdmin();
-        apiCategoriesFlowSteps.forcedDeleteAllCategories();
+        apiCategoriesFlowSteps.forcedDeleteAllCategories(100);
     }
 }

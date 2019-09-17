@@ -1,8 +1,9 @@
 package com.tools.factories;
 
-import com.tools.entities.Category;
-
 import net.bytebuddy.utility.RandomString;
+
+import com.tools.entities.Category;
+import com.tools.entities.CustomField;
 
 public class CategoryFactory {
     public static Category getCategoryInstance() {
@@ -18,4 +19,15 @@ public class CategoryFactory {
         return category;
     }
 
+    public static Category getCustomFieldsCategoryInstance(int numberOfAttributes) {
+        Category category = new Category();
+        CustomField[] customFields = new CustomField[numberOfAttributes];
+        for (int i = 0; i < numberOfAttributes; i++) {
+            customFields[i] = new CustomField();
+            customFields[i].setName(RandomString.make(10) + " - Custom Field");
+        }
+        category.setCustomFields(customFields);
+        category.setName(RandomString.make(10) + " - Category");
+        return category;
+    }
 }

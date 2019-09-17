@@ -1,5 +1,14 @@
 package com.steps.api;
 
+import java.io.File;
+import java.util.List;
+
+import net.bytebuddy.utility.RandomString;
+import net.thucydides.core.annotations.Step;
+
+import org.junit.Assert;
+import org.junit.experimental.categories.Categories;
+
 import com.jayway.restassured.path.json.JsonPath;
 import com.tools.constants.ApiUrlConstants;
 import com.tools.constants.Constants;
@@ -12,15 +21,6 @@ import com.tools.factories.ItemFactory;
 import com.tools.utils.CSVWriters;
 import com.tools.utils.InstanceUtils;
 import com.tools.utils.SerenitySessionUtils;
-
-import net.bytebuddy.utility.RandomString;
-import net.thucydides.core.annotations.Step;
-
-import org.junit.Assert;
-import org.junit.experimental.categories.Categories;
-
-import java.io.File;
-import java.util.List;
 
 public class ApiItemSteps extends AbstractApiSteps {
     private static final long serialVersionUID = 1L;
@@ -154,6 +154,15 @@ public class ApiItemSteps extends AbstractApiSteps {
     @Step
     public void createItem() {
         Item itemRequest = ItemFactory.getItemInstance();
+        Item itemResponse = createResource(ApiUrlConstants.ITEMS, itemRequest, Item.class);
+        itemRequest = (Item)InstanceUtils.mergeObjects(itemRequest, itemResponse);
+        SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, itemRequest);
+        SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.ITEMS, itemRequest);
+    }
+
+    @Step
+    public void createItemWithCustomFields() {
+        Item itemRequest = ItemFactory.getItemWithCustomFieldsInstance();
         Item itemResponse = createResource(ApiUrlConstants.ITEMS, itemRequest, Item.class);
         itemRequest = (Item)InstanceUtils.mergeObjects(itemRequest, itemResponse);
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, itemRequest);

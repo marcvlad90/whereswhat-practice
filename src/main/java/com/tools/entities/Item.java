@@ -8,11 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class Item {
-    private Object[] customFields;
+    private CustomField[] itemCustomFields;
     private String title;
     private String itemCode;
     private int id;
-    //    private Integer companyId;
     private Integer locationId;
     private String name;
     private String categoryTitle;
@@ -74,12 +73,12 @@ public class Item {
     }
 
     @JsonProperty("custom_fields")
-    public Object[] getCustomFields() {
-        return customFields;
+    public CustomField[] getItemCustomFields() {
+        return itemCustomFields;
     }
 
-    public void setCustomFields(Object[] customFields) {
-        this.customFields = customFields;
+    public void setItemCustomFields(CustomField[] itemCustomFields) {
+        this.itemCustomFields = itemCustomFields;
     }
 
     @JsonProperty("title")
@@ -101,7 +100,7 @@ public class Item {
     }
 
     @JsonProperty("category_id")
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
