@@ -51,14 +51,14 @@ public class ApiCategorySteps extends AbstractApiSteps {
     }
 
     @Step
-    public void createCategoryWithCustomAttributes(int numberOfAttributes) {
-        Category categoryRequest = CategoryFactory.getCustomFieldsCategoryInstance(numberOfAttributes);
+    public void createCategoryWithCustomAttributes(int numberOfCustomAttributes) {
+        Category categoryRequest = CategoryFactory.getCustomFieldsCategoryInstance(numberOfCustomAttributes);
         Category categoryResponse = createResource(ApiUrlConstants.CATEGORIES, categoryRequest, Category.class);
-        for (int i = 0; i < categoryRequest.getCustomFields().length; i++) {
-            categoryRequest.getCustomFields()[i] = (CustomField)InstanceUtils.mergeObjects(categoryRequest.getCustomFields()[i],
-                    categoryResponse.getCustomFields()[i]);
-        }
         categoryRequest = (Category)InstanceUtils.mergeObjects(categoryRequest, categoryResponse);
+        for (int i = 0; i < categoryRequest.getCategoryCustomFields().length; i++) {
+            categoryRequest.getCategoryCustomFields()[i] = (CustomField)InstanceUtils.mergeObjects(categoryRequest.getCategoryCustomFields()[i],
+                    categoryResponse.getCategoryCustomFields()[i]);
+        }
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.CATEGORY, categoryRequest);
         SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.CATEGORIES, categoryRequest);
     }

@@ -36,7 +36,7 @@ public class Test043ApiUiValidationCreateItemWithCustomAttributes extends BaseTe
 
     @Test
     public void test043ApiUiValidationCreateItemWithCustomAttributes() {
-        apiItemsSteps.createItemWithCustomFields();
-        itemFlowSteps.checkItemCustomFieldValues();
+        apiItemsSteps.createItemWithCustomAttributes();
+        itemFlowSteps.checkItemCustomAttributes();
     }
 }

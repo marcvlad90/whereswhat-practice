@@ -1,13 +1,6 @@
 package com.tests.UI;
 
-import com.steps.api.ApiCategorySteps;
-import com.steps.api.ApiItemSteps;
-import com.steps.api.ApiLoginSteps;
-import com.steps.frontend.flowsteps.ItemsFlowSteps;
-import com.steps.frontend.flowsteps.LoginFlowSteps;
-import com.tests.BaseTest;
-import com.tools.entities.Item;
-import com.tools.factories.ItemFactory;
+import java.util.List;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
@@ -16,7 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
+import com.steps.api.ApiCategorySteps;
+import com.steps.api.ApiItemSteps;
+import com.steps.api.ApiLoginSteps;
+import com.steps.frontend.flowsteps.ItemsFlowSteps;
+import com.steps.frontend.flowsteps.LoginFlowSteps;
+import com.tests.BaseTest;
+import com.tools.entities.Item;
+import com.tools.factories.ItemFactory;
 
 @RunWith(SerenityRunner.class)
 public class Test018UiImportItemsInDifferentCategories extends BaseTest {

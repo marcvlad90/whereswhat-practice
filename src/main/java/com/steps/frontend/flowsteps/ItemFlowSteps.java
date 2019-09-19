@@ -25,12 +25,12 @@ public class ItemFlowSteps extends AbstractSteps {
     private ItemSteps itemSteps;
 
     @StepGroup
-    public void checkItemCustomFieldValues() {
+    public void checkItemCustomAttributes() {
         Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.searchForItem(item.getTitle());
         itemsSteps.clickOnItem(item.getTitle());
-        itemSteps.checkItemCustomFieldValues(item);
+        itemSteps.checkItemCustomAttributes(item);
     }
 
     @StepGroup
@@ -53,14 +53,14 @@ public class ItemFlowSteps extends AbstractSteps {
     }
 
     @StepGroup
-    public void createItemWithCustomFields() {
+    public void createItemWithCustomAttributes() {
         Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-        Item item = ItemFactory.getItemWithCustomFieldsInstance();
+        Item item = ItemFactory.getItemWithCustomAttributesInstance();
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.clickOnAction(Constants.ITEMS_PAGE_ACTION_ADD_ITEM);
         itemSteps.insertItemName(item.getTitle());
         itemSteps.selectItemCategory(category.getName());
-        itemSteps.populateItemCustomAttributesFields(item);
+        itemSteps.populateItemCustomAttributes(item);
         itemSteps.clickAddItemButton();
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, item);
         SerenitySessionUtils.saveObjectInTheListInSerenitySession(SerenityKeyConstants.ITEMS, item);

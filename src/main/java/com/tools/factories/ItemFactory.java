@@ -24,20 +24,20 @@ public class ItemFactory {
         return item;
     }
 
-    public static Item getItemWithCustomFieldsInstance() {
+    public static Item getItemWithCustomAttributesInstance() {
         Category category = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORY);
-        int numberOfAttributes = category.getCustomFields().length;
-        CustomField[] itemCustomFields = new CustomField[numberOfAttributes];
-        for (int i = 0; i < numberOfAttributes; i++) {
-            itemCustomFields[i] = new CustomField();
-            itemCustomFields[i].setValue(category.getCustomFields()[i].getName() + " Value");
-            itemCustomFields[i].setCustomFieldId(category.getCustomFields()[i].getId());
-            itemCustomFields[i].setCustomFieldName(category.getCustomFields()[i].getName());
-        }
+        int numberOfCustomAttributes = category.getCategoryCustomFields().length;
         Item item = new Item();
+        CustomField[] itemCustomFields = new CustomField[numberOfCustomAttributes];
+        for (int i = 0; i < numberOfCustomAttributes; i++) {
+            itemCustomFields[i] = new CustomField();
+            itemCustomFields[i].setCustomFieldId(category.getCategoryCustomFields()[i].getId());
+            itemCustomFields[i].setCustomFieldName(category.getCategoryCustomFields()[i].getName());
+            itemCustomFields[i].setValue(category.getCategoryCustomFields()[i].getName() + " Value");
+        }
+        item.setItemCustomFields(itemCustomFields);
         item.setTitle(RandomString.make(10) + " - Item");
         item.setCategoryId(category.getId());
-        item.setItemCustomFields(itemCustomFields);
         item.setItemCode("Tag" + RandomString.make(10));
         return item;
     }

@@ -33,7 +33,7 @@ public class Test043UiCreateItemWithCustomAttributes extends BaseTest {
 
     @Test
     public void test043UiCreateItemWithCustomAttributes() {
-        itemFlowSteps.createItemWithCustomFields();
-        itemFlowSteps.checkItemCustomFieldValues();
+        itemFlowSteps.createItemWithCustomAttributes();
+        itemFlowSteps.checkItemCustomAttributes();
     }
 }

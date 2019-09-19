@@ -29,7 +29,7 @@ public class Test043ApiCreateItemWithCustomAttributes extends BaseTest {
 
     @Test
     public void test043ApiCreateItemWithCustomAttributes() {
-        apiItemsSteps.createItemWithCustomFields();
-        apiItemsSteps.checkItemCustomFieldValues();
+        apiItemsSteps.createItemWithCustomAttributes();
+        apiItemsSteps.checkItemCustomAttributeValues();
     }
 }

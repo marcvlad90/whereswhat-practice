@@ -19,14 +19,14 @@ public class CategoryFactory {
         return category;
     }
 
-    public static Category getCustomFieldsCategoryInstance(int numberOfAttributes) {
+    public static Category getCustomFieldsCategoryInstance(int numberOfCustomAttributes) {
         Category category = new Category();
-        CustomField[] customFields = new CustomField[numberOfAttributes];
-        for (int i = 0; i < numberOfAttributes; i++) {
-            customFields[i] = new CustomField();
-            customFields[i].setName(RandomString.make(10) + " - Custom Field");
+        CustomField[] categoryCustomFields = new CustomField[numberOfCustomAttributes];
+        for (int i = 0; i < numberOfCustomAttributes; i++) {
+            categoryCustomFields[i] = new CustomField();
+            categoryCustomFields[i].setName(RandomString.make(10) + " - Custom Field");
         }
-        category.setCustomFields(customFields);
+        category.setCategoryCustomFields(categoryCustomFields);
         category.setName(RandomString.make(10) + " - Category");
         return category;
     }

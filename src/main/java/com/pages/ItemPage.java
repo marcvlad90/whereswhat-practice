@@ -49,7 +49,7 @@ public class ItemPage extends AbstractPage {
     private WebElement uploadImageOkButton;
     private final String spinnerElementCssSelector = ".spinner";
 
-    public void checkItemCustomFieldValues(Item item) {
+    public void checkItemCustomAttributes(Item item) {
         List<WebElement> customPropertiesList = getDriver().findElements(By.cssSelector(".properties-display>.property-display"));
         for (CustomField customField : item.getItemCustomFields()) {
             boolean isPropertyFound = false;
@@ -85,14 +85,14 @@ public class ItemPage extends AbstractPage {
         element(itemCategoryDrownDown).selectByVisibleText(categoryName);
     }
 
-    public void populateItemCustomAttributesFields(Item item) {
-        List<WebElement> customFieldGroupsWebElements = getDriver().findElements(
+    public void populateItemCustomAttributes(Item item) {
+        List<WebElement> customAttributeGroupsWebElements = getDriver().findElements(
                 By.cssSelector("div[class*='custom-fields']>div[class='form-group ']"));
-        for (WebElement customFieldGroupWebElement : customFieldGroupsWebElements) {
+        for (WebElement customAttributeGroupWebElement : customAttributeGroupsWebElements) {
             for (CustomField customField : item.getItemCustomFields()) {
                 if (customField.getCustomFieldName().toLowerCase()
-                        .contentEquals(customFieldGroupWebElement.findElement(By.cssSelector("label")).getText().toLowerCase())) {
-                    customFieldGroupWebElement.findElement(By.cssSelector("input")).sendKeys(customField.getValue());
+                        .contentEquals(customAttributeGroupWebElement.findElement(By.cssSelector("label")).getText().toLowerCase())) {
+                    customAttributeGroupWebElement.findElement(By.cssSelector("input")).sendKeys(customField.getValue());
                 }
             }
         }

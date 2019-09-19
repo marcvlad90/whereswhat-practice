@@ -107,7 +107,7 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void checkItemCustomFieldValues() {
+    public void checkItemCustomAttributeValues() {
         Item item = SerenitySessionUtils.getFromSession(SerenityKeyConstants.ITEM);
         Item itemResponse = getResource(ApiUrlConstants.ITEMS + "/" + item.getId(), Item.class);
         for (CustomField customField : item.getItemCustomFields()) {
@@ -180,8 +180,8 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void createItemWithCustomFields() {
-        Item itemRequest = ItemFactory.getItemWithCustomFieldsInstance();
+    public void createItemWithCustomAttributes() {
+        Item itemRequest = ItemFactory.getItemWithCustomAttributesInstance();
         Item itemResponse = createResource(ApiUrlConstants.ITEMS, itemRequest, Item.class);
         itemRequest = (Item)InstanceUtils.mergeObjects(itemRequest, itemResponse);
         SerenitySessionUtils.putOnSession(SerenityKeyConstants.ITEM, itemRequest);

@@ -11,8 +11,8 @@ public class ItemSteps extends AbstractSteps {
     private ItemPage itemPage;
 
     @Step
-    public void checkItemCustomFieldValues(Item item) {
-        itemPage.checkItemCustomFieldValues(item);
+    public void checkItemCustomAttributes(Item item) {
+        itemPage.checkItemCustomAttributes(item);
     }
 
     @Step
@@ -76,8 +76,8 @@ public class ItemSteps extends AbstractSteps {
     }
 
     @Step
-    public void populateItemCustomAttributesFields(Item item) {
-        itemPage.populateItemCustomAttributesFields(item);
+    public void populateItemCustomAttributes(Item item) {
+        itemPage.populateItemCustomAttributes(item);
     }
 
     @Step
