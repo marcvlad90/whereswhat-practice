@@ -27,6 +27,6 @@ public class Test002ApiCRUDCategory extends BaseTest {
         apiCategorySteps.renameCategory();
         apiCategorySteps.checkThatCategoryExists();
         apiCategorySteps.checkThatCategoriesExist();
-        apiCategorySteps.deleteAllCategories();
+        apiCategorySteps.deleteAllCategoriesFromCurrentSession();
     }
 }

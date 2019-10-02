@@ -226,7 +226,7 @@ public class ApiItemSteps extends AbstractApiSteps {
     }
 
     @Step
-    public void deleteAllItemsFromCompany() {
+    public void deleteAllItemsFromCurrentSession() {
         List<Category> categories = SerenitySessionUtils.getFromSession(SerenityKeyConstants.CATEGORIES);
         for (Category category : categories) {
             deleteAllItemsFromCategory(category.getId());

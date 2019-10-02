@@ -49,7 +49,7 @@ public class Test003ApiUiValidationCRUDItem extends BaseTest {
         apiItemSteps.deleteItem();
         itemsFlowSteps.checkIfItemIsPresentOrNot(false);
         apiItemSteps.deleteAllItemsFromCategory();
-        apiItemSteps.deleteAllItemsFromCompany();
+        apiItemSteps.deleteAllItemsFromCurrentSession();
         itemsFlowSteps.checkIfItemsArePresentOrNot(false);
     }
 }

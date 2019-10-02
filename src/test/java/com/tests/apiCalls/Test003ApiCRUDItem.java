@@ -41,6 +41,6 @@ public class Test003ApiCRUDItem extends BaseTest {
         apiItemSteps.checkThatItemsExist();
         apiItemSteps.deleteItem();
         apiItemSteps.deleteAllItemsFromCategory();
-        apiItemSteps.deleteAllItemsFromCompany();
+        apiItemSteps.deleteAllItemsFromCurrentSession();
     }
 }
