@@ -10,7 +10,6 @@ public class LoginFactory {
         User user = new User();
         user.setEmail(EnvironmentConstants.ADMIN_USER);
         user.setPassword(EnvironmentConstants.ADMIN_USER_PASS);
-        user.setName(EnvironmentConstants.ADMIN_USER_NAME);
         login.setUser(user);
         return login;
     }

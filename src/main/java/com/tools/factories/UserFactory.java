@@ -8,7 +8,6 @@ public class UserFactory {
         User user = new User();
         user.setEmail(EnvironmentConstants.ADMIN_USER);
         user.setPassword(EnvironmentConstants.ADMIN_USER_PASS);
-        user.setName(EnvironmentConstants.ADMIN_USER_NAME);
         return user;
     }
 }

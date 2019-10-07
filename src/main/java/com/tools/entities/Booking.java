@@ -1,26 +1,31 @@
 package com.tools.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.tools.constants.DateConstants;
-import com.tools.utils.DateUtils;
-
-import org.junit.Ignore;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Booking {
+import org.junit.Ignore;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tools.constants.DateConstants;
+import com.tools.utils.DateUtils;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Booking {
     private String startDate;
     private String endDate;
     private String endDatePending;
     private String returnDate;
+    @JsonInclude(Include.NON_DEFAULT)
     private int itemId;
+    @JsonInclude(Include.NON_DEFAULT)
     private int userId;
     private String clientTime;
+    @JsonInclude(Include.NON_DEFAULT)
     private int id;
     private Item item;
     private User user;

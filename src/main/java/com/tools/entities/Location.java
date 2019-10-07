@@ -1,13 +1,16 @@
 package com.tools.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Location {
     private String name;
     private String action;
-    private Integer id;
+    @JsonInclude(Include.NON_DEFAULT)
+    private int id;
 
     @JsonProperty("action")
     public String getAction() {

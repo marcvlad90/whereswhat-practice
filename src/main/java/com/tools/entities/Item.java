@@ -11,6 +11,7 @@ public class Item {
     private CustomField[] itemCustomFields;
     private String title;
     private String itemCode;
+    @JsonInclude(Include.NON_DEFAULT)
     private int id;
     private Integer locationId;
     private String name;

@@ -1,16 +1,21 @@
 package com.tools.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private String email;
     private String password;
     private String name;
     private String authenticationToken;
     private String role;
+    @JsonInclude(Include.NON_DEFAULT)
     private int id;
+    @JsonInclude(Include.NON_DEFAULT)
     private int companyId;
 
     @JsonProperty("role")

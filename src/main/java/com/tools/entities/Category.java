@@ -1,15 +1,23 @@
 package com.tools.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Category {
     private String name;
+    @JsonInclude(Include.NON_DEFAULT)
     private int id;
+    @JsonInclude(Include.NON_DEFAULT)
     private int companyId;
+    @JsonInclude(Include.NON_DEFAULT)
     private int defaultBookingLength;
+    @JsonInclude(Include.NON_DEFAULT)
     private int maxBookingLength;
+    @JsonInclude(Include.NON_DEFAULT)
     private boolean needsApproval;
     private CustomField[] categoryCustomFields;
 
