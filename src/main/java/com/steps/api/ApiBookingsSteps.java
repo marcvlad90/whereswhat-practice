@@ -135,25 +135,22 @@ public class ApiBookingsSteps extends AbstractApiSteps {
 
     @Step
     public Booking getBooking(Booking booking, Item item) {
-        List<Booking> bookingsList = SerenitySessionUtils.getFromSession(SerenityKeyConstants.BOOKINGS);
-        for (Booking bookingItem : bookingsList) {
-            try {
-                Booking bookingResponse = getResource(ApiUrlConstants.BOOKINGS + "/" + booking.getId(), Booking.class);
-                if ((bookingResponse.getId() == bookingItem.getId()) && (bookingResponse.getItem().getId() == item.getId())) {
-                    bookingResponse.setStartDate(DateFormatter.formatDate(
-                            DateUtils.parseStringIntoDate(bookingResponse.getStartDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
-                    bookingResponse.setEndDate(DateFormatter.formatDate(
-                            DateUtils.parseStringIntoDate(bookingResponse.getEndDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
-                    if (bookingResponse.getReturnDate() != null) {
-                        bookingResponse.setEndDate(DateFormatter.formatStringDate(bookingResponse.getReturnDate(), DateConstants.WW_PATTERN));
-                    }
-                    if ((bookingResponse.getStartDate().equals(booking.getStartDate()) && (bookingResponse.getEndDate().equals(bookingItem.getEndDate())))) {
-                        return bookingResponse;
-                    }
+        try {
+            Booking bookingResponse = getResource(ApiUrlConstants.BOOKINGS + "/" + booking.getId(), Booking.class);
+            if ((bookingResponse.getId() == booking.getId()) && (bookingResponse.getItem().getId() == item.getId())) {
+                bookingResponse.setStartDate(DateFormatter.formatDate(
+                        DateUtils.parseStringIntoDate(bookingResponse.getStartDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
+                bookingResponse.setEndDate(DateFormatter.formatDate(
+                        DateUtils.parseStringIntoDate(bookingResponse.getEndDate(), DateConstants.WW_RETURN_DATE_PATTERN), DateConstants.WW_PATTERN));
+                if (bookingResponse.getReturnDate() != null) {
+                    bookingResponse.setEndDate(DateFormatter.formatStringDate(bookingResponse.getReturnDate(), DateConstants.WW_PATTERN));
                 }
-            } catch (NullPointerException e) {
-                e.getMessage();
+                if ((bookingResponse.getStartDate().equals(booking.getStartDate()) && (bookingResponse.getEndDate().equals(booking.getEndDate())))) {
+                    return bookingResponse;
+                }
             }
+        } catch (NullPointerException e) {
+            e.getMessage();
         }
         return null;
     }
