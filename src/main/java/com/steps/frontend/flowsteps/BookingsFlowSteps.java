@@ -188,7 +188,7 @@ public class BookingsFlowSteps extends AbstractSteps {
         headerSteps.navigateToMenu(Constants.MENU_ITEM_ITEMS);
         itemsSteps.searchForItem(item.getTitle());
         itemsSteps.clickOnBookButton(item.getTitle());
-        bookingsSteps.createBooking(howManyDaysFromNow, forHowManyDays);
+        bookingsSteps.createWholeDaysBooking(howManyDaysFromNow, forHowManyDays);
     }
 
     @StepGroup

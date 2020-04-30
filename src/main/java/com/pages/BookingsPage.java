@@ -128,14 +128,6 @@ public class BookingsPage extends AbstractPage {
         saveBookingButton.click();
     }
 
-    public void createBookingInThePast(String startDate, String endDate) {
-        selectDate(startDatePickerElement, startDate);
-        selectHour(startHourField, startDate);
-        selectDate(endDatePickerElement, endDate);
-        selectHour(endHourField, endDate);
-        saveBookingButton.click();
-    }
-
     public void extendBooking(String endDate) {
         selectDate(endDatePickerElement, endDate);
         selectHour(endHourField, endDate);

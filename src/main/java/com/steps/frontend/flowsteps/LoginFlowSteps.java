@@ -1,12 +1,12 @@
 package com.steps.frontend.flowsteps;
 
+import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Steps;
+
 import com.steps.api.ApiLoginSteps;
 import com.steps.frontend.AbstractSteps;
 import com.steps.frontend.HomeSteps;
 import com.steps.frontend.LoginSteps;
-
-import net.thucydides.core.annotations.StepGroup;
-import net.thucydides.core.annotations.Steps;
 
 public class LoginFlowSteps extends AbstractSteps {
 

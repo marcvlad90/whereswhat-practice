@@ -26,7 +26,7 @@ public class BookingsSteps extends AbstractSteps {
     }
 
     @Step
-    public void createBooking(int howManyDaysFromNow, int forHowManyDays) {
+    public void createWholeDaysBooking(int howManyDaysFromNow, int forHowManyDays) {
         Booking bookingRequest = BookingFactory.getApiWholeDaysBookingInstance(howManyDaysFromNow, forHowManyDays);
         bookingsPage.createBooking(bookingRequest.getStartDate(), bookingRequest.getEndDate());
         bookingRequest.setStatus("Accepted");
